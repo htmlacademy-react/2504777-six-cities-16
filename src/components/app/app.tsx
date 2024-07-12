@@ -6,7 +6,7 @@ type AppProps = {
   offers: Offers;
 }
 
-export default function App({foundPlacesCount, offers}: AppProps): JSX.Element {
+function App({foundPlacesCount, offers}: AppProps): JSX.Element {
   return (
     <MainPage
       foundPlacesCount={foundPlacesCount}
@@ -14,3 +14,6 @@ export default function App({foundPlacesCount, offers}: AppProps): JSX.Element {
     />
   );
 }
+
+export default App;
+

@@ -10,3 +10,9 @@ export type Offer = {
 };
 
 export type Offers = Offer[];
+
+export type LogoParams = {
+  prefixName: string;
+  width: number;
+  height: number;
+};

@@ -7,11 +7,10 @@ import HeaderLeftSide from '../../components/header/header-left-side';
 import HeaderNavigation from '../../components/header/header-navigation';
 
 type MainPageProps = {
-  foundPlacesCount: number;
   offers: Offers;
 }
 
-function MainPage({foundPlacesCount, offers}: MainPageProps): JSX.Element {
+function MainPage({offers}: MainPageProps): JSX.Element {
   return (
     <div className="page page--gray page--main">
       <Header>
@@ -30,10 +29,10 @@ function MainPage({foundPlacesCount, offers}: MainPageProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{foundPlacesCount} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
               <PlacesSorting/>
               <div className="cities__places-list places__list tabs__content">
-                {offers.map((offer) => <PlaceCard key={offer.id} {...offer}/>)}
+                {offers.map((offer) => <PlaceCard key={offer.id} offer={offer}/>)}
               </div>
             </section>
             <div className="cities__right-section">

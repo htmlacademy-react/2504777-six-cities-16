@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainPage from '../../pages/main-page/main-page';
 import { Offers } from '../../types/types';
 import { AppRoute } from '../../const';
+import Layout from '../layout/layout';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import LoginPage from '../../pages/login-page/login-page';
 import OfferPage from '../../pages/offer-page/offer-page';
@@ -15,7 +16,10 @@ function App({offers}: AppProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={AppRoute.Root}>
+        <Route
+          path={AppRoute.Root}
+          element={<Layout />}
+        >
           <Route
             index
             element={<MainPage offers={offers} />}

@@ -4,9 +4,9 @@ export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', '
 
 export enum AppRoute {
   Root = '/',
-  Login = 'login',
-  Favorites = 'favorites',
-  Offer = 'offer/:id',
+  Login = '/login',
+  Favorites = '/favorites',
+  Offer = '/offer/:id',
   Error = '*',
 }
 

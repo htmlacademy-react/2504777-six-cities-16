@@ -10,6 +10,18 @@ export enum AppRoute {
   Error = '*',
 }
 
+export enum Title {
+  Login = '6 cities: authorization',
+  Favorites = '6 cities: favorites',
+  Offer = '6 cities: offer',
+}
+
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
+
 type LogoType = {
   ForHeader: LogoParams;
   ForFooter: LogoParams;

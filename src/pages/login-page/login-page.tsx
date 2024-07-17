@@ -1,12 +1,16 @@
-import Header from '../../components/header/header';
-import HeaderLeftSide from '../../components/header/header-left-side';
+// import Header from '../../components/header/header';
+// import HeaderLeftSide from '../../components/header/header-left-side';
+// import { useLocation } from 'react-router-dom';
+// import { AppRoute } from '../../const';
+import { Helmet } from 'react-helmet-async';
+import { Title } from '../../const';
 
 function LoginPage(): JSX.Element {
   return (
-    <div className="page page--gray page--login">
-      <Header>
-        <HeaderLeftSide/>
-      </Header>
+    <>
+      <Helmet>
+        <title>{Title.Login}</title>
+      </Helmet>
 
       <main className="page__main page__main--login">
         <div className="page__login-container container">
@@ -33,7 +37,7 @@ function LoginPage(): JSX.Element {
           </section>
         </div>
       </main>
-    </div>
+    </>
   );
 }
 

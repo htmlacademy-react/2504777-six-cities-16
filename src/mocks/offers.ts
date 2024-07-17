@@ -41,6 +41,16 @@ export const offers: Offers = [
     isPremium: false,
     rating: 3.1,
   },
+  {
+    id: 'fc875c14-4ac8-484c-84a5-3bebffec3d05',
+    title: 'The house among olive',
+    type: 'room',
+    price: 273,
+    previewImage: 'https://16.design.htmlacademy.pro/static/hotel/10.jpg',
+    isFavorite: false,
+    isPremium: false,
+    rating: 3.1,
+  },
 ];
 
 

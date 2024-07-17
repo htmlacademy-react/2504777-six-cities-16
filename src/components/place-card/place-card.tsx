@@ -18,11 +18,11 @@ function Bookmark(): JSX.Element {
     </button>
   );
 }
-type OfferProps = {
+type PlaceCardProps = {
   offer: Offer;
 }
 
-function PlaceCard({offer}: OfferProps): JSX.Element {
+function PlaceCard({offer}: PlaceCardProps): JSX.Element {
   return (
     <article className="cities__card place-card">
 

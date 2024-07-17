@@ -1,13 +1,33 @@
 import { LogoParams } from './types/types';
 
-const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+
+export enum AppRoute {
+  Root = '/',
+  Login = '/login',
+  Favorites = '/favorites',
+  Offer = '/offer/:id',
+  Error = '*',
+}
+
+export enum Title {
+  Login = '6 cities: authorization',
+  Favorites = '6 cities: favorites',
+  Offer = '6 cities: offer',
+}
+
+export enum AuthorizationStatus {
+  Auth = 'AUTH',
+  NoAuth = 'NO_AUTH',
+  Unknown = 'UNKNOWN',
+}
 
 type LogoType = {
   ForHeader: LogoParams;
   ForFooter: LogoParams;
 }
 
-const LogoType: LogoType = {
+export const LogoType: LogoType = {
   ForHeader: {
     prefixName: 'header',
     width: 81,
@@ -19,5 +39,3 @@ const LogoType: LogoType = {
     height: 33,
   }
 } as const;
-
-export {CITIES, LogoType};

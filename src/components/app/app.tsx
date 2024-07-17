@@ -42,6 +42,7 @@ function App({offers}: AppProps): JSX.Element {
               element={
                 <PrivateRoute
                   authorizationStatus={AuthorizationStatus.NoAuth}
+                  isLoginLocation
                 >
                   <LoginPage />
                 </PrivateRoute>

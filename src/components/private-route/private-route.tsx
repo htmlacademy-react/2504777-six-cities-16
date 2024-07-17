@@ -1,15 +1,14 @@
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 
 type PrivateRouteProps = {
   authorizationStatus: AuthorizationStatus;
+  isLoginLocation?: boolean;
   children: JSX.Element;
 }
 
-function PrivateRoute({authorizationStatus, children}: PrivateRouteProps) {
-  const location = useLocation();
-
-  if (location.pathname === AppRoute.Login as string) {
+function PrivateRoute({authorizationStatus, isLoginLocation, children}: PrivateRouteProps) {
+  if (isLoginLocation) {
     return (
       authorizationStatus === AuthorizationStatus.NoAuth
         ? children

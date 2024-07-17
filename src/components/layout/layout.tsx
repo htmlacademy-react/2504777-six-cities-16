@@ -1,23 +1,12 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import Logo from '../logo/logo';
-import { AppRoute } from '../../const';
+import { getExtraPageClassName } from '../../utils';
 
 function Layout(): JSX.Element {
-  const location = useLocation();
-
-  const getExtraClassName = () => {
-    switch (location.pathname) {
-      case AppRoute.Login as string:
-        return 'page--gray page--login';
-      case AppRoute.Root as string:
-        return 'page--gray page--main';
-      default:
-        return '';
-    }
-  };
+  const { pathname } = useLocation();
 
   return (
-    <div className={`page ${getExtraClassName()}`}>
+    <div className={`page ${getExtraPageClassName(pathname)}`}>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">

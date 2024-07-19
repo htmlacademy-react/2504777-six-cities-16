@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <App
-      offers={cardOffers}
+      cardOffers={cardOffers}
     />
   </React.StrictMode>,
 );

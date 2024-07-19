@@ -11,10 +11,11 @@ import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
 
 type AppProps = {
-	offers: CardOffer[];
+	cardOffers: CardOffer[];
+  // favoritesOffers: CardOffer[];
 }
 
-function App({ offers }: AppProps): JSX.Element {
+function App({ cardOffers }: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -25,15 +26,15 @@ function App({ offers }: AppProps): JSX.Element {
           >
             <Route
               index
-              element={<MainPage offers={offers} />}
+              element={<MainPage cardOffers={cardOffers} />}
             />
             <Route
               path={AppRoute.Favorites}
               element={
                 <PrivateRoute
-                  authorizationStatus={AuthorizationStatus.NoAuth}
+                  authorizationStatus={AuthorizationStatus.Auth}
                 >
-                  <FavoritesPage />
+                  <FavoritesPage favoritesOffers={cardOffers.filter((offer) => offer.isFavorite)} />
                 </PrivateRoute>
               }
             />

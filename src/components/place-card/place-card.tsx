@@ -1,5 +1,6 @@
 import { CardOffer } from '../../types/offers';
 import { getRatingStars } from '../../utils';
+import { PlaceCardClassName, ImageHeight, ImageWidth } from '../../const';
 
 function PlaceCardMark(): JSX.Element {
   return (
@@ -21,24 +22,29 @@ function Bookmark(): JSX.Element {
 }
 
 type PlaceCardProps = {
-	offer: CardOffer;
+  className: PlaceCardClassName;
+	place: CardOffer;
 }
 
-function PlaceCard({ offer }: PlaceCardProps): JSX.Element {
+function PlaceCard({ className, place }: PlaceCardProps): JSX.Element {
+
+  const width = className === PlaceCardClassName.Favorites ? ImageWidth.ForFavorite : ImageWidth.Basic;
+  const height = className === PlaceCardClassName.Favorites ? ImageHeight.ForFavorite : ImageHeight.Basic;
+
   return (
-    <article className="cities__card place-card">
+    <article className={`${className}__card place-card`}>
 
-      {offer.isPremium && <PlaceCardMark />}
+      {place.isPremium && <PlaceCardMark />}
 
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${className}__image-wrapper place-card__image-wrapper`}>
         <a href="#">
-          <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image" />
+          <img className="place-card__image" src={place.previewImage} width={width} height={height} alt="Place image" />
         </a>
       </div>
-      <div className="place-card__info">
+      <div className={`${className === PlaceCardClassName.Favorites ? 'favorites__card-info' : ''} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{offer.price}</b>
+            <b className="place-card__price-value">&euro;{place.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <Bookmark />
@@ -47,7 +53,7 @@ function PlaceCard({ offer }: PlaceCardProps): JSX.Element {
           <div className="place-card__stars rating__stars">
             <span
               style={{
-                width: getRatingStars(offer.rating),
+                width: getRatingStars(place.rating),
               }}
             >
             </span>
@@ -55,9 +61,9 @@ function PlaceCard({ offer }: PlaceCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{offer.title}</a>
+          <a href="#">{place.title}</a>
         </h2>
-        <p className="place-card__type">{offer.type}</p>
+        <p className="place-card__type">{place.type}</p>
       </div>
     </article>
   );

@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainPage from '../../pages/main-page/main-page';
-import { Offers } from '../../types/types';
+import { CardOffer } from '../../types/offers';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import Layout from '../layout/layout';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
@@ -11,10 +11,10 @@ import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
 
 type AppProps = {
-  offers: Offers;
+	offers: CardOffer[];
 }
 
-function App({offers}: AppProps): JSX.Element {
+function App({ offers }: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>

@@ -1,4 +1,5 @@
-import { Offer } from '../../types/types';
+import { CardOffer } from '../../types/offers';
+import { getRatingStars } from '../../utils';
 
 function PlaceCardMark(): JSX.Element {
   return (
@@ -18,19 +19,20 @@ function Bookmark(): JSX.Element {
     </button>
   );
 }
+
 type PlaceCardProps = {
-  offer: Offer;
+	offer: CardOffer;
 }
 
-function PlaceCard({offer}: PlaceCardProps): JSX.Element {
+function PlaceCard({ offer }: PlaceCardProps): JSX.Element {
   return (
     <article className="cities__card place-card">
 
-      {offer.isPremium && <PlaceCardMark/>}
+      {offer.isPremium && <PlaceCardMark />}
 
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
-          <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>
+          <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image" />
         </a>
       </div>
       <div className="place-card__info">
@@ -39,13 +41,13 @@ function PlaceCard({offer}: PlaceCardProps): JSX.Element {
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <Bookmark/>
+          <Bookmark />
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
             <span
               style={{
-                width: '80%',
+                width: getRatingStars(offer.rating),
               }}
             >
             </span>

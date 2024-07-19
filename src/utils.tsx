@@ -1,4 +1,4 @@
-import { AppRoute } from './const';
+import { AppRoute, MAX_RATING_STARS } from './const';
 
 export const getExtraPageClassName = (location: string) => {
   switch (location) {
@@ -10,3 +10,5 @@ export const getExtraPageClassName = (location: string) => {
       return '';
   }
 };
+
+export const getRatingStars = (rating: number): string => `${Math.round(rating) * 100 / MAX_RATING_STARS}%`;

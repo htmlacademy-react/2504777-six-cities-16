@@ -1,4 +1,4 @@
-import { Offers } from '../../types/types';
+import { CardOffer } from '../../types/offers';
 import PlaceCard from '../../components/place-card/place-card';
 import LocationsList from '../../components/locations-list/locations-list';
 import PlacesSorting from '../../components/places-sorting/places-sorting';
@@ -7,16 +7,16 @@ import PlacesSorting from '../../components/places-sorting/places-sorting';
 // import HeaderNavigation from '../../components/header/header-navigation';
 
 type MainPageProps = {
-  offers: Offers;
+	offers: CardOffer[];
 }
 
-function MainPage({offers}: MainPageProps): JSX.Element {
+function MainPage({ offers }: MainPageProps): JSX.Element {
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
-          <LocationsList/>
+          <LocationsList />
         </section>
       </div>
       <div className="cities">
@@ -24,9 +24,9 @@ function MainPage({offers}: MainPageProps): JSX.Element {
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">{offers.length} places to stay in Amsterdam</b>
-            <PlacesSorting/>
+            <PlacesSorting />
             <div className="cities__places-list places__list tabs__content">
-              {offers.map((offer) => <PlaceCard key={offer.id} offer={offer}/>)}
+              {offers.map((offer) => <PlaceCard key={offer.id} offer={offer} />)}
             </div>
           </section>
           <div className="cities__right-section">

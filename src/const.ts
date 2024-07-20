@@ -45,6 +45,15 @@ export enum ImageHeight {
   ForFavorite = 110,
 }
 
+export enum LogoWidth {
+  ForHeader = 81,
+  ForFooter = 64,
+}
+
+export enum LogoHeight {
+  ForHeader = 41,
+  ForFooter = 33,
+}
 
 // export const LogoType: LogoType = {
 // 	ForHeader: {

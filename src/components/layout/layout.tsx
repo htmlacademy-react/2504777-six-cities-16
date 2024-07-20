@@ -11,7 +11,7 @@ function Layout(): JSX.Element {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Logo/>
+              <Logo pathname={pathname} className='header'/>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">

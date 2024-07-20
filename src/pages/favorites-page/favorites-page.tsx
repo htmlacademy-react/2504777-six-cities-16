@@ -1,19 +1,19 @@
-// import Header from '../../components/header/header';
-// import PlaceCard from '../../components/place-card/place-card';
-// import Logo from '../../components/logo/logo';
-// import { LogoType } from '../../const';
 import { Helmet } from 'react-helmet-async';
 import { Title, CITIES } from '../../const';
 import { CardOffer } from '../../types/offers';
 import FavoritesLocationsItems from '../../components/favorites-locations-items/favorites-locations-items';
 
-// const { ForFooter } = LogoType;
 type FavoritesPageProps = {
   favoritesOffers: CardOffer[];
 }
 
 function FavoritesPage({favoritesOffers}: FavoritesPageProps): JSX.Element {
   const favoritesLocations = CITIES.filter((city) => favoritesOffers.some((offer) => offer.city.name === city));
+
+  // Пыталась использовать groupBy, получила: {Paris: Array(2), Amsterdam: Array(1), Hamburg: Array(1)}, но ругается TS
+  // const getGroupName = (item: CardOffer) => CITIES.find((city) => item.city.name === city);
+  // const groupedFavoritesOffers = Object.groupBy(favoritesOffers, getGroupName);
+  // console.log(groupedFavoritesOffers);
 
   return (
     <>

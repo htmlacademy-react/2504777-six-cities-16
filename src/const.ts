@@ -4,7 +4,7 @@ export const MAX_RATING_STARS = 5;
 
 export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
-export enum PlaceCardClassName {
+export enum PlacesClassName {
   NearPlaces = 'near-places',
   Favorites = 'favorites',
   Cities = 'cities',

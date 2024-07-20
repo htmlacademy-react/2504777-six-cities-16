@@ -94,52 +94,52 @@ export const cardOffers: CardOffer[] = [
     rating: 4.8,
   },
 
-  {
-    'id': 'c07027bd-e1d5-49c7-9ea0-c9ac36f06d73',
-    'title': 'The house among olive ',
-    'type': 'hotel',
-    'price': 488,
-    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/15.jpg',
-    'city': {
-      'name': 'Amsterdam',
-      'location': {
-        'latitude': 48.85661,
-        'longitude': 2.351499,
-        'zoom': 13
-      }
-    },
-    'location': {
-      'latitude': 48.861610000000006,
-      'longitude': 2.340499,
-      'zoom': 16
-    },
-    'isFavorite': true,
-    'isPremium': true,
-    'rating': 4.8
-  },
-  {
-    'id': '0366901f-675b-4718-bbcd-c31d32ff02ca',
-    'title': 'Penthouse, 4-5 rooms + 5 balconies',
-    'type': 'apartment',
-    'price': 150,
-    'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/18.jpg',
-    'city': {
-      'name': 'Hamburg',
-      'location': {
-        'latitude': 48.85661,
-        'longitude': 2.351499,
-        'zoom': 13
-      }
-    },
-    'location': {
-      'latitude': 48.87861,
-      'longitude': 2.357499,
-      'zoom': 16
-    },
-    'isFavorite': true,
-    'isPremium': true,
-    'rating': 3.4
-  },
+  // {
+  //   'id': 'c07027bd-e1d5-49c7-9ea0-c9ac36f06d73',
+  //   'title': 'The house among olive ',
+  //   'type': 'hotel',
+  //   'price': 488,
+  //   'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/15.jpg',
+  //   'city': {
+  //     'name': 'Amsterdam',
+  //     'location': {
+  //       'latitude': 48.85661,
+  //       'longitude': 2.351499,
+  //       'zoom': 13
+  //     }
+  //   },
+  //   'location': {
+  //     'latitude': 48.861610000000006,
+  //     'longitude': 2.340499,
+  //     'zoom': 16
+  //   },
+  //   'isFavorite': true,
+  //   'isPremium': true,
+  //   'rating': 4.8
+  // },
+  // {
+  //   'id': '0366901f-675b-4718-bbcd-c31d32ff02ca',
+  //   'title': 'Penthouse, 4-5 rooms + 5 balconies',
+  //   'type': 'apartment',
+  //   'price': 150,
+  //   'previewImage': 'https://16.design.htmlacademy.pro/static/hotel/18.jpg',
+  //   'city': {
+  //     'name': 'Hamburg',
+  //     'location': {
+  //       'latitude': 48.85661,
+  //       'longitude': 2.351499,
+  //       'zoom': 13
+  //     }
+  //   },
+  //   'location': {
+  //     'latitude': 48.87861,
+  //     'longitude': 2.357499,
+  //     'zoom': 16
+  //   },
+  //   'isFavorite': true,
+  //   'isPremium': true,
+  //   'rating': 3.4
+  // },
 ];
 
 

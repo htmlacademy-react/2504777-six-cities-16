@@ -1,6 +1,6 @@
 import { FullOffer } from '../../types/offers';
 
-export const FullOffers: FullOffer[] = [
+export const fullOffers: FullOffer[] = [
   {
     id: '2b1d1f4b-990c-4e1a-abe5-d0405da10fff',
     title: 'Loft Studio in the Central Area',

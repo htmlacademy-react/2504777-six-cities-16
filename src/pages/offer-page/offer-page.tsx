@@ -1,15 +1,29 @@
 import { Helmet } from 'react-helmet-async';
-import { Title } from '../../const';
+import { Title, AppRoute, PlacesClassName } from '../../const';
+import PlacesList from '../../components/places-list/places-list';
+import { CardOffer, FullOffer } from '../../types/offers';
+import { useLocation } from 'react-router-dom';
 
-function OfferPage(): JSX.Element {
+type OfferPageProps = {
+  fullOffers: FullOffer[];
+  nearPlaces: CardOffer[];
+}
+
+function OfferPage({fullOffers, nearPlaces}: OfferPageProps): JSX.Element {
+  const { pathname } = useLocation();
+  const currentOfferId = pathname.replace(AppRoute.Offer, '');
+  const currentOffer = fullOffers.find((offer) => offer.id === currentOfferId);
+
   return (
     <>
       <Helmet>
         <title>{Title.Favorites}</title>
       </Helmet>
+
       <main className="page__main page__main--offer">
         <section className="offer">
           <div className="offer__gallery-container container">
+            {/* Сюда фото 6 максимум */}
             <div className="offer__gallery">
               <div className="offer__image-wrapper">
                 <img className="offer__image" src="img/room.jpg" alt="Photo studio"/>
@@ -216,7 +230,10 @@ function OfferPage(): JSX.Element {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
+
+            <PlacesList className={PlacesClassName.NearPlaces} places={nearPlaces} />
+
+            {/* <div className="near-places__list places__list">
               <article className="near-places__card place-card">
                 <div className="near-places__image-wrapper place-card__image-wrapper">
                   <a href="#">
@@ -330,7 +347,7 @@ function OfferPage(): JSX.Element {
                   <p className="place-card__type">Apartment</p>
                 </div>
               </article>
-            </div>
+            </div> */}
           </section>
         </div>
       </main>

@@ -3,6 +3,7 @@ import { CardOffer } from '../../types/offers';
 import LocationsList from '../../components/locations-list/locations-list';
 import PlacesSorting from '../../components/places-sorting/places-sorting';
 import PlacesList from '../../components/places-list/places-list';
+import { PlacesClassName } from '../../const';
 // import Header from '../../components/header/header';
 // import HeaderLeftSide from '../../components/header/header-left-side';
 // import HeaderNavigation from '../../components/header/header-navigation';
@@ -26,7 +27,7 @@ function MainPage({ cardOffers }: MainPageProps): JSX.Element {
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">{cardOffers.length} places to stay in Amsterdam</b>
             <PlacesSorting />
-            <PlacesList places={cardOffers} />
+            <PlacesList className={PlacesClassName.Cities} places={cardOffers} />
           </section>
           <div className="cities__right-section">
             <section className="cities__map map"></section>

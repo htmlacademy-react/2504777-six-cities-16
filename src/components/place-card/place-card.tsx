@@ -1,6 +1,8 @@
 import { CardOffer } from '../../types/offers';
 import { getRatingStars } from '../../utils';
-import { PlaceCardClassName, ImageHeight, ImageWidth } from '../../const';
+import { PlacesClassName, ImageHeight, ImageWidth, AppRoute } from '../../const';
+import { Link } from 'react-router-dom';
+
 
 function PlaceCardMark(): JSX.Element {
   return (
@@ -22,14 +24,16 @@ function Bookmark(): JSX.Element {
 }
 
 type PlaceCardProps = {
-  className: PlaceCardClassName;
+  className: PlacesClassName;
 	place: CardOffer;
 }
 
 function PlaceCard({ className, place }: PlaceCardProps): JSX.Element {
 
-  const width = className === PlaceCardClassName.Favorites ? ImageWidth.ForFavorite : ImageWidth.Basic;
-  const height = className === PlaceCardClassName.Favorites ? ImageHeight.ForFavorite : ImageHeight.Basic;
+  console.log(className);
+
+  const width = className === PlacesClassName.Favorites ? ImageWidth.ForFavorite : ImageWidth.Basic;
+  const height = className === PlacesClassName.Favorites ? ImageHeight.ForFavorite : ImageHeight.Basic;
 
   return (
     <article className={`${className}__card place-card`}>
@@ -37,11 +41,11 @@ function PlaceCard({ className, place }: PlaceCardProps): JSX.Element {
       {place.isPremium && <PlaceCardMark />}
 
       <div className={`${className}__image-wrapper place-card__image-wrapper`}>
-        <a href="#">
+        <Link to={AppRoute.Offer + place.id}>
           <img className="place-card__image" src={place.previewImage} width={width} height={height} alt="Place image" />
-        </a>
+        </Link>
       </div>
-      <div className={`${className === PlaceCardClassName.Favorites ? 'favorites__card-info' : ''} place-card__info`}>
+      <div className={`${className === PlacesClassName.Favorites ? 'favorites__card-info' : ''} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{place.price}</b>
@@ -61,7 +65,7 @@ function PlaceCard({ className, place }: PlaceCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{place.title}</a>
+          <Link to={AppRoute.Offer + place.id}>{place.title}</Link>
         </h2>
         <p className="place-card__type">{place.type}</p>
       </div>

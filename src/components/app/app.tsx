@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainPage from '../../pages/main-page/main-page';
-import { CardOffer } from '../../types/offers';
+import { CardOffer, FullOffer } from '../../types/offers';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import Layout from '../layout/layout';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
@@ -12,10 +12,11 @@ import { HelmetProvider } from 'react-helmet-async';
 
 type AppProps = {
 	cardOffers: CardOffer[];
+  fullOffers: FullOffer[];
   // favoritesOffers: CardOffer[];
 }
 
-function App({ cardOffers }: AppProps): JSX.Element {
+function App({ cardOffers, fullOffers }: AppProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -51,7 +52,7 @@ function App({ cardOffers }: AppProps): JSX.Element {
             />
             <Route
               path={AppRoute.Offer}
-              element={<OfferPage />}
+              element={<OfferPage fullOffers={fullOffers} nearPlaces={cardOffers}/>}
             />
           </Route>
           <Route

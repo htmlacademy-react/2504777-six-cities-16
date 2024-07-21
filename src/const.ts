@@ -4,10 +4,12 @@ export const MAX_RATING_STARS = 5;
 
 export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
-export enum PlacesClassName {
+export enum SpecialClassName {
   NearPlaces = 'near-places',
   Favorites = 'favorites',
   Cities = 'cities',
+  Offer = 'offer',
+  PlaceCard = 'place-card',
 }
 
 export enum AppRoute {
@@ -53,6 +55,16 @@ export enum LogoWidth {
 export enum LogoHeight {
   ForHeader = 41,
   ForFooter = 33,
+}
+
+export enum BookmarkWidth {
+  Basic = 18,
+  ForOffer = 31,
+}
+
+export enum BookmarkHeight {
+  Basic = 19,
+  ForOffer = 33,
 }
 
 // export const LogoType: LogoType = {

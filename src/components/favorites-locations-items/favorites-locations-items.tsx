@@ -1,7 +1,7 @@
 
 import PlaceCard from '../place-card/place-card';
 import { CardOffer } from '../../types/offers';
-import { PlacesClassName } from '../../const';
+import { SpecialClassName } from '../../const';
 
 type FavoritesLocationsItemsProps = {
   city: string;
@@ -19,7 +19,7 @@ function FavoritesLocationsItems({city, places}: FavoritesLocationsItemsProps): 
         </div>
       </div>
       <div className="favorites__places">
-        {places.map((place) => <PlaceCard key={place.id} className={PlacesClassName.Favorites} place={place}/>)}
+        {places.map((place) => <PlaceCard key={place.id} className={SpecialClassName.Favorites} place={place}/>)}
       </div>
     </li>
   );

@@ -1,7 +1,8 @@
 import { CardOffer } from '../../types/offers';
 import { getRatingStars } from '../../utils';
-import { PlacesClassName, ImageHeight, ImageWidth, AppRoute } from '../../const';
+import { SpecialClassName, ImageHeight, ImageWidth, AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
+import Bookmark from '../bookmark/bookmark';
 
 
 function PlaceCardMark(): JSX.Element {
@@ -12,28 +13,15 @@ function PlaceCardMark(): JSX.Element {
   );
 }
 
-function Bookmark(): JSX.Element {
-  return (
-    <button className="place-card__bookmark-button button" type="button">
-      <svg className="place-card__bookmark-icon" width="18" height="19">
-        <use xlinkHref="#icon-bookmark"></use>
-      </svg>
-      <span className="visually-hidden">To bookmarks</span>
-    </button>
-  );
-}
-
 type PlaceCardProps = {
-  className: PlacesClassName;
+  className: SpecialClassName;
 	place: CardOffer;
 }
 
 function PlaceCard({ className, place }: PlaceCardProps): JSX.Element {
 
-  console.log(className);
-
-  const width = className === PlacesClassName.Favorites ? ImageWidth.ForFavorite : ImageWidth.Basic;
-  const height = className === PlacesClassName.Favorites ? ImageHeight.ForFavorite : ImageHeight.Basic;
+  const width = className === SpecialClassName.Favorites ? ImageWidth.ForFavorite : ImageWidth.Basic;
+  const height = className === SpecialClassName.Favorites ? ImageHeight.ForFavorite : ImageHeight.Basic;
 
   return (
     <article className={`${className}__card place-card`}>
@@ -41,17 +29,17 @@ function PlaceCard({ className, place }: PlaceCardProps): JSX.Element {
       {place.isPremium && <PlaceCardMark />}
 
       <div className={`${className}__image-wrapper place-card__image-wrapper`}>
-        <Link to={AppRoute.Offer + place.id}>
+        <Link to={AppRoute.Offer.replace(':id', place.id)}>
           <img className="place-card__image" src={place.previewImage} width={width} height={height} alt="Place image" />
         </Link>
       </div>
-      <div className={`${className === PlacesClassName.Favorites ? 'favorites__card-info' : ''} place-card__info`}>
+      <div className={`${className === SpecialClassName.Favorites ? 'favorites__card-info' : ''} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{place.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <Bookmark />
+          <Bookmark className={SpecialClassName.PlaceCard} isFavorite={place.isFavorite}/>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -65,7 +53,7 @@ function PlaceCard({ className, place }: PlaceCardProps): JSX.Element {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={AppRoute.Offer + place.id}>{place.title}</Link>
+          <Link to={AppRoute.Offer.replace(':id', place.id)}>{place.title}</Link>
         </h2>
         <p className="place-card__type">{place.type}</p>
       </div>

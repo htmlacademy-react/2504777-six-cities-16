@@ -1,8 +1,9 @@
 import { Helmet } from 'react-helmet-async';
-import { Title, AppRoute, PlacesClassName } from '../../const';
+import { Title, AppRoute, SpecialClassName } from '../../const';
 import PlacesList from '../../components/places-list/places-list';
 import { CardOffer, FullOffer } from '../../types/offers';
 import { useLocation } from 'react-router-dom';
+import Bookmark from '../../components/bookmark/bookmark';
 
 type OfferPageProps = {
   fullOffers: FullOffer[];
@@ -11,7 +12,7 @@ type OfferPageProps = {
 
 function OfferPage({fullOffers, nearPlaces}: OfferPageProps): JSX.Element {
   const { pathname } = useLocation();
-  const currentOfferId = pathname.replace(AppRoute.Offer, '');
+  const currentOfferId = pathname.replace('/offer/', '');
   const currentOffer = fullOffers.find((offer) => offer.id === currentOfferId);
 
   return (
@@ -54,12 +55,15 @@ function OfferPage({fullOffers, nearPlaces}: OfferPageProps): JSX.Element {
                 <h1 className="offer__name">
                 Beautiful &amp; luxurious studio at great location
                 </h1>
-                <button className="offer__bookmark-button button" type="button">
+
+                <Bookmark className={SpecialClassName.Offer} isFavorite={currentOffer?.isFavorite}/>
+                {/* <button className="offer__bookmark-button button" type="button">
                   <svg className="offer__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
                   <span className="visually-hidden">To bookmarks</span>
-                </button>
+                </button> */}
+
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
@@ -231,7 +235,7 @@ function OfferPage({fullOffers, nearPlaces}: OfferPageProps): JSX.Element {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
 
-            <PlacesList className={PlacesClassName.NearPlaces} places={nearPlaces} />
+            <PlacesList className={SpecialClassName.NearPlaces} places={nearPlaces} />
 
             {/* <div className="near-places__list places__list">
               <article className="near-places__card place-card">

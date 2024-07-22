@@ -1,13 +1,31 @@
 import { AppRoute, MAX_RATING_STARS } from './const';
 
-export const getExtraPageClassName = (location: string) => {
+export const getLayoutState = (location: AppRoute, favoriteOffersCount: number) => {
   switch (location) {
-    case AppRoute.Login as string:
-      return 'page--gray page--login';
-    case AppRoute.Root as string:
-      return 'page--gray page--main';
+    case AppRoute.Login:
+      return {
+        extraClassName: 'page--gray page--login',
+        shouldRenderFooter: false,
+        shouldRenderNavigation: false,
+      };
+    case AppRoute.Root:
+      return {
+        extraClassName: 'page--gray page--main',
+        shouldRenderFooter: false,
+        shouldRenderNavigation: true,
+      };
+    case AppRoute.Favorites:
+      return {
+        extraClassName: !favoriteOffersCount ? 'page--favorites-empty' : '',
+        shouldRenderFooter: true,
+        shouldRenderNavigation: true,
+      };
     default:
-      return '';
+      return {
+        extraClassName: '',
+        shouldRenderFooter: false,
+        shouldRenderNavigation: true,
+      };
   }
 };
 

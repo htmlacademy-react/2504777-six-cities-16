@@ -13,17 +13,18 @@ import { HelmetProvider } from 'react-helmet-async';
 type AppProps = {
 	cardOffers: CardOffer[];
   fullOffers: FullOffer[];
-  // favoritesOffers: CardOffer[];
 }
 
 function App({ cardOffers, fullOffers }: AppProps): JSX.Element {
+  const favoritesOffers = cardOffers.filter((offer) => offer.isFavorite);
+
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<Layout />}
+            element={<Layout favoriteOffersCount={favoritesOffers.length}/>}
           >
             <Route
               index
@@ -35,7 +36,7 @@ function App({ cardOffers, fullOffers }: AppProps): JSX.Element {
                 <PrivateRoute
                   authorizationStatus={AuthorizationStatus.Auth}
                 >
-                  <FavoritesPage favoritesOffers={cardOffers.filter((offer) => offer.isFavorite)} />
+                  <FavoritesPage favoritesOffers={favoritesOffers} />
                 </PrivateRoute>
               }
             />

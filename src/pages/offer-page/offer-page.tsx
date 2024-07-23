@@ -9,6 +9,7 @@ import PremiumMark from '../../components/premium-mark/premium-mark';
 import { getRatingStars, getEnding, getAuthorizationStatus } from '../../utils';
 import OfferHost from '../../components/offer-host/offer-host';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
+import { getReviewsByOfferId } from '../../mocks/reviews';
 
 function OfferPage(): JSX.Element {
   const { id: offerId } = useParams();
@@ -16,6 +17,7 @@ function OfferPage(): JSX.Element {
   const currentOffer = getFullOfferById(offerId);
   const nearPlaces = getNearPlaces(offerId);
   const authorizationStatus = getAuthorizationStatus();
+  const reviews = getReviewsByOfferId(offerId);
 
   if (!currentOffer) {
     return <Navigate to={AppRoute.Error} replace />;

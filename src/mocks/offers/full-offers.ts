@@ -13,7 +13,7 @@ export const fullOffers: FullOffer[] = [
       'https://16.design.htmlacademy.pro/static/hotel/12.jpg',
       'https://16.design.htmlacademy.pro/static/hotel/17.jpg',
       'https://16.design.htmlacademy.pro/static/hotel/3.jpg',
-      'https://16.design.htmlacademy.pro/static/hotel/4.jpg'
+      'https://16.design.htmlacademy.pro/static/hotel/4.jpg',
     ],
     city: {
       name: 'Paris',
@@ -41,7 +41,7 @@ export const fullOffers: FullOffer[] = [
       'Heating'
     ],
     host: {
-      isPro: true,
+      isPro: false,
       name: 'Angelina',
       avatarUrl: 'https://16.design.htmlacademy.pro/static/host/avatar-angelina.jpg'
     },
@@ -54,7 +54,7 @@ export const fullOffers: FullOffer[] = [
   {
     id: '36b7a660-a8a4-4a4d-b3e8-732ca64c8cd4',
     title: 'Beautiful & luxurious apartment at great location',
-    description: 'Peaceful studio in the most wanted area in town. Quiet house Near of everything. Completely renovated. Lovely neighbourhood, lot of trendy shops, restaurants and bars in a walking distance.',
+    description: 'Peaceful studio in the most wanted area in town. Quiet house Near of everything. /n Completely renovated. Lovely neighbourhood, lot of trendy shops, restaurants and bars in a walking distance.',
     type: 'room',
     price: 273,
     images: [
@@ -197,3 +197,5 @@ export const fullOffers: FullOffer[] = [
     maxAdults: 4
   }
 ];
+
+export const getFullOfferById = (offerId: string | undefined) => fullOffers.find((offer) => offer.id === offerId);

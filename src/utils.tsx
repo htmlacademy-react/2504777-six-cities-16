@@ -1,4 +1,4 @@
-import { AppRoute, MAX_RATING_STARS } from './const';
+import { AppRoute, MAX_RATING_STARS, SINGULAR, AuthorizationStatus } from './const';
 
 export const getLayoutState = (location: AppRoute, favoriteOffersCount: number) => {
   switch (location) {
@@ -29,4 +29,18 @@ export const getLayoutState = (location: AppRoute, favoriteOffersCount: number) 
   }
 };
 
-export const getRatingStars = (rating: number): string => `${Math.round(rating) * 100 / MAX_RATING_STARS}%`;
+export const getAuthorizationStatus = () => AuthorizationStatus.Auth;
+
+export const getRatingStars = (rating: number) => ({width: `${Math.round(rating) * 100 / MAX_RATING_STARS}%`});
+
+export const getEnding = (count: number, word: string) => count > SINGULAR ? `${word}s` : word;
+
+export const getRatingKeyValue = (key: string) => {
+  switch(key) {
+    case 'Perfect': return 'perfect';
+    case 'Good': return 'good';
+    case 'NotBad': return 'not bad';
+    case 'Badly': return 'badly';
+    case 'Terribly': return 'terribly';
+  }
+};

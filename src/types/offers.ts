@@ -9,7 +9,7 @@ type City = {
   location: Location;
 }
 
-type Host = {
+export type Host = {
   name: string;
   avatarUrl: string;
   isPro: boolean;
@@ -27,20 +27,18 @@ type BaseOffer = {
   rating: number;
 }
 
-type ExtraOffer = {
+export type CardOffer = BaseOffer & {
+  previewImage: string;
+};
+
+export type FullOffer = BaseOffer & {
   description: string;
   bedrooms: number;
   goods: string[];
   host: Host;
   images: string[];
   maxAdults: number;
-}
-
-export type CardOffer = BaseOffer & {
-  previewImage: string;
 };
-
-export type FullOffer = BaseOffer & ExtraOffer;
 
 // export type Offers = CardOffer[];
 

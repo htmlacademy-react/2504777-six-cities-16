@@ -1,6 +1,6 @@
-// import { LogoParams } from './types/offers';
-
 export const MAX_RATING_STARS = 5;
+export const MAX_OFFER_IMAGE_NUMBER = 6;
+export const SINGULAR = 1;
 
 export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
@@ -32,11 +32,6 @@ export enum AuthorizationStatus {
 	Unknown = 'UNKNOWN',
 }
 
-// type LogoType = {
-// 	ForHeader: LogoParams;
-// 	ForFooter: LogoParams;
-// }
-
 export enum ImageWidth {
   Basic = 260,
   ForFavorite = 150,
@@ -67,15 +62,10 @@ export enum BookmarkHeight {
   ForOffer = 33,
 }
 
-// export const LogoType: LogoType = {
-// 	ForHeader: {
-// 		prefixName: 'header',
-// 		width: 81,
-// 		height: 41,
-// 	},
-// 	ForFooter: {
-// 		prefixName: 'footer',
-// 		width: 64,
-// 		height: 33,
-// 	}
-// } as const;
+export const Rating = {
+  Perfect: 5,
+  Good: 4,
+  NotBad: 3,
+  Badly: 2,
+  Terribly: 1,
+} as const;

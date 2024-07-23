@@ -3,15 +3,7 @@ import { getRatingStars } from '../../utils';
 import { SpecialClassName, ImageHeight, ImageWidth, AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
 import Bookmark from '../bookmark/bookmark';
-
-
-function PlaceCardMark(): JSX.Element {
-  return (
-    <div className="place-card__mark">
-      <span>Premium</span>
-    </div>
-  );
-}
+import PremiumMark from '../premium-mark/premium-mark';
 
 type PlaceCardProps = {
   className: SpecialClassName;
@@ -26,7 +18,7 @@ function PlaceCard({ className, place }: PlaceCardProps): JSX.Element {
   return (
     <article className={`${className}__card place-card`}>
 
-      {place.isPremium && <PlaceCardMark />}
+      {place.isPremium && <PremiumMark className={SpecialClassName.PlaceCard}/>}
 
       <div className={`${className}__image-wrapper place-card__image-wrapper`}>
         <Link to={AppRoute.Offer.replace(':id', place.id)}>
@@ -44,9 +36,7 @@ function PlaceCard({ className, place }: PlaceCardProps): JSX.Element {
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
             <span
-              style={{
-                width: getRatingStars(place.rating),
-              }}
+              style={getRatingStars(place.rating)}
             >
             </span>
             <span className="visually-hidden">Rating</span>

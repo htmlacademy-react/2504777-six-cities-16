@@ -4,7 +4,7 @@ import { SpecialClassName, BookmarkHeight, BookmarkWidth } from '../../const';
 
 type BookmarkProps = {
   className: SpecialClassName;
-  isFavorite: boolean | undefined;
+  isFavorite: boolean;
 }
 
 function Bookmark({className, isFavorite}: BookmarkProps): JSX.Element {
@@ -16,7 +16,7 @@ function Bookmark({className, isFavorite}: BookmarkProps): JSX.Element {
       <svg className={`${className}__bookmark-icon`} width={width} height={height}>
         <use xlinkHref="#icon-bookmark"></use>
       </svg>
-      <span className="visually-hidden">To bookmarks</span>
+      <span className="visually-hidden">{isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
     </button>
   );
 }

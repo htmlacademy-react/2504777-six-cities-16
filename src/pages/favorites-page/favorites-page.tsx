@@ -11,9 +11,13 @@ function FavoritesPage({favoritesOffers}: FavoritesPageProps): JSX.Element {
   const favoritesLocations = CITIES.filter((city) => favoritesOffers.some((offer) => offer.city.name === city));
 
   // Пыталась использовать groupBy, получила: {Paris: Array(2), Amsterdam: Array(1), Hamburg: Array(1)}, но ругается TS
-  // const getGroupName = (item: CardOffer) => CITIES.find((city) => item.city.name === city);
-  // const groupedFavoritesOffers = Object.groupBy(favoritesOffers, getGroupName);
-  // console.log(groupedFavoritesOffers);
+
+  // type offersByCityType = {
+  //   [key: string]: CardOffer[];
+  // }
+
+  // const offersByCity: offersByCityType = Object.groupBy(favoritesOffers, (item: CardOffer) => item.city.name);
+  // console.log(offersByCity);
 
   return (
     <>

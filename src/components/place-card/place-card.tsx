@@ -8,15 +8,31 @@ import PremiumMark from '../premium-mark/premium-mark';
 type PlaceCardProps = {
   className: SpecialClassName;
 	place: CardOffer;
+  onHover?: (activeCardId: string | null) => void;
 }
 
-function PlaceCard({ className, place }: PlaceCardProps): JSX.Element {
+function PlaceCard({ className, place, onHover }: PlaceCardProps): JSX.Element {
 
   const width = className === SpecialClassName.Favorites ? ImageWidth.ForFavorite : ImageWidth.Basic;
   const height = className === SpecialClassName.Favorites ? ImageHeight.ForFavorite : ImageHeight.Basic;
 
+  const handleMouseEnter = () => {
+    if(onHover) {
+      onHover(place.id);
+    }
+  };
+  const handleMouseLeave = () => {
+    if(onHover) {
+      onHover(null);
+    }
+  };
+
   return (
-    <article className={`${className}__card place-card`}>
+    <article
+      className={`${className}__card place-card`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
 
       {place.isPremium && <PremiumMark className={SpecialClassName.PlaceCard}/>}
 

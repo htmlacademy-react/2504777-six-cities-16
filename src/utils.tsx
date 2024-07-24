@@ -1,4 +1,5 @@
 import { AppRoute, MAX_RATING_STARS, SINGULAR, AuthorizationStatus } from './const';
+import { CardOffer, OffersByCitiesType } from './types/offers';
 
 export const getLayoutState = (location: AppRoute, favoriteOffersCount: number) => {
   switch (location) {
@@ -45,5 +46,15 @@ export const getRatingKeyValue = (key: string) => {
   }
 };
 
-// export const getRandomNumber = (min: number, max: number) => Math.round(min - 0.5 + Math.random() * (max - min + 1));
+export const groopsOffersByCity = (offers: CardOffer[]) => {
+  const offersByCities: OffersByCitiesType = {};
 
+  offers.forEach((offer) => {
+    if (!offersByCities[offer.city.name]) {
+      offersByCities[offer.city.name] = [];
+    }
+    offersByCities[offer.city.name].push(offer);
+  });
+
+  return offersByCities;
+};

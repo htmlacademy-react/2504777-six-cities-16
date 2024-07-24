@@ -1,23 +1,18 @@
 import { Helmet } from 'react-helmet-async';
-import { Title, CITIES } from '../../const';
+import { Title } from '../../const';
 import { CardOffer } from '../../types/offers';
 import FavoritesLocationsItems from '../../components/favorites-locations-items/favorites-locations-items';
+import { groopsOffersByCity } from '../../utils';
 
 type FavoritesPageProps = {
   favoritesOffers: CardOffer[];
 }
 
 function FavoritesPage({favoritesOffers}: FavoritesPageProps): JSX.Element {
-  const favoritesLocations = CITIES.filter((city) => favoritesOffers.some((offer) => offer.city.name === city));
+  const favoriteOffersByCities = groopsOffersByCity(favoritesOffers);
 
   // Пыталась использовать groupBy, получила: {Paris: Array(2), Amsterdam: Array(1), Hamburg: Array(1)}, но ругается TS
-
-  // type offersByCityType = {
-  //   [key: string]: CardOffer[];
-  // }
-
-  // const offersByCity: offersByCityType = Object.groupBy(favoritesOffers, (item: CardOffer) => item.city.name);
-  // console.log(offersByCity);
+  // const offersByCity: Record<string, CardOffer[]> = Object.groupBy(favoritesOffers, (item: CardOffer) => item.city.name);
 
   return (
     <>
@@ -32,7 +27,7 @@ function FavoritesPage({favoritesOffers}: FavoritesPageProps): JSX.Element {
               <section className="favorites">
                 <h1 className="favorites__title">Saved listing</h1>
                 <ul className="favorites__list">
-                  {favoritesLocations.map((location) => <FavoritesLocationsItems key={location} city={location} places={favoritesOffers.filter((offer) => offer.city.name === location)}/>)}
+                  {Object.entries(favoriteOffersByCities).map(([city, offers]) => <FavoritesLocationsItems key={city} city={city} places={offers} />)}
                 </ul>
               </section>
             </div>

@@ -10,19 +10,17 @@ function ReviewsForm(): JSX.Element {
   });
 
   const handleRatingChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    setReview(
-      // Не могу использовать rest-оператор - ругается TS
-      // ...review,
-      // rating: Number(evt.target.value),
-
-      Object.assign(review, {rating: Number(evt.target.value)}),
-    );
+    setReview({
+      ...review,
+      rating: Number(evt.target.value),
+    });
   };
 
   const handleTextChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setReview(
-      Object.assign(review, {text: evt.target.value}),
-    );
+    setReview({
+      ...review,
+      text: evt.target.value
+    });
   };
 
   return (

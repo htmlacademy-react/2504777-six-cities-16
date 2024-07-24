@@ -40,6 +40,9 @@ export type FullOffer = BaseOffer & {
   maxAdults: number;
 };
 
+export type OffersByCitiesType = {
+  [key: string]: CardOffer[];
+}
 // export type Offers = CardOffer[];
 
 // export type LogoParams = {

@@ -1,61 +1,67 @@
-import { Offer } from '../../types/types';
+import { CardOffer } from '../../types/offers';
+import { getRatingStars } from '../../utils';
+import { SpecialClassName, ImageHeight, ImageWidth, AppRoute } from '../../const';
+import { Link } from 'react-router-dom';
+import Bookmark from '../bookmark/bookmark';
+import PremiumMark from '../premium-mark/premium-mark';
 
-function PlaceCardMark(): JSX.Element {
-  return (
-    <div className="place-card__mark">
-      <span>Premium</span>
-    </div>
-  );
-}
-
-function Bookmark(): JSX.Element {
-  return (
-    <button className="place-card__bookmark-button button" type="button">
-      <svg className="place-card__bookmark-icon" width="18" height="19">
-        <use xlinkHref="#icon-bookmark"></use>
-      </svg>
-      <span className="visually-hidden">To bookmarks</span>
-    </button>
-  );
-}
 type PlaceCardProps = {
-  offer: Offer;
+  className: SpecialClassName;
+	place: CardOffer;
+  onHover?: (activeCardId: string | null) => void;
 }
 
-function PlaceCard({offer}: PlaceCardProps): JSX.Element {
+function PlaceCard({ className, place, onHover }: PlaceCardProps): JSX.Element {
+
+  const width = className === SpecialClassName.Favorites ? ImageWidth.ForFavorite : ImageWidth.Basic;
+  const height = className === SpecialClassName.Favorites ? ImageHeight.ForFavorite : ImageHeight.Basic;
+
+  const handleMouseEnter = () => {
+    if(onHover) {
+      onHover(place.id);
+    }
+  };
+  const handleMouseLeave = () => {
+    if(onHover) {
+      onHover(null);
+    }
+  };
+
   return (
-    <article className="cities__card place-card">
+    <article
+      className={`${className}__card place-card`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
 
-      {offer.isPremium && <PlaceCardMark/>}
+      {place.isPremium && <PremiumMark className={SpecialClassName.PlaceCard}/>}
 
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
-          <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>
-        </a>
+      <div className={`${className}__image-wrapper place-card__image-wrapper`}>
+        <Link to={AppRoute.Offer.replace(':id', place.id)}>
+          <img className="place-card__image" src={place.previewImage} width={width} height={height} alt="Place image" />
+        </Link>
       </div>
-      <div className="place-card__info">
+      <div className={`${className === SpecialClassName.Favorites ? 'favorites__card-info' : ''} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{offer.price}</b>
+            <b className="place-card__price-value">&euro;{place.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <Bookmark/>
+          <Bookmark className={SpecialClassName.PlaceCard} isFavorite={place.isFavorite}/>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
             <span
-              style={{
-                width: '80%',
-              }}
+              style={getRatingStars(place.rating)}
             >
             </span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{offer.title}</a>
+          <Link to={AppRoute.Offer.replace(':id', place.id)}>{place.title}</Link>
         </h2>
-        <p className="place-card__type">{offer.type}</p>
+        <p className="place-card__type">{place.type}</p>
       </div>
     </article>
   );

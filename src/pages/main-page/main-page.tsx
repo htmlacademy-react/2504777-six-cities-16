@@ -3,9 +3,8 @@ import LocationsList from '../../components/locations-list/locations-list';
 import PlacesSorting from '../../components/places-sorting/places-sorting';
 import PlacesList from '../../components/places-list/places-list';
 import {SpecialClassName } from '../../const';
-// import Header from '../../components/header/header';
-// import HeaderLeftSide from '../../components/header/header-left-side';
-// import HeaderNavigation from '../../components/header/header-navigation';
+import Map from '../../components/map/map';
+import { CITY } from '../../mocks/city';
 
 type MainPageProps = {
 	cardOffers: CardOffer[];
@@ -29,7 +28,9 @@ function MainPage({ cardOffers }: MainPageProps): JSX.Element {
             <PlacesList className={SpecialClassName.Cities} places={cardOffers} />
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map"></section>
+            <section className="cities__map map">
+              <Map city={CITY} />
+            </section>
           </div>
         </div>
       </div>

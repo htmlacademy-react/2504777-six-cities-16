@@ -6,10 +6,10 @@ import { SpecialClassName } from '../../const';
 type PlacesListProps = {
   className: SpecialClassName;
   places: CardOffer[];
-  onListItemHover: (listItem: CardOffer | null) => void;
+  onMouseHover?: (listItem: CardOffer | null) => void;
 }
 
-function PlacesList({className, places, onListItemHover}: PlacesListProps): JSX.Element {
+function PlacesList({className, places, onMouseHover}: PlacesListProps): JSX.Element {
   // const [activeCardId, setActiveCardId] = useState<string | null>(null);
 
   const fullClassName = className === SpecialClassName.Cities ? 'cities__places-list places__list tabs__content' : 'near-places__list places__list';
@@ -22,7 +22,7 @@ function PlacesList({className, places, onListItemHover}: PlacesListProps): JSX.
 
   return (
     <div className={fullClassName}>
-      {places.map((place) => <PlaceCard key={place.id} className={className} place={place} onCardHover={onListItemHover} />)}
+      {places.map((place) => <PlaceCard key={place.id} className={className} place={place} onMouseHover={onMouseHover} />)}
     </div>
   );
 }

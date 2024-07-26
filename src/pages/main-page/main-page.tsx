@@ -32,7 +32,7 @@ function MainPage({ cardOffers }: MainPageProps): JSX.Element {
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">{cardOffers.length} places to stay in Amsterdam</b>
             <PlacesSorting />
-            <PlacesList className={SpecialClassName.Cities} places={cardOffers} onListItemHover={handleListItemHover}/>
+            <PlacesList className={SpecialClassName.Cities} places={cardOffers} onMouseHover={handleListItemHover}/>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">

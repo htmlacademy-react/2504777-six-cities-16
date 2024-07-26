@@ -8,22 +8,22 @@ import PremiumMark from '../premium-mark/premium-mark';
 type PlaceCardProps = {
   className: SpecialClassName;
 	place: CardOffer;
-  onHover?: (activeCardId: string | null) => void;
+  onCardHover?: (listItem: CardOffer | null) => void;
 }
 
-function PlaceCard({ className, place, onHover }: PlaceCardProps): JSX.Element {
+function PlaceCard({ className, place, onCardHover }: PlaceCardProps): JSX.Element {
 
   const width = className === SpecialClassName.Favorites ? ImageWidth.ForFavorite : ImageWidth.Basic;
   const height = className === SpecialClassName.Favorites ? ImageHeight.ForFavorite : ImageHeight.Basic;
 
   const handleMouseEnter = () => {
-    if(onHover) {
-      onHover(place.id);
+    if(onCardHover) {
+      onCardHover(place);
     }
   };
   const handleMouseLeave = () => {
-    if(onHover) {
-      onHover(null);
+    if(onCardHover) {
+      onCardHover(null);
     }
   };
 

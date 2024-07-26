@@ -5,12 +5,19 @@ import PlacesList from '../../components/places-list/places-list';
 import {SpecialClassName } from '../../const';
 import Map from '../../components/map/map';
 import { CITY } from '../../mocks/city';
+import { useState } from 'react';
 
 type MainPageProps = {
 	cardOffers: CardOffer[];
 }
 
 function MainPage({ cardOffers }: MainPageProps): JSX.Element {
+  const [activePoint, setActivePoint] = useState<CardOffer | null>(null);
+
+  const handleListItemHover = (listItem: CardOffer | null) => {
+    setActivePoint(listItem);
+  };
+
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -25,11 +32,11 @@ function MainPage({ cardOffers }: MainPageProps): JSX.Element {
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">{cardOffers.length} places to stay in Amsterdam</b>
             <PlacesSorting />
-            <PlacesList className={SpecialClassName.Cities} places={cardOffers} />
+            <PlacesList className={SpecialClassName.Cities} places={cardOffers} onListItemHover={handleListItemHover}/>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map">
-              <Map city={CITY} />
+              <Map city={CITY} points={cardOffers} activePoint={activePoint}/>
             </section>
           </div>
         </div>

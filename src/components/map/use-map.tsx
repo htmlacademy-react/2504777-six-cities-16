@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, MutableRefObject } from 'react';
 import { City } from '../../types/offers';
 import { Map, TileLayer } from 'leaflet';
+import { MapLayer } from '../../const';
 
 function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: City): Map | null {
   const [map, setMap] = useState<Map | null>(null);
@@ -17,10 +18,10 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: City): Map |
       });
 
       const layer = new TileLayer(
-        'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+        MapLayer.Template,
         {
           attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+            MapLayer.Attribution,
         }
       );
 

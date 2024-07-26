@@ -34,7 +34,7 @@ const reviewsByOfferId: Record<string, Review[]> = {
       user: {
         name: 'aaa',
         avatarUrl: 'https://16.design.htmlacademy.pro/static/avatar/7.jpg',
-        isPro: false
+        isPro: true
       }
     },
     {

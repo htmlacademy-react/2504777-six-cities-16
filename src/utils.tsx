@@ -1,3 +1,4 @@
+import dayjs from 'dayjs';
 import { AppRoute, MAX_RATING_STARS, SINGULAR, AuthorizationStatus } from './const';
 import { CardOffer, OffersByCitiesType } from './types/offers';
 
@@ -58,3 +59,5 @@ export const groopsOffersByCity = (offers: CardOffer[]) => {
 
   return offersByCities;
 };
+
+export const humanizeDate = (date: string, format: string) => dayjs(date).format(format);

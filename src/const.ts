@@ -62,6 +62,11 @@ export enum BookmarkHeight {
   ForOffer = 33,
 }
 
+export enum DateFormat {
+  FullDate = 'YYYY-MM-DD',
+  MonthAndYear = 'MMMM YYYY',
+}
+
 export const Rating = {
   Perfect: 5,
   Good: 4,

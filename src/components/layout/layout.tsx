@@ -1,14 +1,13 @@
 import { Outlet, useLocation, Link } from 'react-router-dom';
 import Logo from '../logo/logo';
 import { getLayoutState } from '../../utils';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 
 type LayoutProps = {
   favoriteOffersCount: number;
-  authorizationStatus: AuthorizationStatus;
 }
 
-function Layout({favoriteOffersCount, authorizationStatus}: LayoutProps): JSX.Element {
+function Layout({favoriteOffersCount}: LayoutProps): JSX.Element {
   const { pathname } = useLocation();
   const {extraClassName, shouldRenderFooter, shouldRenderNavigation} = getLayoutState(pathname as AppRoute, favoriteOffersCount);
 

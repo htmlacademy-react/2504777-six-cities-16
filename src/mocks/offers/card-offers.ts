@@ -143,9 +143,9 @@ export const cardOffers: CardOffer[] = [
 ];
 
 export const getNearPlaces = (offerId: string | undefined) => cardOffers.filter((offer) => offer.id !== offerId).slice(0, 3);
-export const getOfferById = (offerId: string | undefined) => {
-  const currentOffer = cardOffers.find((offer) => offer.id === offerId);
-  if (currentOffer) {
-    return currentOffer;
-  } return null;
-};
+// export const getOfferById = (offerId: string | undefined) => {
+//   const currentOffer = cardOffers.find((offer) => offer.id === offerId);
+//   if (currentOffer) {
+//     return currentOffer;
+//   } return null;
+// };

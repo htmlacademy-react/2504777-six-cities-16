@@ -8,7 +8,7 @@ import PremiumMark from '../premium-mark/premium-mark';
 type PlaceCardProps = {
   className: SpecialClassName;
 	place: CardOffer;
-  onMouseHover?: (listItem: CardOffer | null) => void;
+  onMouseHover?: (listItemId: string | null) => void;
 }
 
 function PlaceCard({ className, place, onMouseHover }: PlaceCardProps): JSX.Element {
@@ -18,7 +18,7 @@ function PlaceCard({ className, place, onMouseHover }: PlaceCardProps): JSX.Elem
 
   const handleMouseEnter = () => {
     if(onMouseHover) {
-      onMouseHover(place);
+      onMouseHover(place.id);
     }
   };
   const handleMouseLeave = () => {

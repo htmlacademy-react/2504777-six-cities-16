@@ -1,27 +1,33 @@
 import { Helmet } from 'react-helmet-async';
-import { Title, AppRoute, SpecialClassName, MAX_OFFER_IMAGE_NUMBER, AuthorizationStatus } from '../../const';
+import { Title, AppRoute, SpecialClassName, MAX_OFFER_IMAGE_NUMBER, MAX_REVIEWS_NUMBER, AuthorizationStatus } from '../../const';
 import PlacesList from '../../components/places-list/places-list';
 import { useParams, Navigate } from 'react-router-dom';
 import Bookmark from '../../components/bookmark/bookmark';
 import { getFullOfferById } from '../../mocks/offers/full-offers';
 import { getNearPlaces } from '../../mocks/offers/card-offers';
 import PremiumMark from '../../components/premium-mark/premium-mark';
-import { getRatingStars, getEnding, getAuthorizationStatus } from '../../utils';
+import { getRatingStars, getEnding, getAuthorizationStatus, sortByDate } from '../../utils';
 import OfferHost from '../../components/offer-host/offer-host';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import { getReviewsByOfferId } from '../../mocks/reviews';
+import ReviewsList from '../../components/reviews-list/reviews-list';
+import Map from '../../components/map/map';
 
 function OfferPage(): JSX.Element {
   const { id: offerId } = useParams();
 
   const currentOffer = getFullOfferById(offerId);
   const nearPlaces = getNearPlaces(offerId);
+
   const authorizationStatus = getAuthorizationStatus();
   const reviews = getReviewsByOfferId(offerId);
 
   if (!currentOffer) {
     return <Navigate to={AppRoute.Error} replace />;
   }
+
+  const mapPoints = nearPlaces.map(({id, location}) => ({id, ...location}))
+    .concat({id: currentOffer.id, ...currentOffer.location});
 
   return (
     <>
@@ -95,43 +101,15 @@ function OfferPage(): JSX.Element {
               <OfferHost host={currentOffer.host} offerDescription={currentOffer.description} />
 
               <section className="offer__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
-                <ul className="reviews__list">
-                  <li className="reviews__item">
-                    <div className="reviews__user user">
-                      <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                        <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54" alt="Reviews avatar"/>
-                      </div>
-                      <span className="reviews__user-name">
-                      Max
-                      </span>
-                    </div>
-                    <div className="reviews__info">
-                      <div className="reviews__rating rating">
-                        <div className="reviews__stars rating__stars">
-                          <span
-                            style={{
-                              width: '80%'
-                            }}
-                          >
-                          </span>
-                          <span className="visually-hidden">Rating</span>
-                        </div>
-                      </div>
-                      <p className="reviews__text">
-                      A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                      </p>
-                      <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
-                    </div>
-                  </li>
-                </ul>
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
+                <ReviewsList reviews={sortByDate(reviews).slice(0, MAX_REVIEWS_NUMBER)} />
 
                 { authorizationStatus === AuthorizationStatus.Auth && <ReviewsForm />}
 
               </section>
             </div>
           </div>
-          <section className="offer__map map"></section>
+          <Map className={SpecialClassName.Offer} city={currentOffer.city} points={mapPoints} activePointId={currentOffer.id}/>
         </section>
         <div className="container">
           <section className="near-places places">

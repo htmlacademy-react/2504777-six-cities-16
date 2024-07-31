@@ -1,6 +1,7 @@
 export const MAX_RATING_STARS = 5;
 export const MAX_OFFER_IMAGE_NUMBER = 6;
 export const SINGULAR = 1;
+export const MAX_REVIEWS_NUMBER = 10;
 
 export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
@@ -60,6 +61,11 @@ export enum BookmarkWidth {
 export enum BookmarkHeight {
   Basic = 19,
   ForOffer = 33,
+}
+
+export enum DateFormat {
+  FullDate = 'YYYY-MM-DD',
+  MonthAndYear = 'MMMM YYYY',
 }
 
 export const Rating = {

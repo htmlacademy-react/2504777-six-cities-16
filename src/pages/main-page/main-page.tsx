@@ -1,4 +1,4 @@
-import { CardOffer } from '../../types/offers';
+import { CardOffer, MapPoint } from '../../types/offers';
 import LocationsList from '../../components/locations-list/locations-list';
 import PlacesSorting from '../../components/places-sorting/places-sorting';
 import PlacesList from '../../components/places-list/places-list';
@@ -12,11 +12,13 @@ type MainPageProps = {
 }
 
 function MainPage({ cardOffers }: MainPageProps): JSX.Element {
-  const [activePoint, setActivePoint] = useState<CardOffer | null>(null);
+  const [activePointId, setActivePointId] = useState<string | null>(null);
 
-  const handleListItemHover = (listItem: CardOffer | null) => {
-    setActivePoint(listItem);
+  const handleListItemHover = (listItemId: string | null) => {
+    setActivePointId(listItemId);
   };
+
+  const mapPoints: MapPoint[] = cardOffers.map(({id, location}) => ({id, ...location}));
 
   return (
     <main className="page__main page__main--index">
@@ -32,12 +34,10 @@ function MainPage({ cardOffers }: MainPageProps): JSX.Element {
             <h2 className="visually-hidden">Places</h2>
             <b className="places__found">{cardOffers.length} places to stay in Amsterdam</b>
             <PlacesSorting />
-            <PlacesList className={SpecialClassName.Cities} places={cardOffers} onListItemHover={handleListItemHover}/>
+            <PlacesList className={SpecialClassName.Cities} places={cardOffers} onMouseHover={handleListItemHover}/>
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map">
-              <Map city={CITY} points={cardOffers} activePoint={activePoint}/>
-            </section>
+            <Map className={SpecialClassName.Cities} city={CITY} points={mapPoints} activePointId={activePointId}/>
           </div>
         </div>
       </div>

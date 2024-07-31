@@ -1,12 +1,12 @@
 import { Helmet } from 'react-helmet-async';
-import { Title, AppRoute, SpecialClassName, MAX_OFFER_IMAGE_NUMBER, AuthorizationStatus } from '../../const';
+import { Title, AppRoute, SpecialClassName, MAX_OFFER_IMAGE_NUMBER, MAX_REVIEWS_NUMBER, AuthorizationStatus } from '../../const';
 import PlacesList from '../../components/places-list/places-list';
 import { useParams, Navigate } from 'react-router-dom';
 import Bookmark from '../../components/bookmark/bookmark';
 import { getFullOfferById } from '../../mocks/offers/full-offers';
 import { getNearPlaces } from '../../mocks/offers/card-offers';
 import PremiumMark from '../../components/premium-mark/premium-mark';
-import { getRatingStars, getEnding, getAuthorizationStatus } from '../../utils';
+import { getRatingStars, getEnding, getAuthorizationStatus, sortByDate } from '../../utils';
 import OfferHost from '../../components/offer-host/offer-host';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import { getReviewsByOfferId } from '../../mocks/reviews';
@@ -102,7 +102,7 @@ function OfferPage(): JSX.Element {
 
               <section className="offer__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                <ReviewsList reviews={reviews} />
+                <ReviewsList reviews={sortByDate(reviews).slice(0, MAX_REVIEWS_NUMBER)} />
 
                 { authorizationStatus === AuthorizationStatus.Auth && <ReviewsForm />}
 

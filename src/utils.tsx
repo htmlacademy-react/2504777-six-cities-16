@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import { AppRoute, MAX_RATING_STARS, SINGULAR, AuthorizationStatus } from './const';
 import { CardOffer, OffersByCitiesType } from './types/offers';
+import { Review } from './types/reviews';
 
 export const getLayoutState = (location: AppRoute, favoriteOffersCount: number) => {
   switch (location) {
@@ -61,3 +62,8 @@ export const groopsOffersByCity = (offers: CardOffer[]) => {
 };
 
 export const humanizeDate = (date: string, format: string) => dayjs(date).format(format);
+
+export const upFirstLetter = (data: string) => data.charAt(0).toUpperCase() + data.slice(1);
+
+export const sortByDate = (reviews: Review[]) => reviews.sort((leftReview, rightReview) => dayjs(rightReview.date).diff(dayjs(leftReview.date)));
+

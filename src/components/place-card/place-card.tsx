@@ -1,5 +1,5 @@
 import { CardOffer } from '../../types/offers';
-import { getRatingStars } from '../../utils';
+import { getRatingStars, upFirstLetter } from '../../utils';
 import { SpecialClassName, ImageHeight, ImageWidth, AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
 import Bookmark from '../bookmark/bookmark';
@@ -61,7 +61,7 @@ function PlaceCard({ className, place, onMouseHover }: PlaceCardProps): JSX.Elem
         <h2 className="place-card__name">
           <Link to={AppRoute.Offer.replace(':id', place.id)}>{place.title}</Link>
         </h2>
-        <p className="place-card__type">{place.type}</p>
+        <p className="place-card__type">{upFirstLetter(place.type)}</p>
       </div>
     </article>
   );

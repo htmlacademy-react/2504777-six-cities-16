@@ -3,7 +3,20 @@ export const MAX_OFFER_IMAGE_NUMBER = 6;
 export const SINGULAR = 1;
 export const MAX_REVIEWS_NUMBER = 10;
 
-export const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
+export enum CITIES {
+  Paris = 'Paris',
+  Cologne = 'Cologne',
+  Brussels = 'Brussels',
+  Amsterdam = 'Amsterdam',
+  Hamburg = 'Hamburg',
+  Dusseldorf = 'Dusseldorf',
+}
+
+const {Paris, Cologne, Brussels, Amsterdam, Hamburg, Dusseldorf} = CITIES;
+
+export const DEFAULT_CITY = Paris;
+
+export const CITIES_LIST = [Paris, Cologne, Brussels, Amsterdam, Hamburg, Dusseldorf];
 
 export enum SpecialClassName {
   NearPlaces = 'near-places',

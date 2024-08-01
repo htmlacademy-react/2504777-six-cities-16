@@ -27,13 +27,13 @@ function App({ cardOffers }: AppProps): JSX.Element {
           >
             <Route
               index
-              element={<MainPage cardOffers={cardOffers} />}
+              element={<MainPage />}
             />
             <Route
               path={AppRoute.Favorites}
               element={
                 <PrivateRoute
-                  authorizationStatus={AuthorizationStatus.Auth}
+                  authorizationStatus={AuthorizationStatus.NoAuth}
                 >
                   <FavoritesPage favoritesOffers={favoritesOffers} />
                 </PrivateRoute>

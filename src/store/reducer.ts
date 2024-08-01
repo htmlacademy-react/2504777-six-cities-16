@@ -1,11 +1,11 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { CardOffer } from '../types/offers';
 import { changeCity } from './action';
-import { DEFAULT_CITY } from '../const';
+import { DEFAULT_CITY, CITIES } from '../const';
 import { cardOffers } from '../mocks/offers/card-offers';
 
 type initialStateType = {
-  city: string;
+  city: CITIES;
   offers: CardOffer[];
 }
 

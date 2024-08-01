@@ -1,13 +1,13 @@
-import { CITIES_LIST } from '../../const';
-import { useAppSelector, useAppDispatch } from '../../hooks';
+import { CITIES_LIST, CITIES } from '../../const';
+import { useAppDispatch } from '../../hooks';
 import { changeCity } from '../../store/action';
 
 type LocationItemProps = {
-  city: string;
+  city: CITIES;
+  activeCity: CITIES;
 }
 
-function LocationItem({city}: LocationItemProps): JSX.Element {
-  const activeCity = useAppSelector((state) => state.city);
+function LocationItem({city, activeCity}: LocationItemProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   return (
@@ -23,10 +23,14 @@ function LocationItem({city}: LocationItemProps): JSX.Element {
   );
 }
 
-function LocationsList(): JSX.Element {
+type LocationListProps = {
+  activeCity: CITIES;
+}
+
+function LocationsList({activeCity}: LocationListProps): JSX.Element {
   return (
     <ul className="locations__list tabs__list">
-      {CITIES_LIST.map((city) => <LocationItem key={city} city={city}/>)}
+      {CITIES_LIST.map((city) => <LocationItem key={city} city={city} activeCity={activeCity}/>)}
     </ul>
   );
 }

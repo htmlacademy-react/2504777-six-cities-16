@@ -109,7 +109,7 @@ function OfferPage(): JSX.Element {
               </section>
             </div>
           </div>
-          <Map className={SpecialClassName.Offer} city={currentOffer.city} points={mapPoints} activePointId={currentOffer.id}/>
+          <Map className={SpecialClassName.Offer} city={currentOffer.city.location} points={mapPoints} activePointId={currentOffer.id}/>
         </section>
         <div className="container">
           <section className="near-places places">

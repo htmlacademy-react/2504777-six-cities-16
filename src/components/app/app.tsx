@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainPage from '../../pages/main-page/main-page';
-import { CardOffer, FullOffer } from '../../types/offers';
+import { CardOffer } from '../../types/offers';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import Layout from '../layout/layout';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
@@ -12,10 +12,9 @@ import { HelmetProvider } from 'react-helmet-async';
 
 type AppProps = {
 	cardOffers: CardOffer[];
-  fullOffers: FullOffer[];
 }
 
-function App({ cardOffers, fullOffers }: AppProps): JSX.Element {
+function App({ cardOffers }: AppProps): JSX.Element {
   const favoritesOffers = cardOffers.filter((offer) => offer.isFavorite);
 
   return (
@@ -28,13 +27,13 @@ function App({ cardOffers, fullOffers }: AppProps): JSX.Element {
           >
             <Route
               index
-              element={<MainPage cardOffers={cardOffers} />}
+              element={<MainPage />}
             />
             <Route
               path={AppRoute.Favorites}
               element={
                 <PrivateRoute
-                  authorizationStatus={AuthorizationStatus.Auth}
+                  authorizationStatus={AuthorizationStatus.NoAuth}
                 >
                   <FavoritesPage favoritesOffers={favoritesOffers} />
                 </PrivateRoute>
@@ -53,7 +52,7 @@ function App({ cardOffers, fullOffers }: AppProps): JSX.Element {
             />
             <Route
               path={AppRoute.Offer}
-              element={<OfferPage fullOffers={fullOffers} nearPlaces={cardOffers}/>}
+              element={<OfferPage/>}
             />
           </Route>
           <Route

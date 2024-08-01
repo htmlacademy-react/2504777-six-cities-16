@@ -1,13 +1,13 @@
 import { useRef, useEffect } from 'react';
-import { City, MapPoint } from '../../types/offers';
+import { Location, MapPoint } from '../../types/offers';
 import useMap from './use-map';
-import { Icon, Marker, layerGroup } from 'leaflet';
+import { Icon, LayerGroup, Marker, layerGroup } from 'leaflet';
 import { UrlMapMarker } from '../../const';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
   className: string;
-  city: City;
+  city: Location;
   points: MapPoint[];
   activePointId: string | null;
 }
@@ -25,12 +25,21 @@ const activeCustomIcon = new Icon({
 });
 
 function Map({className, city, points, activePointId}: MapProps) {
+
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
+  const markerLayer = useRef<LayerGroup>(layerGroup());
 
   useEffect(() => {
     if (map) {
-      const markerLayer = layerGroup().addTo(map);
+      map.setView([city.latitude, city.longitude], city.zoom);
+      markerLayer.current.addTo(map);
+      markerLayer.current.clearLayers();
+    }
+  });
+
+  useEffect(() => {
+    if (map) {
       points.forEach((point) => {
         const marker = new Marker({
           lat: point.latitude,
@@ -39,7 +48,7 @@ function Map({className, city, points, activePointId}: MapProps) {
         {
           icon: activePointId === point.id ? activeCustomIcon : defaultCustomIcon,
         });
-        marker.addTo(markerLayer);
+        marker.addTo(markerLayer.current);
       });
     }
   }, [map, points, activePointId]);

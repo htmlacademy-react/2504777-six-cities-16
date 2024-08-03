@@ -6,11 +6,13 @@ import { SpecialClassName, CitiesLocation } from '../../const';
 import Map from '../../components/map/map';
 import { useState } from 'react';
 import { useAppSelector} from '../../hooks';
+import { sortOffersByCurrentType } from '../../utils';
 
 function MainPage(): JSX.Element {
   const [activePointId, setActivePointId] = useState<string | null>(null);
 
   const activeCity = useAppSelector((state) => state.city);
+  const currentSortingType = useAppSelector((state) => state.sortingType);
   const offers = useAppSelector((state) => state.offers);
 
   const offersByCity = offers.filter((offer) => offer.city.name === activeCity as string);
@@ -37,7 +39,7 @@ function MainPage(): JSX.Element {
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{`${offersByCity.length} places to stay in ${activeCity}`}</b>
                 <PlacesSorting />
-                <PlacesList className={SpecialClassName.Cities} places={offersByCity} onMouseHover={handleListItemHover}/>
+                <PlacesList className={SpecialClassName.Cities} places={sortOffersByCurrentType(currentSortingType, offersByCity)} onMouseHover={handleListItemHover}/>
               </section>
               <div className="cities__right-section">
                 <Map className={SpecialClassName.Cities} city={CitiesLocation[activeCity]} points={mapPoints} activePointId={activePointId}/>

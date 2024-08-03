@@ -6,7 +6,7 @@ import Bookmark from '../../components/bookmark/bookmark';
 import { getFullOfferById } from '../../mocks/offers/full-offers';
 import { getNearPlaces } from '../../mocks/offers/card-offers';
 import PremiumMark from '../../components/premium-mark/premium-mark';
-import { getRatingStars, getEnding, getAuthorizationStatus, sortByDate } from '../../utils';
+import { getRatingStars, getEnding, getAuthorizationStatus, sortReviewsByDate } from '../../utils';
 import OfferHost from '../../components/offer-host/offer-host';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import { getReviewsByOfferId } from '../../mocks/reviews';
@@ -102,7 +102,7 @@ function OfferPage(): JSX.Element {
 
               <section className="offer__reviews reviews">
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                <ReviewsList reviews={sortByDate(reviews).slice(0, MAX_REVIEWS_NUMBER)} />
+                <ReviewsList reviews={sortReviewsByDate(reviews).slice(0, MAX_REVIEWS_NUMBER)} />
 
                 { authorizationStatus === AuthorizationStatus.Auth && <ReviewsForm />}
 

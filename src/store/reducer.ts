@@ -1,11 +1,11 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { CardOffer } from '../types/offers';
 import { changeCity, changeSortingType } from './action';
-import { DEFAULT_CITY, Cities, DEFAULT_SORTING_TYPE } from '../const';
+import { DEFAULT_CITY, SixCities, DEFAULT_SORTING_TYPE } from '../const';
 import { cardOffers } from '../mocks/offers/card-offers';
 
 type initialStateType = {
-  city: Cities;
+  city: SixCities;
   offers: CardOffer[];
   sortingType: string;
 }

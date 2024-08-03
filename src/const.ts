@@ -3,7 +3,7 @@ export const MAX_OFFER_IMAGE_NUMBER = 6;
 export const SINGULAR = 1;
 export const MAX_REVIEWS_NUMBER = 10;
 
-export enum Cities {
+export enum SixCities {
   Paris = 'Paris',
   Cologne = 'Cologne',
   Brussels = 'Brussels',
@@ -12,7 +12,7 @@ export enum Cities {
   Dusseldorf = 'Dusseldorf',
 }
 
-const {Paris, Cologne, Brussels, Amsterdam, Hamburg, Dusseldorf} = Cities;
+const {Paris, Cologne, Brussels, Amsterdam, Hamburg, Dusseldorf} = SixCities;
 
 export const DEFAULT_CITY = Paris;
 

@@ -1,10 +1,10 @@
-import { CITIES_LIST, Cities } from '../../const';
+import { CITIES_LIST, SixCities } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { changeCity } from '../../store/action';
 
 type LocationItemProps = {
-  city: Cities;
-  activeCity: Cities;
+  city: SixCities;
+  activeCity: SixCities;
 }
 
 function LocationItem({city, activeCity}: LocationItemProps): JSX.Element {
@@ -24,7 +24,7 @@ function LocationItem({city, activeCity}: LocationItemProps): JSX.Element {
 }
 
 type LocationListProps = {
-  activeCity: Cities;
+  activeCity: SixCities;
 }
 
 function LocationsList({activeCity}: LocationListProps): JSX.Element {

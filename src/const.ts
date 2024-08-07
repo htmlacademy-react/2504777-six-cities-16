@@ -3,7 +3,7 @@ export const MAX_OFFER_IMAGE_NUMBER = 6;
 export const SINGULAR = 1;
 export const MAX_REVIEWS_NUMBER = 10;
 
-export enum CITIES {
+export enum SixCities {
   Paris = 'Paris',
   Cologne = 'Cologne',
   Brussels = 'Brussels',
@@ -12,7 +12,7 @@ export enum CITIES {
   Dusseldorf = 'Dusseldorf',
 }
 
-const {Paris, Cologne, Brussels, Amsterdam, Hamburg, Dusseldorf} = CITIES;
+const {Paris, Cologne, Brussels, Amsterdam, Hamburg, Dusseldorf} = SixCities;
 
 export const DEFAULT_CITY = Paris;
 
@@ -128,8 +128,15 @@ export enum MapLayer {
 }
 
 export enum UrlMapMarker {
-  Default = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg',
-  Active = 'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg',
+  Default = '/public/img/pin.svg',
+  Active = '/public/img/pin-active.svg',
 }
 
+export const SortingTypes = {
+  Popular: 'Popular',
+  PriceLowToHigh: 'Price: low to high',
+  PriceHighToLow: 'Price: high to low',
+  TopRatedFirst: 'Top rated first',
+} as const;
 
+export const DEFAULT_SORTING_TYPE = SortingTypes.Popular;

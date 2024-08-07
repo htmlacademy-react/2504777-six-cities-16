@@ -11,9 +11,6 @@ type FavoritesPageProps = {
 function FavoritesPage({favoritesOffers}: FavoritesPageProps): JSX.Element {
   const favoriteOffersByCities = groopsOffersByCity(favoritesOffers);
 
-  // Пыталась использовать groupBy, получила: {Paris: Array(2), Amsterdam: Array(1), Hamburg: Array(1)}, но ругается TS
-  // const offersByCity: Record<string, CardOffer[]> = Object.groupBy(favoritesOffers, (item: CardOffer) => item.city.name);
-
   return (
     <>
       <Helmet>

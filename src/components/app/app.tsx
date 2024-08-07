@@ -54,11 +54,11 @@ function App({ cardOffers }: AppProps): JSX.Element {
               path={AppRoute.Offer}
               element={<OfferPage/>}
             />
+            <Route
+              path={AppRoute.Error}
+              element={<NotFoundPage />}
+            />
           </Route>
-          <Route
-            path={AppRoute.Error}
-            element={<NotFoundPage />}
-          />
         </Routes>
       </BrowserRouter>
     </HelmetProvider>

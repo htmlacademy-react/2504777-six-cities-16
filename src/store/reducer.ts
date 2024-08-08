@@ -1,12 +1,12 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { CardOffer } from '../types/offers';
-import { changeCity, changeSortingType, loadOffersList, requireAuthorization } from './action';
+import { Offers } from '../types/offers';
+import { changeCity, changeSortingType, loadOffersList, requireAuthorization } from './actions';
 import { DEFAULT_CITY, SixCities, DEFAULT_SORTING_TYPE, AuthorizationStatus } from '../const';
 // import { cardOffers } from '../mocks/offers/card-offers';
 
 type initialStateType = {
   city: SixCities;
-  offers: CardOffer[];
+  offers: Offers;
   sortingType: string;
   authorizationStatus: AuthorizationStatus;
 }

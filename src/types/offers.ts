@@ -47,7 +47,8 @@ export type FullOffer = BaseOffer & {
 export type OffersByCitiesType = {
   [key: string]: CardOffer[];
 }
-// export type Offers = CardOffer[];
+
+export type Offers = CardOffer[];
 
 // export type LogoParams = {
 //   prefixName: string;

@@ -1,7 +1,8 @@
-import { Outlet, useLocation, Link } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Logo from '../logo/logo';
 import { getLayoutState } from '../../utils';
 import { AppRoute } from '../../const';
+import HeaderNavigation from '../header/header-navigation';
 
 type LayoutProps = {
   favoriteOffersCount: number;
@@ -19,28 +20,7 @@ function Layout({favoriteOffersCount}: LayoutProps): JSX.Element {
             <div className="header__left">
               <Logo pathname={pathname as AppRoute} className='header'/>
             </div>
-            {
-              shouldRenderNavigation ? (
-                <nav className="header__nav">
-                  <ul className="header__nav-list">
-                    <li className="header__nav-item user">
-                      <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Favorites}>
-                        <div className="header__avatar-wrapper user__avatar-wrapper">
-                        </div>
-                        <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
-                        <span className="header__favorite-count">{favoriteOffersCount}</span>
-                      </Link>
-                    </li>
-                    <li className="header__nav-item">
-                      <a className="header__nav-link" href="#">
-                        <span className="header__signout">Sign out</span>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
-              ) : ''
-            }
-
+            {shouldRenderNavigation ? <HeaderNavigation favoriteOffersCount={favoriteOffersCount} /> : ''}
           </div>
         </div>
       </header>

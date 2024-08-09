@@ -8,19 +8,19 @@ type LocationItemProps = {
 }
 
 function LocationItem({ city, activeCity }: LocationItemProps): JSX.Element {
-	const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
-	return (
-		<li className="locations__item">
-			<a
-				className={`locations__item-link tabs__item ${activeCity === city ? 'tabs__item--active' : ''}`}
-				href="#"
-				onClick={() => dispatch(changeCity(city))}
-			>
-				<span>{city}</span>
-			</a>
-		</li>
-	);
+  return (
+    <li className="locations__item">
+      <a
+        className={`locations__item-link tabs__item ${activeCity === city ? 'tabs__item--active' : ''}`}
+        href="#"
+        onClick={() => dispatch(changeCity(city))}
+      >
+        <span>{city}</span>
+      </a>
+    </li>
+  );
 }
 
 type LocationListProps = {
@@ -28,11 +28,11 @@ type LocationListProps = {
 }
 
 function LocationsList({ activeCity }: LocationListProps): JSX.Element {
-	return (
-		<ul className="locations__list tabs__list">
-			{CITIES_LIST.map((city) => <LocationItem key={city} city={city} activeCity={activeCity} />)}
-		</ul>
-	);
+  return (
+    <ul className="locations__list tabs__list">
+      {CITIES_LIST.map((city) => <LocationItem key={city} city={city} activeCity={activeCity} />)}
+    </ul>
+  );
 }
 
 export default LocationsList;

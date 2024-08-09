@@ -18,6 +18,7 @@ type AppProps = {
 
 function App({ cardOffers }: AppProps): JSX.Element {
   const favoritesOffers = cardOffers.filter((offer) => offer.isFavorite);
+
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
 
@@ -72,8 +73,6 @@ function App({ cardOffers }: AppProps): JSX.Element {
         </Routes>
       </BrowserRouter>
     </HelmetProvider>
-
-
   );
 }
 

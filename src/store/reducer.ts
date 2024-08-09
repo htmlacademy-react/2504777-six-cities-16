@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { Offers } from '../types/offers';
-import { changeCity, changeSortingType, loadOffersList, requireAuthorization, setError } from './actions';
+import { changeCity, changeSortingType, loadOffersList, requireAuthorization, setError, setOffersLoadingStatus } from './actions';
 import { DEFAULT_CITY, SixCities, DEFAULT_SORTING_TYPE, AuthorizationStatus } from '../const';
 // import { cardOffers } from '../mocks/offers/card-offers';
 
@@ -10,6 +10,7 @@ type initialStateType = {
   sortingType: string;
   authorizationStatus: AuthorizationStatus;
   error: null | string;
+  isOffersLoading: boolean;
 }
 
 const initialState: initialStateType = {
@@ -18,6 +19,7 @@ const initialState: initialStateType = {
   sortingType: DEFAULT_SORTING_TYPE,
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
+  isOffersLoading: false,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -36,5 +38,8 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setError, (state, action) => {
       state.error = action.payload;
+    })
+    .addCase(setOffersLoadingStatus, (state, action) => {
+      state.isOffersLoading = action.payload;
     });
 });

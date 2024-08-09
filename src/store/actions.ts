@@ -7,3 +7,4 @@ export const loadOffersList = createAction('loadOffersList', (value: Offers) => 
 export const changeSortingType = createAction('changeSortingType', (value: string) =>({payload: value,}));
 export const requireAuthorization = createAction('requireAuthorization', (value: AuthorizationStatus) => ({payload: value}));
 export const setError = createAction('setError', (value: null | string) => ({payload: value}));
+export const setOffersLoadingStatus = createAction('setOffersLoadingStatus', (value: boolean) => ({payload: value}));

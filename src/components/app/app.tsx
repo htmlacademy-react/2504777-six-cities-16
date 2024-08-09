@@ -9,6 +9,8 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
+import LoadingPage from '../../pages/loading-page/loading-page';
+import { useAppSelector } from '../../hooks';
 
 type AppProps = {
 	cardOffers: CardOffer[];
@@ -16,6 +18,14 @@ type AppProps = {
 
 function App({ cardOffers }: AppProps): JSX.Element {
   const favoritesOffers = cardOffers.filter((offer) => offer.isFavorite);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
+
+  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersLoading) {
+    return (
+      <LoadingPage />
+    );
+  }
 
   return (
     <HelmetProvider>
@@ -33,7 +43,7 @@ function App({ cardOffers }: AppProps): JSX.Element {
               path={AppRoute.Favorites}
               element={
                 <PrivateRoute
-                  authorizationStatus={AuthorizationStatus.NoAuth}
+                  authorizationStatus={authorizationStatus}
                 >
                   <FavoritesPage favoritesOffers={favoritesOffers} />
                 </PrivateRoute>
@@ -43,7 +53,7 @@ function App({ cardOffers }: AppProps): JSX.Element {
               path={AppRoute.Login}
               element={
                 <PrivateRoute
-                  authorizationStatus={AuthorizationStatus.NoAuth}
+                  authorizationStatus={authorizationStatus}
                   isLoginLocation
                 >
                   <LoginPage />

@@ -43,9 +43,7 @@ function App({ cardOffers }: AppProps): JSX.Element {
             <Route
               path={AppRoute.Favorites}
               element={
-                <PrivateRoute
-                  authorizationStatus={authorizationStatus}
-                >
+                <PrivateRoute>
                   <FavoritesPage favoritesOffers={favoritesOffers} />
                 </PrivateRoute>
               }
@@ -53,10 +51,7 @@ function App({ cardOffers }: AppProps): JSX.Element {
             <Route
               path={AppRoute.Login}
               element={
-                <PrivateRoute
-                  authorizationStatus={authorizationStatus}
-                  isLoginLocation
-                >
+                <PrivateRoute onlyUnAuth>
                   <LoginPage />
                 </PrivateRoute>
               }

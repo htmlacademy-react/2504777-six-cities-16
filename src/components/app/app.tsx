@@ -20,7 +20,7 @@ function App({ cardOffers }: AppProps): JSX.Element {
   const favoritesOffers = cardOffers.filter((offer) => offer.isFavorite);
 
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isOffersLoading = useAppSelector((state) => state.isOffersLoading);
+  const isOffersLoading = useAppSelector((state) => state.isLoading);
 
   if (authorizationStatus === AuthorizationStatus.Unknown || isOffersLoading) {
     return (
@@ -51,7 +51,7 @@ function App({ cardOffers }: AppProps): JSX.Element {
             <Route
               path={AppRoute.Login}
               element={
-                <PrivateRoute onlyUnAuth>
+                <PrivateRoute onlyGuests>
                   <LoginPage />
                 </PrivateRoute>
               }

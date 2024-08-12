@@ -4,6 +4,8 @@ import { SpecialClassName, ImageHeight, ImageWidth, AppRoute } from '../../const
 import { Link } from 'react-router-dom';
 import Bookmark from '../bookmark/bookmark';
 import PremiumMark from '../premium-mark/premium-mark';
+import { store } from '../../store';
+import { fetchFullOfferAction } from '../../store/api-actions';
 
 type PlaceCardProps = {
   className: SpecialClassName;
@@ -27,6 +29,10 @@ function PlaceCard({ className, place, onMouseHover }: PlaceCardProps): JSX.Elem
     }
   };
 
+  const handlePlaceCardClick = () => {
+    store.dispatch(fetchFullOfferAction({id: place.id}));
+  };
+
   return (
     <article
       className={`${className}__card place-card`}
@@ -37,7 +43,10 @@ function PlaceCard({ className, place, onMouseHover }: PlaceCardProps): JSX.Elem
       {place.isPremium && <PremiumMark className={SpecialClassName.PlaceCard}/>}
 
       <div className={`${className}__image-wrapper place-card__image-wrapper`}>
-        <Link to={AppRoute.Offer.replace(':id', place.id)}>
+        <Link
+          to={AppRoute.Offer.replace(':id', place.id)}
+          onClick={handlePlaceCardClick}
+        >
           <img className="place-card__image" src={place.previewImage} width={width} height={height} alt="Place image" />
         </Link>
       </div>

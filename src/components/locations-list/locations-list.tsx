@@ -1,13 +1,13 @@
 import { CITIES_LIST, SixCities } from '../../const';
 import { useAppDispatch } from '../../hooks';
-import { changeCity } from '../../store/action';
+import { changeCity } from '../../store/actions';
 
 type LocationItemProps = {
-  city: SixCities;
-  activeCity: SixCities;
+	city: SixCities;
+	activeCity: SixCities;
 }
 
-function LocationItem({city, activeCity}: LocationItemProps): JSX.Element {
+function LocationItem({ city, activeCity }: LocationItemProps): JSX.Element {
   const dispatch = useAppDispatch();
 
   return (
@@ -24,13 +24,13 @@ function LocationItem({city, activeCity}: LocationItemProps): JSX.Element {
 }
 
 type LocationListProps = {
-  activeCity: SixCities;
+	activeCity: SixCities;
 }
 
-function LocationsList({activeCity}: LocationListProps): JSX.Element {
+function LocationsList({ activeCity }: LocationListProps): JSX.Element {
   return (
     <ul className="locations__list tabs__list">
-      {CITIES_LIST.map((city) => <LocationItem key={city} city={city} activeCity={activeCity}/>)}
+      {CITIES_LIST.map((city) => <LocationItem key={city} city={city} activeCity={activeCity} />)}
     </ul>
   );
 }

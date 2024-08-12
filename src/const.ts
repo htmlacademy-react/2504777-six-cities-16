@@ -1,7 +1,13 @@
+import { StatusCodes } from 'http-status-codes';
+
 export const MAX_RATING_STARS = 5;
 export const MAX_OFFER_IMAGE_NUMBER = 6;
 export const SINGULAR = 1;
 export const MAX_REVIEWS_NUMBER = 10;
+export const SERVER_URL = 'https://16.design.htmlacademy.pro/six-cities';
+export const REQUEST_TIMEOUT = 5000;
+export const AUTH_TOKEN_KEY_NAME = 'six-cities-token';
+export const SHOW_ERROR_TIMEOUT = 2000;
 
 export enum SixCities {
   Paris = 'Paris',
@@ -140,3 +146,18 @@ export const SortingTypes = {
 } as const;
 
 export const DEFAULT_SORTING_TYPE = SortingTypes.Popular;
+
+export const ApiRoute = {
+  Offers: '/offers',
+  Login: '/login',
+  Logout: '/logout',
+  FullOffer: (id: string) => `/offers/${id}`,
+  OffersNearby: (id: string) => `/offers/${id}/nearby`,
+  Reviews: (id: string) => `/comments/${id}`,
+} as const;
+
+export const StatusCodeMapping: Record<number, boolean> = {
+  [StatusCodes.BAD_REQUEST]: true,
+  [StatusCodes.UNAUTHORIZED]: true,
+  [StatusCodes.NOT_FOUND]: true
+};

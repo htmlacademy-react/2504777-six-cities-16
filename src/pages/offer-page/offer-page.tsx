@@ -3,28 +3,36 @@ import { Title, AppRoute, SpecialClassName, MAX_OFFER_IMAGE_NUMBER, MAX_REVIEWS_
 import PlacesList from '../../components/places-list/places-list';
 import { useParams, Navigate } from 'react-router-dom';
 import Bookmark from '../../components/bookmark/bookmark';
-import { getFullOfferById } from '../../mocks/offers/full-offers';
+// import { getFullOfferById } from '../../mocks/offers/full-offers';
 import { getNearPlaces } from '../../mocks/offers/card-offers';
 import PremiumMark from '../../components/premium-mark/premium-mark';
-import { getRatingStars, getEnding, getAuthorizationStatus, sortReviewsByDate } from '../../utils';
+import { getRatingStars, getEnding, sortReviewsByDate } from '../../utils';
 import OfferHost from '../../components/offer-host/offer-host';
 import ReviewsForm from '../../components/reviews-form/reviews-form';
 import { getReviewsByOfferId } from '../../mocks/reviews';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import Map from '../../components/map/map';
+import { useAppSelector } from '../../hooks';
+import LoadingPage from '../loading-page/loading-page';
 
 function OfferPage(): JSX.Element {
   const { id: offerId } = useParams();
 
-  const currentOffer = getFullOfferById(offerId);
-  const nearPlaces = getNearPlaces(offerId);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isFullOfferLoading = useAppSelector((state) => state.isLoading);
 
-  const authorizationStatus = getAuthorizationStatus();
-  const reviews = getReviewsByOfferId(offerId);
+  if (isFullOfferLoading) {
+    <LoadingPage />;
+  }
+
+  const currentOffer = useAppSelector((state) => state.fullOffer);
 
   if (!currentOffer) {
     return <Navigate to={AppRoute.Error} replace />;
   }
+
+  const nearPlaces = getNearPlaces(offerId);
+  const reviews = getReviewsByOfferId(offerId);
 
   const mapPoints = nearPlaces.map(({id, location}) => ({id, ...location}))
     .concat({id: currentOffer.id, ...currentOffer.location});

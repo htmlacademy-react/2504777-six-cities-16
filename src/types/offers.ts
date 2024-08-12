@@ -49,9 +49,3 @@ export type OffersByCitiesType = {
 }
 
 export type Offers = CardOffer[];
-
-// export type LogoParams = {
-//   prefixName: string;
-//   width: number;
-//   height: number;
-// };

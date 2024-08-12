@@ -147,11 +147,14 @@ export const SortingTypes = {
 
 export const DEFAULT_SORTING_TYPE = SortingTypes.Popular;
 
-export enum ApiRoute {
-  Offers = '/offers',
-  Login = '/login',
-  Logout = '/logout',
-}
+export const ApiRoute = {
+  Offers: '/offers',
+  Login: '/login',
+  Logout: '/logout',
+  FullOffer: (id: string) => `/offers/${id}`,
+  OffersNearby: (id: string) => `/offers/${id}/nearby`,
+  Reviews: (id: string) => `/comments/${id}`,
+} as const;
 
 export const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.BAD_REQUEST]: true,

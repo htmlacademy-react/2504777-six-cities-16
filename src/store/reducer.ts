@@ -1,8 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { Offers } from '../types/offers';
-import { changeCity, changeSortingType, loadOffersList, requireAuthorization, setError, setOffersLoadingStatus } from './actions';
+import { Offers, FullOffer } from '../types/offers';
+import { Reviews } from '../types/reviews';
+import { changeCity, changeSortingType, loadOffersList, requireAuthorization, setError, setLoadingStatus, loadFullOffer, loadOffersNearby, loadReviews } from './actions';
 import { DEFAULT_CITY, SixCities, DEFAULT_SORTING_TYPE, AuthorizationStatus } from '../const';
-// import { cardOffers } from '../mocks/offers/card-offers';
 
 type initialStateType = {
   city: SixCities;
@@ -10,7 +10,11 @@ type initialStateType = {
   sortingType: string;
   authorizationStatus: AuthorizationStatus;
   error: null | string;
-  isOffersLoading: boolean;
+  isLoading: boolean;
+
+  fullOffer: null | FullOffer;
+  offersNearby: Offers;
+  reviews: Reviews;
 }
 
 const initialState: initialStateType = {
@@ -19,7 +23,11 @@ const initialState: initialStateType = {
   sortingType: DEFAULT_SORTING_TYPE,
   authorizationStatus: AuthorizationStatus.Unknown,
   error: null,
-  isOffersLoading: false,
+  isLoading: false,
+
+  fullOffer: null,
+  offersNearby: [],
+  reviews: [],
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -39,7 +47,16 @@ export const reducer = createReducer(initialState, (builder) => {
     .addCase(setError, (state, action) => {
       state.error = action.payload;
     })
-    .addCase(setOffersLoadingStatus, (state, action) => {
-      state.isOffersLoading = action.payload;
+    .addCase(setLoadingStatus, (state, action) => {
+      state.isLoading = action.payload;
+    })
+    .addCase(loadFullOffer, (state, action) => {
+      state.fullOffer = action.payload;
+    })
+    .addCase(loadOffersNearby, (state, action) => {
+      state.offersNearby = action.payload;
+    })
+    .addCase(loadReviews, (state, action) => {
+      state.reviews = action.payload;
     });
 });

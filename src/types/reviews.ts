@@ -4,10 +4,12 @@ type User = {
   isPro: boolean;
 }
 
-export type Review = {
+type Review = {
   id: string;
   date: string;
   user: User;
   comment: string;
   rating: number;
 }
+
+export type Reviews = Review[];

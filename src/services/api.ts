@@ -1,7 +1,6 @@
 import axios, {AxiosInstance, InternalAxiosRequestConfig, AxiosError, AxiosResponse} from 'axios';
-import { SERVER_URL, REQUEST_TIMEOUT } from '../const';
+import { StatusCodeMapping, ApiDefault } from './const';
 import { getToken } from './token';
-import { StatusCodeMapping } from '../const';
 import { processErrorHandle } from './process-error-handle';
 
 type DetailMessageType = {
@@ -13,8 +12,8 @@ const shouldDisplayError = (response: AxiosResponse) => !!StatusCodeMapping[resp
 
 export const createApi = (): AxiosInstance => {
   const api = axios.create({
-    baseURL: SERVER_URL,
-    timeout: REQUEST_TIMEOUT,
+    baseURL: ApiDefault.ServerUrl as string,
+    timeout: ApiDefault.RequestTimeout as number,
   });
 
   api.interceptors.request.use(

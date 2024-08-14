@@ -6,15 +6,15 @@ import { DEFAULT_CITY, SixCities, DEFAULT_SORTING_TYPE, AuthorizationStatus } fr
 
 type initialStateType = {
   city: SixCities;
-  offers: Offers;
+  // offers: Offers;
   sortingType: string;
   authorizationStatus: AuthorizationStatus;
   error: null | string;
-  isLoading: boolean;
 
-  fullOffer: null | FullOffer;
-  offersNearby: Offers;
-  reviews: Reviews;
+  // isLoading: boolean;
+  // fullOffer: null | FullOffer;
+  // offersNearby: Offers;
+  // reviews: Reviews;
 }
 
 const initialState: initialStateType = {

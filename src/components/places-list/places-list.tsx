@@ -1,19 +1,27 @@
 import PlaceCard from '../place-card/place-card';
-import { CardOffer } from '../../types/offers';
+import { Offers, CardOffer } from '../../types/offers';
 import { SpecialClassName } from '../../const';
+import { setActiveOfferId } from '../../store/slices/offers';
+import { sortOffersByCurrentType } from '../../utils';
 
 type PlacesListProps = {
   className: SpecialClassName;
-  places: CardOffer[];
-  onMouseHover?: (listItemId: string | null) => void;
+  offers: Offers;
+  currentType: string;
 }
 
-function PlacesList({className, places, onMouseHover}: PlacesListProps): JSX.Element {
+function PlacesList({className, offers, currentType}: PlacesListProps): JSX.Element {
   const fullClassName = className === SpecialClassName.Cities ? 'cities__places-list places__list tabs__content' : 'near-places__list places__list';
+
+  const handleMouseHover = (offerId: CardOffer['id'] | null) => {
+    setActiveOfferId(offerId);
+  };
+
+  const sortedOffers = sortOffersByCurrentType(currentType, offers);
 
   return (
     <div className={fullClassName}>
-      {places.map((place) => <PlaceCard key={place.id} className={className} place={place} onMouseHover={onMouseHover} />)}
+      {sortedOffers.map((offer) => <PlaceCard key={offer.id} className={className} offer={offer} onMouseHover={handleMouseHover} />)}
     </div>
   );
 }

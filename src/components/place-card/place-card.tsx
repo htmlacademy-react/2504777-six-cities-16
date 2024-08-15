@@ -4,23 +4,23 @@ import { SpecialClassName, ImageHeight, ImageWidth, AppRoute } from '../../const
 import { Link } from 'react-router-dom';
 import Bookmark from '../bookmark/bookmark';
 import PremiumMark from '../premium-mark/premium-mark';
-import { store } from '../../store';
-import { fetchFullOfferAction } from '../../store/api-actions';
+// import { store } from '../../store';
+// import { fetchFullOfferAction } from '../../store/api-actions';
 
 type PlaceCardProps = {
   className: SpecialClassName;
-	place: CardOffer;
-  onMouseHover?: (listItemId: string | null) => void;
+	offer: CardOffer;
+  onMouseHover?: (offerId: CardOffer['id'] | null) => void;
 }
 
-function PlaceCard({ className, place, onMouseHover }: PlaceCardProps): JSX.Element {
+function PlaceCard({ className, offer, onMouseHover }: PlaceCardProps): JSX.Element {
 
   const width = className === SpecialClassName.Favorites ? ImageWidth.ForFavorite : ImageWidth.Basic;
   const height = className === SpecialClassName.Favorites ? ImageHeight.ForFavorite : ImageHeight.Basic;
 
   const handleMouseEnter = () => {
     if(onMouseHover) {
-      onMouseHover(place.id);
+      onMouseHover(offer.id);
     }
   };
   const handleMouseLeave = () => {
@@ -29,9 +29,9 @@ function PlaceCard({ className, place, onMouseHover }: PlaceCardProps): JSX.Elem
     }
   };
 
-  const handlePlaceCardClick = () => {
-    store.dispatch(fetchFullOfferAction({id: place.id}));
-  };
+  // const handlePlaceCardClick = () => {
+  //   store.dispatch(fetchFullOfferAction({id: place.id}));
+  // };
 
   return (
     <article
@@ -40,37 +40,37 @@ function PlaceCard({ className, place, onMouseHover }: PlaceCardProps): JSX.Elem
       onMouseLeave={handleMouseLeave}
     >
 
-      {place.isPremium && <PremiumMark className={SpecialClassName.PlaceCard}/>}
+      {offer.isPremium && <PremiumMark className={SpecialClassName.PlaceCard}/>}
 
       <div className={`${className}__image-wrapper place-card__image-wrapper`}>
         <Link
-          to={AppRoute.Offer.replace(':id', place.id)}
-          onClick={handlePlaceCardClick}
+          to={AppRoute.Offer.replace(':id', offer.id)}
+          // onClick={handlePlaceCardClick}
         >
-          <img className="place-card__image" src={place.previewImage} width={width} height={height} alt="Place image" />
+          <img className="place-card__image" src={offer.previewImage} width={width} height={height} alt="Place image" />
         </Link>
       </div>
       <div className={`${className === SpecialClassName.Favorites ? 'favorites__card-info' : ''} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
-            <b className="place-card__price-value">&euro;{place.price}</b>
+            <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <Bookmark className={SpecialClassName.PlaceCard} isFavorite={place.isFavorite}/>
+          <Bookmark className={SpecialClassName.PlaceCard} isFavorite={offer.isFavorite}/>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
             <span
-              style={getRatingStars(place.rating)}
+              style={getRatingStars(offer.rating)}
             >
             </span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={AppRoute.Offer.replace(':id', place.id)}>{place.title}</Link>
+          <Link to={AppRoute.Offer.replace(':id', offer.id)}>{offer.title}</Link>
         </h2>
-        <p className="place-card__type">{upFirstLetter(place.type)}</p>
+        <p className="place-card__type">{upFirstLetter(offer.type)}</p>
       </div>
     </article>
   );

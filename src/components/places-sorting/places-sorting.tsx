@@ -1,50 +1,53 @@
 import { SortingTypes } from '../../const';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { changeSortingType } from '../../store/actions';
+import { useAppDispatch } from '../../hooks';
 import { useState } from 'react';
+import { changeSortingType } from '../../store/slices/offers';
 
-function PlacesSorting(): JSX.Element {
-	const [isOpen, setIsOpen] = useState(false);
+type PlacesSortingProps = {
+  currentType: string;
+}
 
-	const dispatch = useAppDispatch();
-	const currentType = useAppSelector((state) => state.sortingType);
+function PlacesSorting({currentType}: PlacesSortingProps): JSX.Element {
+  const [isOpen, setIsOpen] = useState(false);
 
-	const placesOptionsClassName = isOpen ? 'places__options--opened' : '';
+  const dispatch = useAppDispatch();
 
-	return (
-		<form className="places__sorting" action="#" method="get">
-			<span className="places__sorting-caption">Sort by</span>
-			<span
-				className="places__sorting-type"
-				tabIndex={0}
-				onClick={() => setIsOpen((prevIsOpen) => !prevIsOpen)}
-			>
-				{currentType}
-				<svg className="places__sorting-arrow" width="7" height="4">
-					<use xlinkHref="#icon-arrow-select"></use>
-				</svg>
-			</span>
-			<ul
-				className={`places__options places__options--custom ${placesOptionsClassName}`}
-			>
-				{
-					Object.values(SortingTypes).map((sortingType) => (
-						<li
-							key={sortingType}
-							className={`places__option ${sortingType === currentType ? 'places__option--active' : ''}`}
-							tabIndex={0}
-							onClick={() => {
-								dispatch(changeSortingType(sortingType));
-								setIsOpen((prevIsOpen) => !prevIsOpen);
-							}}
-						>
-							{sortingType}
-						</li>)
-					)
-				}
-			</ul>
-		</form>
-	);
+  const placesOptionsClassName = isOpen ? 'places__options--opened' : '';
+
+  return (
+    <form className="places__sorting" action="#" method="get">
+      <span className="places__sorting-caption">Sort by</span>
+      <span
+        className="places__sorting-type"
+        tabIndex={0}
+        onClick={() => setIsOpen((prevIsOpen) => !prevIsOpen)}
+      >
+        {currentType}
+        <svg className="places__sorting-arrow" width="7" height="4">
+          <use xlinkHref="#icon-arrow-select"></use>
+        </svg>
+      </span>
+      <ul
+        className={`places__options places__options--custom ${placesOptionsClassName}`}
+      >
+        {
+          Object.values(SortingTypes).map((sortingType) => (
+            <li
+              key={sortingType}
+              className={`places__option ${sortingType === currentType ? 'places__option--active' : ''}`}
+              tabIndex={0}
+              onClick={() => {
+                dispatch(changeSortingType(sortingType));
+                setIsOpen((prevIsOpen) => !prevIsOpen);
+              }}
+            >
+              {sortingType}
+            </li>)
+          )
+        }
+      </ul>
+    </form>
+  );
 }
 
 export default PlacesSorting;

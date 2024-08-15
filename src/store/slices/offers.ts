@@ -1,17 +1,22 @@
 import { Offers, CardOffer } from '../../types/offers';
-import { RequestStatus, SliceName } from '../../const';
+import { RequestStatus, SliceName, SixCities, DEFAULT_CITY, DEFAULT_SORTING_TYPE } from '../../const';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchOffers } from '../thunk-action/offers';
+import { State } from '../types';
 
 type OffersState = {
   offers: Offers;
   activeOfferId: null | string;
+  city: SixCities;
+  sortingType: string;
   requestStatus: RequestStatus;
 }
 
 const initialState: OffersState = {
   offers: [],
   activeOfferId: null,
+  city: DEFAULT_CITY,
+  sortingType: DEFAULT_SORTING_TYPE,
   requestStatus: RequestStatus.Idle,
 };
 
@@ -21,7 +26,13 @@ const offersSlice = createSlice({
   reducers: {
     setActiveOfferId(state, action: PayloadAction<CardOffer['id'] | null>) {
       state.activeOfferId = action.payload;
-    }
+    },
+    changeCity(state, action: PayloadAction<SixCities>) {
+      state.city = action.payload;
+    },
+    changeSortingType(state, action: PayloadAction<string>) {
+      state.sortingType = action.payload;
+    },
   },
   extraReducers(builder) {
     builder
@@ -43,6 +54,12 @@ const offersSlice = createSlice({
   // }
 });
 
-export const { setActiveOfferId } = offersSlice.actions;
+export const { setActiveOfferId, changeCity, changeSortingType} = offersSlice.actions;
+
+export const getSortingType = (state: State): string => state[SliceName.Offers].sortingType;
+export const getActiveCity = (state: State): SixCities => state[SliceName.Offers].city;
+export const getActiveOfferId = (state: State): null | string => state[SliceName.Offers].activeOfferId;
+export const getOffers = (state: State): Offers => state[SliceName.Offers].offers;
+export const getRequestLoadedStatus = (state: State): boolean => state[SliceName.Offers].requestStatus !== RequestStatus.Loading;
 // export const { offers, activeOfferId, requestStatus } = offersSlice.selectors;
 export default offersSlice;

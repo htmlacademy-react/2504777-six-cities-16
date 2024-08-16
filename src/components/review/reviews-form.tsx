@@ -28,12 +28,10 @@ function ReviewsForm(): JSX.Element {
   const isInvalid = review.rating === 0 || !(review.comment.length >= ReviewLength.MIN && review.comment.length <= ReviewLength.MAX);
 
 
-
   // const [reviewStatus, setReviewStatus] = useState({
   //   isInvalid: true,
   //   hasExtraCommentLength: false,
   // });
-
 
 
   // const handleRatingChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -60,7 +58,13 @@ function ReviewsForm(): JSX.Element {
   //   });
   // };
 
-  const handleFieldChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleTextAreaChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
+    // Код для обновления состояния
+    const {name, value} = evt.target;
+    setReview({...review, [name]: value});
+  };
+
+  const handleInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     // Код для обновления состояния
     const {name, value} = evt.target;
     setReview({...review, [name]: value});
@@ -95,7 +99,7 @@ function ReviewsForm(): JSX.Element {
               id={`${value}-stars`}
               type="radio"
               disabled={isLoadingProcess}
-              onChange={handleFieldChange}
+              onChange={handleInputChange}
             />
             <label htmlFor={`${value}-stars`} className="reviews__rating-label form__rating-label" title={getRatingKeyValue(key)}>
               <svg className="form__star-image" width="37" height="33">
@@ -112,7 +116,7 @@ function ReviewsForm(): JSX.Element {
         name="comment"
         placeholder="Tell how was your stay, what you like and what can be improved"
         disabled={isLoadingProcess}
-        onChange={handleFieldChange}
+        onChange={handleTextAreaChange}
       >
       </textarea>
       <div className="reviews__button-wrapper">

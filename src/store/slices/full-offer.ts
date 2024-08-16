@@ -32,16 +32,16 @@ const fullOfferSlice = createSlice({
       .addCase(fetchFullOffer.rejected, (state) => {
         state.requestStatus = RequestStatus.Failed;
       })
-      .addCase(fetchOffersNearby.pending, (state) => {
-        state.requestStatus = RequestStatus.Loading;
-      })
+      // .addCase(fetchOffersNearby.pending, (state) => {
+      //   state.requestStatus = RequestStatus.Loading;
+      // })
       .addCase(fetchOffersNearby.fulfilled, (state, action: PayloadAction<Offers>) => {
-        state.requestStatus = RequestStatus.Success;
+        // state.requestStatus = RequestStatus.Success;
         state.offersNearby = action.payload;
-      })
-      .addCase(fetchOffersNearby.rejected, (state) => {
-        state.requestStatus = RequestStatus.Failed;
       });
+      // .addCase(fetchOffersNearby.rejected, (state) => {
+      //   state.requestStatus = RequestStatus.Failed;
+      // });
   },
   // selectors: {
   //   offerInfo: (state: FullOfferState) => state.info,
@@ -49,6 +49,8 @@ const fullOfferSlice = createSlice({
   //   requestStatus: (state: FullOfferState) => state.requestStatus,
   // }
 });
+
+export const fullOfferActions = {fetchFullOffer, fetchOffersNearby};
 
 export const getOfferInfo = (state: State) => state[SliceName.FullOffer].info;
 export const getOffersNearby = (state: State) => state[SliceName.FullOffer].offersNearby;

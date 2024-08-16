@@ -14,12 +14,12 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <Provider store={store}>
       <ErrorMessage />
       <App
         cardOffers={cardOffers}
       />
     </Provider>
-  </React.StrictMode>,
+  // </React.StrictMode>,
 );

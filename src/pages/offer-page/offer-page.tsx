@@ -1,13 +1,11 @@
 import { Helmet } from 'react-helmet-async';
-import { Title, AppRoute, SpecialClassName, MAX_OFFER_IMAGE_NUMBER, MAX_REVIEWS_NUMBER, AuthorizationStatus } from '../../const';
+import { Title, SpecialClassName, MAX_OFFER_IMAGE_NUMBER, MAX_OFFERS_NEARBY_NUMBER } from '../../const';
 import PlacesList from '../../components/places-list/places-list';
-import { useParams, Navigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Bookmark from '../../components/bookmark/bookmark';
 import PremiumMark from '../../components/premium-mark/premium-mark';
-import { getRatingStars, getEnding, sortReviewsByDate } from '../../utils';
+import { getRatingStars, getEnding } from '../../utils';
 import OfferHost from '../../components/offer-host/offer-host';
-import ReviewsForm from '../../components/reviews-form/reviews-form';
-import ReviewsList from '../../components/reviews-list/reviews-list';
 import Map from '../../components/map/map';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import LoadingPage from '../loading-page/loading-page';
@@ -16,32 +14,32 @@ import { fetchFullOffer, fetchOffersNearby } from '../../store/thunk-action/full
 import { fetchReviews } from '../../store/thunk-action/reviews';
 import { getOfferInfo, getOffersNearby, getOfferStatus } from '../../store/slices/full-offer';
 import { getAuthorizationStatus } from '../../store/slices/user';
-import { getReviews, getReviewsStatus } from '../../store/slices/reviews';
+import { getReviews } from '../../store/slices/reviews';
 import { RequestStatus } from '../../const';
+import NotFoundPage from '../not-found-page/not-found-page';
+import ReviewsSection from '../../components/review/reviews-section';
 
 function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const offer = useAppSelector(getOfferInfo);
-  const offersNearby = useAppSelector(getOffersNearby);
+  const offersNearby = useAppSelector(getOffersNearby).slice(0, MAX_OFFERS_NEARBY_NUMBER);
   const offerStatus = useAppSelector(getOfferStatus);
   const reviews = useAppSelector(getReviews);
-  // const reviewsStatus = useAppSelector(getReviewsStatus);
 
   const { id: offerId } = useParams();
 
-  // Нужно будет добавить зависимости для useEffect, но после добавления хука useActionCreator
   useEffect(() => {
     Promise.all([dispatch(fetchFullOffer(offerId as string)), dispatch(fetchOffersNearby(offerId as string)), dispatch(fetchReviews(offerId as string))]);
-  });
+  }, [ dispatch, offerId]);
 
   if (offerStatus === RequestStatus.Loading) {
     return <LoadingPage />;
   }
 
   if (offerStatus === RequestStatus.Failed || !offer) {
-    return <Navigate to={AppRoute.Error} replace />;
+    return <NotFoundPage />;
   }
 
   const { images, isPremium, title, isFavorite, rating, type, bedrooms, maxAdults, price, goods, host, description, city } = offer;
@@ -114,13 +112,7 @@ function OfferPage(): JSX.Element {
 
               <OfferHost host={host} offerDescription={description} />
 
-              <section className="offer__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                <ReviewsList reviews={sortReviewsByDate(reviews).slice(0, MAX_REVIEWS_NUMBER)} />
-
-                { authorizationStatus === AuthorizationStatus.Auth && <ReviewsForm />}
-
-              </section>
+              <ReviewsSection reviews={reviews} authorizationStatus={authorizationStatus} />
             </div>
           </div>
           <Map className={SpecialClassName.Offer} city={city.location} points={mapPoints} activePointId={offer.id}/>

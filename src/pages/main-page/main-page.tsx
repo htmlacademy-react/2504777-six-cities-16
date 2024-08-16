@@ -5,9 +5,7 @@ import PlacesSection from '../../components/places-section/places-section';
 import NoPlacesSection from '../../components/places-section/no-places-section';
 import { SpecialClassName, CitiesLocation } from '../../const';
 import Map from '../../components/map/map';
-// import { useEffect } from 'react';
 import { useAppSelector, useOffersByCity} from '../../hooks';
-// import { fetchOffers } from '../../store/thunk-action/offers';
 import { getRequestLoadedStatus, getActiveCity } from '../../store/slices/offers';
 import { getActiveOfferId } from '../../store/slices/offers';
 

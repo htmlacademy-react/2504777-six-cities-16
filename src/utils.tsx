@@ -63,7 +63,12 @@ export const humanizeDate = (date: string, format: string) => dayjs(date).format
 
 export const upFirstLetter = (data: string) => data.charAt(0).toUpperCase() + data.slice(1);
 
-export const sortReviewsByDate = (reviews: Reviews) => reviews.sort((leftReview, rightReview) => dayjs(rightReview.date).diff(dayjs(leftReview.date)));
+export const sortReviewsByDate = (reviews: Reviews) => {
+  if (reviews.length > 1) {
+    return reviews.toSorted((leftReview, rightReview) => dayjs(rightReview.date).diff(dayjs(leftReview.date)));
+  }
+  return reviews;
+};
 
 const sortByPrice = (offers: Offers, isDecreaseOrder = false) => {
   if (isDecreaseOrder) {

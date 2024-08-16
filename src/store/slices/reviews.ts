@@ -20,9 +20,9 @@ const reviewSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      // .addCase(fetchReviews.pending, (state) => {
-      //   state.requestStatus = RequestStatus.Loading;
-      // })
+      .addCase(fetchReviews.pending, (state) => {
+        state.requestStatus = RequestStatus.Loading;
+      })
       .addCase(fetchReviews.fulfilled, (state, action: PayloadAction<Reviews>) => {
         state.requestStatus = RequestStatus.Success;
         state.reviews = action.payload;
@@ -30,16 +30,16 @@ const reviewSlice = createSlice({
       .addCase(fetchReviews.rejected, (state) => {
         state.requestStatus = RequestStatus.Failed;
       })
-      // .addCase(postReview.pending, (state) => {
-      //   state.requestStatus = RequestStatus.Loading;
-      // })
-      // .addCase(postReview.fulfilled, (state, action: PayloadAction<Review>) => {
-      //   state.requestStatus = RequestStatus.Success;
-      //   state.reviews.push(action.payload);
-      // })
-      // .addCase(postReview.rejected, (state) => {
-      //   state.requestStatus = RequestStatus.Failed;
-      // });
+      .addCase(postReview.pending, (state) => {
+        state.requestStatus = RequestStatus.Loading;
+      })
+      .addCase(postReview.fulfilled, (state, action: PayloadAction<Review>) => {
+        state.requestStatus = RequestStatus.Success;
+        state.reviews.push(action.payload);
+      })
+      .addCase(postReview.rejected, (state) => {
+        state.requestStatus = RequestStatus.Failed;
+      });
   },
   // selectors: {
   //   reviews: (state: ReviewState) => state.reviews,
@@ -47,6 +47,7 @@ const reviewSlice = createSlice({
   // }
 });
 
+// export const reviewsActions = {fetchReviews};
 export const getReviews = (state: State) => state[SliceName.Review].reviews;
 export const getReviewsStatus = (state: State) => state[SliceName.Review].requestStatus;
 // export const { reviews, requestStatus } = reviewSlice.selectors;

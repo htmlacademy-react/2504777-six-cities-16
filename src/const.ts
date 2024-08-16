@@ -1,5 +1,6 @@
 export const MAX_RATING_STARS = 5;
 export const MAX_OFFER_IMAGE_NUMBER = 6;
+export const MAX_OFFERS_NEARBY_NUMBER = 3;
 export const SINGULAR = 1;
 export const MAX_REVIEWS_NUMBER = 10;
 

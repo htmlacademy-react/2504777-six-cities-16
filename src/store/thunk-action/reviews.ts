@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
 import { ApiRoute } from '../../const';
 import { FullOffer } from '../../types/offers';
-import { Reviews, Review } from '../../types/reviews';
+import { Reviews, Review, UserReview } from '../../types/reviews';
 
 export const fetchReviews = createAsyncThunk<Reviews, FullOffer['id'], {extra: AxiosInstance}>(
   'review/fetchReviews',
@@ -13,15 +13,12 @@ export const fetchReviews = createAsyncThunk<Reviews, FullOffer['id'], {extra: A
 );
 
 type PostReviewProps = {
-  body: {
-    comment: string;
-    rating: number;
-  };
+  body: UserReview;
   offerId: FullOffer['id'];
 }
 
 export const postReview = createAsyncThunk<Review, PostReviewProps, {extra: AxiosInstance}>(
-  'review/fetchReviews',
+  'review/postReviews',
   async ({ body, offerId }, { extra: api }) => {
     const { data } = await api.post<Review>(`${ApiRoute.Comments}/${offerId}`, body);
     return data;

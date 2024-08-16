@@ -14,7 +14,7 @@ function LoggedNavigation({count}: LoggedNavigationProps): JSX.Element {
   const user = useAppSelector(getUserInfo);
   const handleLogout = (evt: React.SyntheticEvent) => {
     evt.preventDefault();
-    dispatch(logout);
+    dispatch(logout());
   };
 
   return (

@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { FullOffer, Offers } from '../../types/offers';
 import { RequestStatus, SliceName } from '../../const';
 import { fetchFullOffer, fetchOffersNearby } from '../thunk-action/full-offer';
+import { State } from '../types';
 
 type FullOfferState = {
   info: null | FullOffer;
@@ -49,5 +50,8 @@ const fullOfferSlice = createSlice({
   // }
 });
 
+export const getOfferInfo = (state: State) => state[SliceName.FullOffer].info;
+export const getOffersNearby = (state: State) => state[SliceName.FullOffer].offersNearby;
+export const getOfferStatus = (state: State) => state[SliceName.FullOffer].requestStatus;
 // export const { offerInfo, offersNearby, requestStatus } = fullOfferSlice.selectors;
 export default fullOfferSlice;

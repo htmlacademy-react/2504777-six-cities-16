@@ -10,19 +10,25 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
 import LoadingPage from '../../pages/loading-page/loading-page';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector, useAppDispatch } from '../../hooks';
 import { getAuthCheckedStatus } from '../../store/slices/user';
+import { useEffect } from 'react';
+import { fetchOffers } from '../../store/thunk-action/offers';
 
 type AppProps = {
 	cardOffers: CardOffer[];
 }
 
 function App({ cardOffers }: AppProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  const isAuthChecked = useAppSelector(getAuthCheckedStatus);
 
   const favoritesOffers = cardOffers.filter((offer) => offer.isFavorite);
 
-  // const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const isAuthChecked = useAppSelector(getAuthCheckedStatus);
+  useEffect(() => {
+    dispatch(fetchOffers());
+  });
 
   if (!isAuthChecked) {
     return (

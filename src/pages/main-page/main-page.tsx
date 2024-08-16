@@ -5,19 +5,14 @@ import PlacesSection from '../../components/places-section/places-section';
 import NoPlacesSection from '../../components/places-section/no-places-section';
 import { SpecialClassName, CitiesLocation } from '../../const';
 import Map from '../../components/map/map';
-import { useEffect } from 'react';
-import { useAppSelector, useAppDispatch, useOffersByCity} from '../../hooks';
-import { fetchOffers } from '../../store/thunk-action/offers';
+// import { useEffect } from 'react';
+import { useAppSelector, useOffersByCity} from '../../hooks';
+// import { fetchOffers } from '../../store/thunk-action/offers';
 import { getRequestLoadedStatus, getActiveCity } from '../../store/slices/offers';
 import { getActiveOfferId } from '../../store/slices/offers';
 
 
 function MainPage(): JSX.Element {
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(fetchOffers);
-  });
 
   const isOffersLoaded = useAppSelector(getRequestLoadedStatus);
   const activeCity = useAppSelector(getActiveCity);
@@ -42,7 +37,7 @@ function MainPage(): JSX.Element {
       </div>
       <div className="cities">
         <div className={`cities__places-container ${isEmpty ? 'cities__places-container--empty' : ''} container`}>
-          {isEmpty ? <PlacesSection activeCity={activeCity} offers={offers}/> : <NoPlacesSection activeCity={activeCity} />}
+          {!isEmpty ? <PlacesSection activeCity={activeCity} offers={offers}/> : <NoPlacesSection activeCity={activeCity} />}
           <div className="cities__right-section">
             {!isEmpty ? <Map className={SpecialClassName.Cities} city={CitiesLocation[activeCity]} points={mapPoints} activePointId={activePointId}/> : ''}
           </div>

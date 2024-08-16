@@ -56,10 +56,10 @@ const offersSlice = createSlice({
 
 export const { setActiveOfferId, changeCity, changeSortingType} = offersSlice.actions;
 
-export const getSortingType = (state: State): string => state[SliceName.Offers].sortingType;
-export const getActiveCity = (state: State): SixCities => state[SliceName.Offers].city;
-export const getActiveOfferId = (state: State): null | string => state[SliceName.Offers].activeOfferId;
-export const getOffers = (state: State): Offers => state[SliceName.Offers].offers;
-export const getRequestLoadedStatus = (state: State): boolean => state[SliceName.Offers].requestStatus !== RequestStatus.Loading;
+export const getSortingType = (state: State) => state[SliceName.Offers].sortingType;
+export const getActiveCity = (state: State) => state[SliceName.Offers].city;
+export const getActiveOfferId = (state: State) => state[SliceName.Offers].activeOfferId;
+export const getOffers = (state: State) => state[SliceName.Offers].offers;
+export const getRequestLoadedStatus = (state: State) => state[SliceName.Offers].requestStatus !== RequestStatus.Loading;
 // export const { offers, activeOfferId, requestStatus } = offersSlice.selectors;
 export default offersSlice;

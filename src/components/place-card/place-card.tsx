@@ -29,10 +29,6 @@ function PlaceCard({ className, offer, onMouseHover }: PlaceCardProps): JSX.Elem
     }
   };
 
-  // const handlePlaceCardClick = () => {
-  //   store.dispatch(fetchFullOfferAction({id: place.id}));
-  // };
-
   return (
     <article
       className={`${className}__card place-card`}
@@ -45,7 +41,6 @@ function PlaceCard({ className, offer, onMouseHover }: PlaceCardProps): JSX.Elem
       <div className={`${className}__image-wrapper place-card__image-wrapper`}>
         <Link
           to={AppRoute.Offer.replace(':id', offer.id)}
-          // onClick={handlePlaceCardClick}
         >
           <img className="place-card__image" src={offer.previewImage} width={width} height={height} alt="Place image" />
         </Link>

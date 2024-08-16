@@ -14,46 +14,56 @@ function Notification(): JSX.Element {
 }
 
 function ReviewsForm(): JSX.Element {
-  const dispatch = useAppDispatch();
-  const offer = useAppSelector(getOfferInfo);
-  const requestStatus = useAppSelector(getReviewsStatus);
-
-  const isLoadingProcess = () => requestStatus === RequestStatus.Loading;
-
   const [review, setReview] = useState<UserReview>({
     rating: 0,
     comment: '',
   });
 
-  const [reviewStatus, setReviewStatus] = useState({
-    isInvalid: true,
-    hasExtraCommentLength: false,
-  });
+  const dispatch = useAppDispatch();
+  const offer = useAppSelector(getOfferInfo);
+  const requestStatus = useAppSelector(getReviewsStatus);
 
-  const isInvalid = ({rating, comment}: UserReview): boolean => rating === 0 || !(comment.length >= ReviewLength.MIN && comment.length <= ReviewLength.MAX);
+  const isLoadingProcess = requestStatus === RequestStatus.Loading;
+  const hasExtraCommentLength = review.comment.length > ReviewLength.MAX;
+  const isInvalid = review.rating === 0 || !(review.comment.length >= ReviewLength.MIN && review.comment.length <= ReviewLength.MAX);
 
-  const handleRatingChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    setReview({
-      ...review,
-      rating: Number(evt.target.value),
-    });
 
-    setReviewStatus({
-      ...reviewStatus,
-      isInvalid: isInvalid(review),
-    });
-  };
 
-  const handleTextChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setReview({
-      ...review,
-      comment: evt.target.value
-    });
+  // const [reviewStatus, setReviewStatus] = useState({
+  //   isInvalid: true,
+  //   hasExtraCommentLength: false,
+  // });
 
-    setReviewStatus({
-      isInvalid: isInvalid(review),
-      hasExtraCommentLength: review.comment.length > ReviewLength.MAX
-    });
+
+
+  // const handleRatingChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+  //   setReview({
+  //     ...review,
+  //     rating: Number(evt.target.value),
+  //   });
+
+  //   setReviewStatus({
+  //     ...reviewStatus,
+  //     isInvalid: isInvalid(review),
+  //   });
+  // };
+
+  // const handleTextChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
+  //   setReview({
+  //     ...review,
+  //     comment: evt.target.value
+  //   });
+
+  //   setReviewStatus({
+  //     isInvalid: isInvalid(review),
+  //     hasExtraCommentLength: review.comment.length > ReviewLength.MAX
+  //   });
+  // };
+
+  const handleFieldChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
+    // Код для обновления состояния
+    const {name, value} = evt.target;
+    setReview({...review, [name]: value});
   };
 
   const handleFormSubmit = (evt: React.SyntheticEvent) => {
@@ -61,6 +71,10 @@ function ReviewsForm(): JSX.Element {
     if (offer) {
       dispatch(postReview({body: {...review}, offerId: offer.id}));
     }
+    setReview({
+      rating: 0,
+      comment: ''
+    });
   };
 
   return (
@@ -80,8 +94,8 @@ function ReviewsForm(): JSX.Element {
               value={value}
               id={`${value}-stars`}
               type="radio"
-              disabled={isLoadingProcess()}
-              onChange={handleRatingChange}
+              disabled={isLoadingProcess}
+              onChange={handleFieldChange}
             />
             <label htmlFor={`${value}-stars`} className="reviews__rating-label form__rating-label" title={getRatingKeyValue(key)}>
               <svg className="form__star-image" width="37" height="33">
@@ -94,17 +108,18 @@ function ReviewsForm(): JSX.Element {
       <textarea
         className="reviews__textarea form__textarea"
         id="review"
-        name="review"
+        value={review.comment}
+        name="comment"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        disabled={isLoadingProcess()}
-        onChange={handleTextChange}
+        disabled={isLoadingProcess}
+        onChange={handleFieldChange}
       >
       </textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
-          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>. {reviewStatus.hasExtraCommentLength && <Notification />}
+          To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>. {hasExtraCommentLength && <Notification />}
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled={reviewStatus.isInvalid || isLoadingProcess()}>Submit</button>
+        <button className="reviews__submit form__submit button" type="submit" disabled={isInvalid || isLoadingProcess}>Submit</button>
       </div>
     </form>
   );

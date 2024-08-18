@@ -20,6 +20,7 @@ function ReviewsForm(): JSX.Element {
   });
 
   const dispatch = useAppDispatch();
+
   const offer = useAppSelector(getOfferInfo);
   const requestStatus = useAppSelector(getReviewsStatus);
 
@@ -27,47 +28,17 @@ function ReviewsForm(): JSX.Element {
   const hasExtraCommentLength = review.comment.length > ReviewLength.MAX;
   const isInvalid = review.rating === 0 || !(review.comment.length >= ReviewLength.MIN && review.comment.length <= ReviewLength.MAX);
 
-
-  // const [reviewStatus, setReviewStatus] = useState({
-  //   isInvalid: true,
-  //   hasExtraCommentLength: false,
-  // });
-
-
-  // const handleRatingChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-  //   setReview({
-  //     ...review,
-  //     rating: Number(evt.target.value),
-  //   });
-
-  //   setReviewStatus({
-  //     ...reviewStatus,
-  //     isInvalid: isInvalid(review),
-  //   });
-  // };
-
-  // const handleTextChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
-  //   setReview({
-  //     ...review,
-  //     comment: evt.target.value
-  //   });
-
-  //   setReviewStatus({
-  //     isInvalid: isInvalid(review),
-  //     hasExtraCommentLength: review.comment.length > ReviewLength.MAX
-  //   });
-  // };
-
   const handleTextAreaChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
-    // Код для обновления состояния
-    const {name, value} = evt.target;
-    setReview({...review, [name]: value});
+    setReview({
+      ...review,
+      comment: evt.target.value});
   };
 
   const handleInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    // Код для обновления состояния
-    const {name, value} = evt.target;
-    setReview({...review, [name]: value});
+    setReview({
+      ...review,
+      rating: Number(evt.target.value),
+    });
   };
 
   const handleFormSubmit = (evt: React.SyntheticEvent) => {
@@ -100,6 +71,7 @@ function ReviewsForm(): JSX.Element {
               type="radio"
               disabled={isLoadingProcess}
               onChange={handleInputChange}
+              checked={value === review.rating}
             />
             <label htmlFor={`${value}-stars`} className="reviews__rating-label form__rating-label" title={getRatingKeyValue(key)}>
               <svg className="form__star-image" width="37" height="33">

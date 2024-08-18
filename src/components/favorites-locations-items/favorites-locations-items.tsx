@@ -1,12 +1,12 @@
 
 import PlaceCard from '../place-card/place-card';
-import { CardOffer } from '../../types/offers';
+import { ServerOffer } from '../../types/offers';
 import { SpecialClassName, AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
 
 type FavoritesLocationsItemsProps = {
   city: string;
-  places: CardOffer[];
+  places: ServerOffer[];
 }
 
 function FavoritesLocationsItems({city, places}: FavoritesLocationsItemsProps): JSX.Element {
@@ -20,7 +20,7 @@ function FavoritesLocationsItems({city, places}: FavoritesLocationsItemsProps): 
         </div>
       </div>
       <div className="favorites__places">
-        {places.map((place) => <PlaceCard key={place.id} className={SpecialClassName.Favorites} place={place}/>)}
+        {places.map((place) => <PlaceCard key={place.id} className={SpecialClassName.Favorites} offer={place}/>)}
       </div>
     </li>
   );

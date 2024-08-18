@@ -33,6 +33,13 @@ const offersSlice = createSlice({
     changeSortingType(state, action: PayloadAction<string>) {
       state.sortingType = action.payload;
     },
+    updateOffers: (state, action: PayloadAction<string>) => {
+      state.offers = state.offers.map((offer) =>
+        offer.id === action.payload
+          ? { ...offer, isFavorite: !offer.isFavorite }
+          : offer
+      );
+    },
   },
   extraReducers(builder) {
     builder
@@ -54,12 +61,13 @@ const offersSlice = createSlice({
   // }
 });
 
-export const { setActiveOfferId, changeCity, changeSortingType} = offersSlice.actions;
+export const { setActiveOfferId, changeCity, changeSortingType, updateOffers} = offersSlice.actions;
 
 export const getSortingType = (state: State) => state[SliceName.Offers].sortingType;
 export const getActiveCity = (state: State) => state[SliceName.Offers].city;
 export const getActiveOfferId = (state: State) => state[SliceName.Offers].activeOfferId;
 export const getOffers = (state: State) => state[SliceName.Offers].offers;
-export const getRequestLoadedStatus = (state: State) => state[SliceName.Offers].requestStatus !== RequestStatus.Loading;
+export const getStatus = (state: State) => state[SliceName.Offers].requestStatus;
+export const getLoadingStatus = (state: State) => state[SliceName.Offers].requestStatus === RequestStatus.Loading;
 // export const { offers, activeOfferId, requestStatus } = offersSlice.selectors;
 export default offersSlice;

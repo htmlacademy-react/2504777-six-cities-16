@@ -5,19 +5,18 @@ import PlacesSection from '../../components/places-section/places-section';
 import NoPlacesSection from '../../components/places-section/no-places-section';
 import { SpecialClassName, CitiesLocation } from '../../const';
 import Map from '../../components/map/map';
-import { useAppSelector, useOffersByCity} from '../../hooks';
-import { getRequestLoadedStatus, getActiveCity } from '../../store/slices/offers';
+import { useAppSelector } from '../../hooks';
+import { useOffersByCity } from '../../hooks/offers-by-city';
+import { getActiveCity } from '../../store/slices/offers';
 import { getActiveOfferId } from '../../store/slices/offers';
-
 
 function MainPage(): JSX.Element {
 
-  const isOffersLoaded = useAppSelector(getRequestLoadedStatus);
   const activeCity = useAppSelector(getActiveCity);
   const activePointId = useAppSelector(getActiveOfferId);
-  const { offers, isEmpty } = useOffersByCity(activeCity);
+  const { offers, isEmpty, isLoading } = useOffersByCity(activeCity);
 
-  if (!isOffersLoaded) {
+  if (isLoading) {
     return (
       <LoadingPage />
     );

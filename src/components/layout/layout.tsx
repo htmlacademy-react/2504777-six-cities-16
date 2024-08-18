@@ -3,14 +3,14 @@ import Logo from '../logo/logo';
 import { getLayoutState } from '../../utils';
 import { AppRoute } from '../../const';
 import HeaderNavigation from '../navigation/navigation';
+import { getFavorites } from '../../store/slices/favorites';
+import { useAppSelector } from '../../hooks';
 
-type LayoutProps = {
-  favoriteOffersCount: number;
-}
-
-function Layout({favoriteOffersCount}: LayoutProps): JSX.Element {
+function Layout(): JSX.Element {
   const { pathname } = useLocation();
-  const {extraClassName, shouldRenderFooter, shouldRenderNavigation} = getLayoutState(pathname as AppRoute, favoriteOffersCount);
+  const favoritesCount = useAppSelector(getFavorites).length;
+
+  const {extraClassName, shouldRenderFooter, shouldRenderNavigation} = getLayoutState(pathname as AppRoute, favoritesCount);
 
   return (
     <div className={`page ${extraClassName}`}>
@@ -20,7 +20,7 @@ function Layout({favoriteOffersCount}: LayoutProps): JSX.Element {
             <div className="header__left">
               <Logo pathname={pathname as AppRoute} className='header'/>
             </div>
-            {shouldRenderNavigation ? <HeaderNavigation favoriteOffersCount={favoriteOffersCount} /> : ''}
+            {shouldRenderNavigation ? <HeaderNavigation favoriteOffersCount={favoritesCount} /> : ''}
           </div>
         </div>
       </header>
@@ -29,7 +29,7 @@ function Layout({favoriteOffersCount}: LayoutProps): JSX.Element {
 
       {
         shouldRenderFooter ? (
-          <footer className={`footer ${favoriteOffersCount ? 'container' : ''}`}>
+          <footer className={`footer ${favoritesCount ? 'container' : ''}`}>
             <Logo pathname={pathname as AppRoute} className='footer'/>
           </footer>
         ) : ''

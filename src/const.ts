@@ -151,9 +151,7 @@ export enum ApiRoute {
   Logout = '/logout',
   Nearby = '/nearby',
   Comments = '/comments',
-  // FullOffer: (id: string) => `/offers/${id}`,
-  // OffersNearby: (id: string) => `/offers/${id}/nearby`,
-  // Reviews: (id: string) => `/comments/${id}`,
+  Favorite = '/favorite',
 }
 
 export enum RequestStatus {
@@ -168,4 +166,10 @@ export enum SliceName {
   FullOffer = 'offer',
   Review = 'review',
   User = 'user',
+  Favorites = 'favorites',
+}
+
+export enum FavoriteStatus {
+  Removed = 0,
+  Added = 1,
 }

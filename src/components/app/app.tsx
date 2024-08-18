@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainPage from '../../pages/main-page/main-page';
-import { CardOffer } from '../../types/offers';
 import { AppRoute } from '../../const';
 import Layout from '../layout/layout';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
@@ -12,23 +11,17 @@ import { HelmetProvider } from 'react-helmet-async';
 import LoadingPage from '../../pages/loading-page/loading-page';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { getAuthCheckedStatus } from '../../store/slices/user';
-import { useEffect } from 'react';
-import { fetchOffers } from '../../store/thunk-action/offers';
+// import { useEffect } from 'react';
+// import { fetchOffers } from '../../store/thunk-action/offers';
 
-type AppProps = {
-	cardOffers: CardOffer[];
-}
-
-function App({ cardOffers }: AppProps): JSX.Element {
-  const dispatch = useAppDispatch();
+function App(): JSX.Element {
+  // const dispatch = useAppDispatch();
 
   const isAuthChecked = useAppSelector(getAuthCheckedStatus);
 
-  const favoritesOffers = cardOffers.filter((offer) => offer.isFavorite);
-
-  useEffect(() => {
-    dispatch(fetchOffers());
-  });
+  // useEffect(() => {
+  //   dispatch(fetchOffers());
+  // });
 
   if (!isAuthChecked) {
     return (
@@ -42,7 +35,7 @@ function App({ cardOffers }: AppProps): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<Layout favoriteOffersCount={favoritesOffers.length}/>}
+            element={<Layout />}
           >
             <Route
               index
@@ -52,7 +45,7 @@ function App({ cardOffers }: AppProps): JSX.Element {
               path={AppRoute.Favorites}
               element={
                 <PrivateRoute>
-                  <FavoritesPage favoritesOffers={favoritesOffers} />
+                  <FavoritesPage />
                 </PrivateRoute>
               }
             />

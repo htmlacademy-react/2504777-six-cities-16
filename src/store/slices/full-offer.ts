@@ -19,7 +19,13 @@ const initialState: FullOfferState = {
 const fullOfferSlice = createSlice({
   name: SliceName.FullOffer,
   initialState,
-  reducers: {},
+  reducers: {
+    updateOffer: (state, action: PayloadAction<string>) => {
+      state.info = state.info?.id === action.payload
+        ? { ...state.info, isFavorite: !state.info.isFavorite}
+        : state.info;
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchFullOffer.pending, (state) => {
@@ -50,7 +56,7 @@ const fullOfferSlice = createSlice({
   // }
 });
 
-export const fullOfferActions = {fetchFullOffer, fetchOffersNearby};
+export const { updateOffer } = fullOfferSlice.actions;
 
 export const getOfferInfo = (state: State) => state[SliceName.FullOffer].info;
 export const getOffersNearby = (state: State) => state[SliceName.FullOffer].offersNearby;

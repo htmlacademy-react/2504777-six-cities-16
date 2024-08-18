@@ -1,4 +1,4 @@
-import { CardOffer } from '../../types/offers';
+import { CardOffer, ServerOffer } from '../../types/offers';
 import { getRatingStars, upFirstLetter } from '../../utils';
 import { SpecialClassName, ImageHeight, ImageWidth, AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
@@ -9,7 +9,7 @@ import PremiumMark from '../premium-mark/premium-mark';
 
 type PlaceCardProps = {
   className: SpecialClassName;
-	offer: CardOffer;
+	offer: CardOffer | ServerOffer;
   onMouseHover?: (offerId: CardOffer['id'] | null) => void;
 }
 
@@ -51,7 +51,7 @@ function PlaceCard({ className, offer, onMouseHover }: PlaceCardProps): JSX.Elem
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <Bookmark className={SpecialClassName.PlaceCard} isFavorite={offer.isFavorite}/>
+          <Bookmark className={SpecialClassName.PlaceCard} isFavorite={offer.isFavorite} offerId={offer.id}/>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

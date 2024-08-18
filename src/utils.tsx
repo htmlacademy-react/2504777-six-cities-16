@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { AppRoute, MAX_RATING_STARS, SINGULAR, SortingTypes } from './const';
-import { CardOffer, OffersByCitiesType, Offers } from './types/offers';
+import { OffersByCitiesType, Offers, ServerOffer } from './types/offers';
 import { Reviews } from './types/reviews';
 
 export const getLayoutState = (location: AppRoute, favoriteOffersCount: number) => {
@@ -46,7 +46,7 @@ export const getRatingKeyValue = (key: string) => {
   }
 };
 
-export const groopsOffersByCity = (offers: CardOffer[]) => {
+export const groopsOffersByCity = (offers: ServerOffer[]) => {
   const offersByCities: OffersByCitiesType = {};
 
   offers.forEach((offer) => {

@@ -1,6 +1,6 @@
 import { CITIES_LIST, SixCities } from '../../const';
 import { useAppDispatch } from '../../hooks';
-import { changeCity } from '../../store/actions';
+import { changeCity } from '../../store/slices/offers';
 
 type LocationItemProps = {
 	city: SixCities;

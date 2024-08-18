@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { AppRoute, MAX_RATING_STARS, SINGULAR, SortingTypes } from './const';
-import { CardOffer, OffersByCitiesType } from './types/offers';
+import { CardOffer, OffersByCitiesType, Offers } from './types/offers';
 import { Reviews } from './types/reviews';
 
 export const getLayoutState = (location: AppRoute, favoriteOffersCount: number) => {
@@ -63,18 +63,23 @@ export const humanizeDate = (date: string, format: string) => dayjs(date).format
 
 export const upFirstLetter = (data: string) => data.charAt(0).toUpperCase() + data.slice(1);
 
-export const sortReviewsByDate = (reviews: Reviews) => reviews.sort((leftReview, rightReview) => dayjs(rightReview.date).diff(dayjs(leftReview.date)));
+export const sortReviewsByDate = (reviews: Reviews) => {
+  if (reviews.length > 1) {
+    return reviews.toSorted((leftReview, rightReview) => dayjs(rightReview.date).diff(dayjs(leftReview.date)));
+  }
+  return reviews;
+};
 
-const sortByPrice = (offers: CardOffer[], isDecreaseOrder = false) => {
+const sortByPrice = (offers: Offers, isDecreaseOrder = false) => {
   if (isDecreaseOrder) {
     return offers.sort((leftOffer, rightOffer) => rightOffer.price - leftOffer.price);
   }
   return offers.sort((leftOffer, rightOffer) => leftOffer.price - rightOffer.price);
 };
 
-const sortByRating = (offers: CardOffer[]) => offers.sort((leftOffer, rightOffer) => rightOffer.rating - leftOffer.rating);
+const sortByRating = (offers: Offers) => offers.sort((leftOffer, rightOffer) => rightOffer.rating - leftOffer.rating);
 
-export const sortOffersByCurrentType = (currentType: string, offers: CardOffer[]) => {
+export const sortOffersByCurrentType = (currentType: string, offers: Offers) => {
   switch(currentType) {
     case SortingTypes.PriceLowToHigh:
       return sortByPrice(offers);

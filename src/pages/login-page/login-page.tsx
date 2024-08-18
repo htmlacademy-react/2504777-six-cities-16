@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import { Title } from '../../const';
 import { useRef } from 'react';
 import { useAppDispatch } from '../../hooks';
-import { loginAction } from '../../store/api-actions';
+import { login } from '../../store/thunk-action/user';
 
 function LoginPage(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -13,8 +13,8 @@ function LoginPage(): JSX.Element {
   const handleFormSubmit = (evt: React.SyntheticEvent) => {
     evt.preventDefault();
     if (emailRef.current !== null && passwordRef.current !== null) {
-      dispatch(loginAction({
-        login: emailRef.current.value,
+      dispatch(login({
+        email: emailRef.current.value,
         password: passwordRef.current.value,
       }));
     }

@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import MainPage from '../../pages/main-page/main-page';
 import { CardOffer } from '../../types/offers';
-import { AppRoute, AuthorizationStatus } from '../../const';
+import { AppRoute } from '../../const';
 import Layout from '../layout/layout';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import LoginPage from '../../pages/login-page/login-page';
@@ -10,19 +10,27 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
 import LoadingPage from '../../pages/loading-page/loading-page';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import { getAuthCheckedStatus } from '../../store/slices/user';
+import { useEffect } from 'react';
+import { fetchOffers } from '../../store/thunk-action/offers';
 
 type AppProps = {
 	cardOffers: CardOffer[];
 }
 
 function App({ cardOffers }: AppProps): JSX.Element {
+  const dispatch = useAppDispatch();
+
+  const isAuthChecked = useAppSelector(getAuthCheckedStatus);
+
   const favoritesOffers = cardOffers.filter((offer) => offer.isFavorite);
 
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isOffersLoading = useAppSelector((state) => state.isLoading);
+  useEffect(() => {
+    dispatch(fetchOffers());
+  });
 
-  if (authorizationStatus === AuthorizationStatus.Unknown || isOffersLoading) {
+  if (!isAuthChecked) {
     return (
       <LoadingPage />
     );

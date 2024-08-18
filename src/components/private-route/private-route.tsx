@@ -33,6 +33,7 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const';
 
 import { useAppSelector } from '../../hooks';
+import { getAuthorizationStatus } from '../../store/slices/user';
 
 type PrivateRouteProps = {
   onlyGuests?: boolean;
@@ -45,7 +46,7 @@ type FromState = {
 
 function PrivateRoute({onlyGuests, children}: PrivateRouteProps) {
   const location: Location<FromState> = useLocation() as Location<FromState>;
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   if (onlyGuests && authorizationStatus === AuthorizationStatus.Auth) {
     const from = location.state?.from || {pathname: AppRoute.Root};

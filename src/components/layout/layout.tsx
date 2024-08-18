@@ -2,7 +2,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import Logo from '../logo/logo';
 import { getLayoutState } from '../../utils';
 import { AppRoute } from '../../const';
-import HeaderNavigation from '../header/header-navigation';
+import HeaderNavigation from '../navigation/navigation';
 
 type LayoutProps = {
   favoriteOffersCount: number;

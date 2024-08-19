@@ -9,19 +9,12 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
 import LoadingPage from '../../pages/loading-page/loading-page';
-import { useAppSelector, useAppDispatch } from '../../hooks';
+import { useAppSelector } from '../../hooks';
 import { getAuthCheckedStatus } from '../../store/slices/user';
-// import { useEffect } from 'react';
-// import { fetchOffers } from '../../store/thunk-action/offers';
 
 function App(): JSX.Element {
-  // const dispatch = useAppDispatch();
 
   const isAuthChecked = useAppSelector(getAuthCheckedStatus);
-
-  // useEffect(() => {
-  //   dispatch(fetchOffers());
-  // });
 
   if (!isAuthChecked) {
     return (
@@ -61,11 +54,12 @@ function App(): JSX.Element {
               path={AppRoute.Offer}
               element={<OfferPage/>}
             />
-            <Route
-              path={AppRoute.Error}
-              element={<NotFoundPage />}
-            />
+
           </Route>
+          <Route
+            path={AppRoute.Error}
+            element={<NotFoundPage />}
+          />
         </Routes>
       </BrowserRouter>
     </HelmetProvider>

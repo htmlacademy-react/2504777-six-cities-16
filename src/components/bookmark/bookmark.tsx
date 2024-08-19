@@ -1,9 +1,11 @@
 import { SyntheticEvent } from 'react';
-import { SpecialClassName, BookmarkHeight, BookmarkWidth } from '../../const';
+import { SpecialClassName, BookmarkHeight, BookmarkWidth, AuthorizationStatus, AppRoute } from '../../const';
 import { changeFavorite } from '../../store/thunk-action/favorites';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { updateOffer } from '../../store/slices/full-offer';
 import { updateOffers } from '../../store/slices/offers';
+import { getAuthorizationStatus } from '../../store/slices/user';
+import { useNavigate} from 'react-router-dom';
 
 type BookmarkProps = {
   className: SpecialClassName;
@@ -13,15 +15,25 @@ type BookmarkProps = {
 
 function Bookmark({className, offerId, isFavorite}: BookmarkProps): JSX.Element {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const width = className === SpecialClassName.PlaceCard ? BookmarkWidth.Basic : BookmarkWidth.ForOffer;
   const height = className === SpecialClassName.PlaceCard ? BookmarkHeight.Basic : BookmarkHeight.ForOffer;
 
   const handleButtonClick = (evt: SyntheticEvent) => {
     evt.preventDefault();
-    dispatch(changeFavorite({offerId, status: Number(!isFavorite)}));
-    dispatch(updateOffers(offerId));
-    dispatch(updateOffer(offerId));
+    if (authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(changeFavorite({offerId, status: Number(!isFavorite)}))
+        .unwrap()
+        .then(() => {
+          dispatch(updateOffers(offerId));
+          dispatch(updateOffer(offerId));
+        });
+    } else {
+      navigate(AppRoute.Login);
+    }
   };
 
   return (

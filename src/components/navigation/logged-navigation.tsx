@@ -3,15 +3,13 @@ import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logout } from '../../store/thunk-action/user';
 import { getUserInfo } from '../../store/slices/user';
+import FavoriteCount from '../favorite-count';
 
-type LoggedNavigationProps = {
-  count: number;
-}
-
-function LoggedNavigation({count}: LoggedNavigationProps): JSX.Element {
+function LoggedNavigation(): JSX.Element {
   const dispatch = useAppDispatch();
 
   const user = useAppSelector(getUserInfo);
+
   const handleLogout = (evt: React.SyntheticEvent) => {
     evt.preventDefault();
     dispatch(logout());
@@ -30,7 +28,7 @@ function LoggedNavigation({count}: LoggedNavigationProps): JSX.Element {
           >
           </div>
           <span className="header__user-name user__name">{user?.email}</span>
-          <span className="header__favorite-count">{count}</span>
+          <FavoriteCount />
         </Link>
       </li>
       <li className="header__nav-item">

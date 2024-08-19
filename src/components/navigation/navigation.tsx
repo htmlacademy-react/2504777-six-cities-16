@@ -4,16 +4,12 @@ import { Link } from 'react-router-dom';
 import { getAuthorizationStatus } from '../../store/slices/user';
 import LoggedNavigation from './logged-navigation';
 
-type HeaderNavigationProps = {
-  favoriteOffersCount: number;
-}
-
-function HeaderNavigation({favoriteOffersCount}: HeaderNavigationProps) : JSX.Element {
+function HeaderNavigation() : JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   return (
     <nav className="header__nav">
-      {authorizationStatus === AuthorizationStatus.Auth ? <LoggedNavigation count={favoriteOffersCount} /> : (
+      {authorizationStatus === AuthorizationStatus.Auth ? <LoggedNavigation /> : (
         <ul className="header__nav-list">
           <li className="header__nav-item user">
             <Link className="header__nav-link header__nav-link--profile" to={AppRoute.Login}>

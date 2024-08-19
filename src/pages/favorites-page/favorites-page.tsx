@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { Title } from '../../const';
-import LoadingPage from '../loading-page/loading-page';
+import Loader from '../loader/loader';
 import NotFoundPage from '../not-found-page/not-found-page';
 import FavoritesSectionEmpty from '../../components/favorites-section/favorites-section-empty';
 import FavoritesSection from '../../components/favorites-section/favorites-section';
@@ -10,7 +10,7 @@ function FavoritesPage(): JSX.Element {
   const { favorites, hasFavorites, isLoading, isFailed } = useFavorites();
 
   if (isLoading) {
-    return <LoadingPage />;
+    return <Loader />;
   }
 
   if (isFailed) {

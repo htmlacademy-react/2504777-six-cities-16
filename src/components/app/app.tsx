@@ -8,7 +8,7 @@ import OfferPage from '../../pages/offer-page/offer-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
 import { HelmetProvider } from 'react-helmet-async';
-import LoadingPage from '../../pages/loading-page/loading-page';
+import Loader from '../../pages/loader/loader';
 import { useAppSelector } from '../../hooks';
 import { getAuthCheckedStatus } from '../../store/slices/user';
 
@@ -18,7 +18,7 @@ function App(): JSX.Element {
 
   if (!isAuthChecked) {
     return (
-      <LoadingPage />
+      <Loader />
     );
   }
 

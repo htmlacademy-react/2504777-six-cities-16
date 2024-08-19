@@ -1,6 +1,6 @@
 import { MapPoint } from '../../types/offers';
 import LocationsList from '../../components/locations-list/locations-list';
-import LoadingPage from '../loading-page/loading-page';
+import Loader from '../loader/loader';
 import PlacesSection from '../../components/places-section/places-section';
 import NoPlacesSection from '../../components/places-section/no-places-section';
 import { SpecialClassName, CitiesLocation } from '../../const';
@@ -18,25 +18,25 @@ function MainPage(): JSX.Element {
 
   if (isLoading) {
     return (
-      <LoadingPage />
+      <Loader />
     );
   }
 
-  const mapPoints: MapPoint[] = offers.map(({id, location}) => ({id, ...location}));
+  const mapPoints: MapPoint[] = offers.map(({ id, location }) => ({ id, ...location }));
 
   return (
     <main className={`page__main page__main--index ${isEmpty ? 'page__main--index-empty' : ''}`}>
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
-          <LocationsList activeCity={activeCity}/>
+          <LocationsList activeCity={activeCity} />
         </section>
       </div>
       <div className="cities">
         <div className={`cities__places-container ${isEmpty ? 'cities__places-container--empty' : ''} container`}>
-          {!isEmpty ? <PlacesSection activeCity={activeCity} offers={offers}/> : <NoPlacesSection activeCity={activeCity} />}
+          {!isEmpty ? <PlacesSection activeCity={activeCity} offers={offers} /> : <NoPlacesSection activeCity={activeCity} />}
           <div className="cities__right-section">
-            {!isEmpty ? <Map className={SpecialClassName.Cities} city={CitiesLocation[activeCity]} points={mapPoints} activePointId={activePointId}/> : ''}
+            {!isEmpty ? <Map className={SpecialClassName.Cities} city={CitiesLocation[activeCity]} points={mapPoints} activePointId={activePointId} /> : ''}
           </div>
         </div>
       </div>

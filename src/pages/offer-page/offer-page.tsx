@@ -8,7 +8,7 @@ import { getRatingStars, getEnding } from '../../utils';
 import OfferHost from '../../components/offer-host/offer-host';
 import Map from '../../components/map/map';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import LoadingPage from '../loading-page/loading-page';
+import Loader from '../loader/loader';
 import { useEffect } from 'react';
 import { fetchFullOffer, fetchOffersNearby } from '../../store/thunk-action/full-offer';
 import { fetchReviews } from '../../store/thunk-action/reviews';
@@ -32,10 +32,10 @@ function OfferPage(): JSX.Element {
 
   useEffect(() => {
     Promise.all([dispatch(fetchFullOffer(offerId as string)), dispatch(fetchOffersNearby(offerId as string)), dispatch(fetchReviews(offerId as string))]);
-  }, [ dispatch, offerId]);
+  }, [dispatch, offerId]);
 
   if (offerStatus === RequestStatus.Loading) {
-    return <LoadingPage />;
+    return <Loader />;
   }
 
   if (offerStatus === RequestStatus.Failed || !offer) {
@@ -44,8 +44,8 @@ function OfferPage(): JSX.Element {
 
   const { images, isPremium, title, isFavorite, rating, type, bedrooms, maxAdults, price, goods, host, description, city } = offer;
 
-  const mapPoints = offersNearby.map(({id, location}) => ({id, ...location}))
-    .concat({id: offer.id, ...offer.location});
+  const mapPoints = offersNearby.map(({ id, location }) => ({ id, ...location }))
+    .concat({ id: offer.id, ...offer.location });
 
   return (
     <>
@@ -62,7 +62,7 @@ function OfferPage(): JSX.Element {
                   if (index < MAX_OFFER_IMAGE_NUMBER) {
                     return (
                       <div key={image} className="offer__image-wrapper">
-                        <img className="offer__image" src={image} alt="Photo studio"/>
+                        <img className="offer__image" src={image} alt="Photo studio" />
                       </div>);
                   }
                 })
@@ -75,7 +75,7 @@ function OfferPage(): JSX.Element {
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{title}</h1>
 
-                <Bookmark className={SpecialClassName.Offer} isFavorite={isFavorite} offerId={offer.id}/>
+                <Bookmark className={SpecialClassName.Offer} isFavorite={isFavorite} offerId={offer.id} />
 
               </div>
               <div className="offer__rating rating">
@@ -115,7 +115,7 @@ function OfferPage(): JSX.Element {
               <ReviewsSection reviews={reviews} authorizationStatus={authorizationStatus} />
             </div>
           </div>
-          <Map className={SpecialClassName.Offer} city={city.location} points={mapPoints} activePointId={offer.id}/>
+          <Map className={SpecialClassName.Offer} city={city.location} points={mapPoints} activePointId={offer.id} />
         </section>
         <div className="container">
           <section className="near-places places">

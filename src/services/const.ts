@@ -1,5 +1,7 @@
 import { StatusCodes } from 'http-status-codes';
 
+export const DISCONNECT_ERROR = 'ERR_NETWORK';
+
 export const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.BAD_REQUEST]: true,
   [StatusCodes.UNAUTHORIZED]: true,

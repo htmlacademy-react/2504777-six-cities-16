@@ -44,12 +44,16 @@ function ReviewsForm(): JSX.Element {
   const handleFormSubmit = (evt: React.SyntheticEvent) => {
     evt.preventDefault();
     if (offer) {
-      dispatch(postReview({body: {...review}, offerId: offer.id}));
+      dispatch(postReview({body: {...review}, offerId: offer.id}))
+        .unwrap()
+        .then(() => {
+          setReview({
+            rating: 0,
+            comment: ''
+          });
+        });
     }
-    setReview({
-      rating: 0,
-      comment: ''
-    });
+
   };
 
   return (

@@ -5,6 +5,7 @@ import fullOfferSlice from './slices/full-offer';
 import reviewSlice from './slices/reviews';
 import userSlice from './slices/user';
 import favoritesSlice from './slices/favorites';
+import errorSlice from './slices/error';
 
 const api = createApi();
 
@@ -14,6 +15,7 @@ const reducer = combineReducers({
   [reviewSlice.name]: reviewSlice.reducer,
   [userSlice.name]: userSlice.reducer,
   [favoritesSlice.name]: favoritesSlice.reducer,
+  [errorSlice.name]: errorSlice.reducer,
 });
 
 export const store = configureStore({

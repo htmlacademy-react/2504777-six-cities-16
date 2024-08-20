@@ -61,7 +61,7 @@ const offersSlice = createSlice({
   // }
 });
 
-export const { setActiveOfferId, changeCity, changeSortingType, updateOffers} = offersSlice.actions;
+export const { setActiveOfferId, changeCity, changeSortingType, updateOffers } = offersSlice.actions;
 
 export const getSortingType = (state: State) => state[SliceName.Offers].sortingType;
 export const getActiveCity = (state: State) => state[SliceName.Offers].city;

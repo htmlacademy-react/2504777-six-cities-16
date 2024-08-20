@@ -167,6 +167,7 @@ export enum SliceName {
   Review = 'review',
   User = 'user',
   Favorites = 'favorites',
+  Error = 'error',
 }
 
 export enum FavoriteStatus {

@@ -43,12 +43,12 @@ export const sortReviewsByDate = (reviews: Reviews) => {
 
 const sortByPrice = (offers: Offers, isDecreaseOrder = false) => {
   if (isDecreaseOrder) {
-    return offers.sort((leftOffer, rightOffer) => rightOffer.price - leftOffer.price);
+    return offers.toSorted((leftOffer, rightOffer) => rightOffer.price - leftOffer.price);
   }
-  return offers.sort((leftOffer, rightOffer) => leftOffer.price - rightOffer.price);
+  return offers.toSorted((leftOffer, rightOffer) => leftOffer.price - rightOffer.price);
 };
 
-const sortByRating = (offers: Offers) => offers.sort((leftOffer, rightOffer) => rightOffer.rating - leftOffer.rating);
+const sortByRating = (offers: Offers) => offers.toSorted((leftOffer, rightOffer) => rightOffer.rating - leftOffer.rating);
 
 export const sortOffersByCurrentType = (currentType: string, offers: Offers) => {
   switch(currentType) {
@@ -58,7 +58,7 @@ export const sortOffersByCurrentType = (currentType: string, offers: Offers) => 
       return sortByPrice(offers, true);
     case SortingTypes.TopRatedFirst:
       return sortByRating(offers);
+    default: return offers;
   }
-  return offers;
 };
 

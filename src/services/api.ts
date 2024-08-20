@@ -1,14 +1,14 @@
 import axios, {AxiosInstance, InternalAxiosRequestConfig, AxiosError, AxiosResponse} from 'axios';
 import { StatusCodeMapping, ApiDefault } from './const';
 import { getToken } from './token';
-// import { processErrorHandle } from './process-error-handle';
+import { processErrorHandle } from './process-error-handle';
 
-// type DetailMessageType = {
-//   type: string;
-//   message: string;
-// }
+type DetailMessageType = {
+  type: string;
+  message: string;
+}
 
-// const shouldDisplayError = (response: AxiosResponse) => !!StatusCodeMapping[response.status];
+const shouldDisplayError = (response: AxiosResponse) => !!StatusCodeMapping[response.status];
 
 export const createApi = (): AxiosInstance => {
   const api = axios.create({
@@ -28,18 +28,17 @@ export const createApi = (): AxiosInstance => {
     },
   );
 
-  // api.interceptors.response.use(
-  //   (response) => response,
-  //   (error: AxiosError<DetailMessageType>) => {
-  //     if (error.response && shouldDisplayError(error.response)) {
-  //       const detailMessage = (error.response.data);
+  api.interceptors.response.use(
+    (response) => response,
+    (error: AxiosError<DetailMessageType>) => {
+      if (error.response && shouldDisplayError(error.response)) {
+        const detailMessage = (error.response.data);
+        processErrorHandle(detailMessage.message);
+      }
 
-  //       processErrorHandle(detailMessage.message);
-  //     }
-
-  //     throw error;
-  //   }
-  // );
+      throw error;
+    }
+  );
 
   return api;
 };

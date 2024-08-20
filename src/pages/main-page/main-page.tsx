@@ -8,12 +8,11 @@ import Map from '../../components/map/map';
 import { useAppSelector } from '../../hooks';
 import { useOffersByCity } from '../../hooks/offers-by-city';
 import { getActiveCity } from '../../store/slices/offers';
-import { getActiveOfferId } from '../../store/slices/offers';
 
 function MainPage(): JSX.Element {
 
   const activeCity = useAppSelector(getActiveCity);
-  const activePointId = useAppSelector(getActiveOfferId);
+
   const { offers, isEmpty, isLoading } = useOffersByCity(activeCity);
 
   if (isLoading) {
@@ -36,7 +35,7 @@ function MainPage(): JSX.Element {
         <div className={`cities__places-container ${isEmpty ? 'cities__places-container--empty' : ''} container`}>
           {!isEmpty ? <PlacesSection activeCity={activeCity} offers={offers} /> : <NoPlacesSection activeCity={activeCity} />}
           <div className="cities__right-section">
-            {!isEmpty ? <Map className={SpecialClassName.Cities} city={CitiesLocation[activeCity]} points={mapPoints} activePointId={activePointId} /> : ''}
+            {!isEmpty ? <Map className={SpecialClassName.Cities} city={CitiesLocation[activeCity]} points={mapPoints} /> : ''}
           </div>
         </div>
       </div>

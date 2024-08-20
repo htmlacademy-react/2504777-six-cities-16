@@ -18,6 +18,7 @@ import { getReviews } from '../../store/slices/reviews';
 import { RequestStatus } from '../../const';
 import NotFoundPage from '../not-found-page/not-found-page';
 import ReviewsSection from '../../components/review/reviews-section';
+import { setActiveOfferId } from '../../store/slices/offers';
 
 function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -43,6 +44,8 @@ function OfferPage(): JSX.Element {
   }
 
   const { images, isPremium, title, isFavorite, rating, type, bedrooms, maxAdults, price, goods, host, description, city } = offer;
+
+  dispatch(setActiveOfferId(offer.id));
 
   const mapPoints = offersNearby.map(({ id, location }) => ({ id, ...location }))
     .concat({ id: offer.id, ...offer.location });
@@ -115,7 +118,7 @@ function OfferPage(): JSX.Element {
               <ReviewsSection reviews={reviews} authorizationStatus={authorizationStatus} />
             </div>
           </div>
-          <Map className={SpecialClassName.Offer} city={city.location} points={mapPoints} activePointId={offer.id} />
+          <Map className={SpecialClassName.Offer} city={city.location} points={mapPoints} />
         </section>
         <div className="container">
           <section className="near-places places">

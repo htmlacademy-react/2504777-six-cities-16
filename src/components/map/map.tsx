@@ -3,13 +3,14 @@ import { Location, MapPoint } from '../../types/offers';
 import useMap from './use-map';
 import { Icon, LayerGroup, Marker, layerGroup } from 'leaflet';
 import { UrlMapMarker } from '../../const';
+import { getActiveOfferId } from '../../store/slices/offers';
+import { useAppSelector } from '../../hooks';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
   className: string;
   city: Location;
   points: MapPoint[];
-  activePointId: string | null;
 }
 
 const defaultCustomIcon = new Icon({
@@ -24,11 +25,13 @@ const activeCustomIcon = new Icon({
   iconAnchor: [13.5, 39]
 });
 
-function Map({className, city, points, activePointId}: MapProps) {
+function Map({className, city, points}: MapProps) {
 
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
   const markerLayer = useRef<LayerGroup>(layerGroup());
+
+  const activePointId = useAppSelector(getActiveOfferId);
 
   useEffect(() => {
     if (map) {

@@ -1,6 +1,6 @@
 import { useAppSelector } from '.';
 import { getFavorites } from '../store/slices/favorites';
-import { getStatus } from '../store/slices/offers';
+import { getStatus } from '../store/slices/favorites';
 import { RequestStatus } from '../const';
 
 export function useFavorites() {

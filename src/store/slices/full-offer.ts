@@ -20,7 +20,7 @@ const fullOfferSlice = createSlice({
   name: SliceName.FullOffer,
   initialState,
   reducers: {
-    updateOffer: (state, action: PayloadAction<string>) => {
+    updateOffer(state, action: PayloadAction<string>) {
       state.info = state.info?.id === action.payload
         ? { ...state.info, isFavorite: !state.info.isFavorite}
         : state.info;

@@ -3,6 +3,10 @@ import { Title } from '../../const';
 import { useRef } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { login } from '../../store/thunk-action/user';
+// import { useFavorites } from '../../hooks/use-favorites';
+// import { updateOffers,  } from '../../store/slices/offers';
+import { fetchOffers } from '../../store/thunk-action/offers';
+// import { fetchFavorites } from '../../store/thunk-action/favorites';
 
 function LoginPage(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -10,13 +14,24 @@ function LoginPage(): JSX.Element {
 
   const dispatch = useAppDispatch();
 
+  // const { favorites } = useFavorites();
+
   const handleFormSubmit = (evt: React.SyntheticEvent) => {
     evt.preventDefault();
     if (emailRef.current !== null && passwordRef.current !== null) {
       dispatch(login({
         email: emailRef.current.value,
         password: passwordRef.current.value,
-      }));
+      }))
+        .unwrap()
+        .then(() => {
+          // dispatch(fetchFavorites());
+          dispatch(fetchOffers());
+          // .unwrap()
+          // .then(() => {
+          //   dispatch(updateOffers(favorites));
+          // });
+        });
     }
   };
 
@@ -54,6 +69,8 @@ function LoginPage(): JSX.Element {
                   className="login__input form__input"
                   type="password"
                   name="password"
+                  pattern="^(?=.*[a-zA-Z])(?=.*\d).*$"
+                  title="Password must contain at least one letter and one number"
                   placeholder="Password"
                   required
                 />

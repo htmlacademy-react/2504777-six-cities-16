@@ -12,7 +12,7 @@ export function useFavoritesCount() {
     if (isIdle) {
       dispatch(fetchFavorites());
     }
-  }, [isIdle, dispatch]);
+  });
 
   return count;
 }

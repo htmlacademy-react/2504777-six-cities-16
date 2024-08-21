@@ -17,7 +17,14 @@ const initialState: FavoritesState = {
 const favoritesSlice = createSlice({
   name: SliceName.Favorites,
   initialState,
-  reducers: {},
+  reducers: {
+    resetFavorites(state) {
+      state.favorites = [];
+    },
+    resetStatus(state) {
+      state.requestStatus = RequestStatus.Idle;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchFavorites.pending, (state) => {
@@ -49,6 +56,8 @@ const favoritesSlice = createSlice({
       });
   }
 });
+
+export const { resetFavorites, resetStatus } = favoritesSlice.actions;
 export const getFavorites = (state: State) => state[SliceName.Favorites].favorites;
 export const getStatus = (state: State) => state[SliceName.Favorites].requestStatus;
 

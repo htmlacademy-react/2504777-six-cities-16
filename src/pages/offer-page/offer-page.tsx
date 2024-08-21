@@ -33,6 +33,7 @@ function OfferPage(): JSX.Element {
 
   useEffect(() => {
     Promise.all([dispatch(fetchFullOffer(offerId as string)), dispatch(fetchOffersNearby(offerId as string)), dispatch(fetchReviews(offerId as string))]);
+    dispatch(setActiveOfferId(offerId as string));
   }, [dispatch, offerId]);
 
   if (offerStatus === RequestStatus.Loading) {
@@ -44,8 +45,6 @@ function OfferPage(): JSX.Element {
   }
 
   const { images, isPremium, title, isFavorite, rating, type, bedrooms, maxAdults, price, goods, host, description, city } = offer;
-
-  dispatch(setActiveOfferId(offer.id));
 
   const mapPoints = offersNearby.map(({ id, location }) => ({ id, ...location }))
     .concat({ id: offer.id, ...offer.location });

@@ -33,13 +33,29 @@ const offersSlice = createSlice({
     changeSortingType(state, action: PayloadAction<string>) {
       state.sortingType = action.payload;
     },
-    updateOffers: (state, action: PayloadAction<string>) => {
+    updateOffers(state, action: PayloadAction<string>) {
       state.offers = state.offers.map((offer) =>
         offer.id === action.payload
           ? { ...offer, isFavorite: !offer.isFavorite }
           : offer
       );
-    },
+    }
+    // updateOffers(state, action: PayloadAction<string | ServerOffer[]>) {
+    //   if (typeof action.payload === 'string') {
+    //     state.offers = state.offers.map((offer) =>
+    //       offer.id === action.payload
+    //         ? { ...offer, isFavorite: !offer.isFavorite }
+    //         : offer
+    //     );
+    //   } else {
+    //     const favoritesId = action.payload.map((item) => item.id);
+    //     state.offers = state.offers.map((offer) =>
+    //       favoritesId.includes(offer.id)
+    //         ? { ...offer, isFavorite: !offer.isFavorite }
+    //         : offer
+    //     );
+    //   }
+    // },
   },
   extraReducers(builder) {
     builder

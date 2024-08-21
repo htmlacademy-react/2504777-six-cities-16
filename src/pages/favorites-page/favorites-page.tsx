@@ -2,8 +2,8 @@ import { Helmet } from 'react-helmet-async';
 import { Title } from '../../const';
 import Loader from '../loader/loader';
 import NotFoundPage from '../not-found-page/not-found-page';
-import FavoritesSectionEmpty from '../../components/favorites-section/favorites-section-empty';
-import FavoritesSection from '../../components/favorites-section/favorites-section';
+import FavoritesSectionEmpty from '../../components/favorites/favorites-empty';
+import FavoritesSection from '../../components/favorites/favorites';
 import { useFavorites } from '../../hooks/use-favorites';
 
 function FavoritesPage(): JSX.Element {

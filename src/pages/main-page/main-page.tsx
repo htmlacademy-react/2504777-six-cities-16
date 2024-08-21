@@ -6,7 +6,7 @@ import NoPlacesSection from '../../components/places-section/no-places-section';
 import { SpecialClassName, CitiesLocation } from '../../const';
 import Map from '../../components/map/map';
 import { useAppSelector } from '../../hooks';
-import { useOffersByCity } from '../../hooks/offers-by-city';
+import { useOffersByCity } from '../../hooks/use-offers-by-city';
 import { getActiveCity } from '../../store/slices/offers';
 
 function MainPage(): JSX.Element {

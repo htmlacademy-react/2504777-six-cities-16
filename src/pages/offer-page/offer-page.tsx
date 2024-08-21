@@ -17,7 +17,7 @@ import { getAuthorizationStatus } from '../../store/slices/user';
 import { getReviews } from '../../store/slices/reviews';
 import { RequestStatus } from '../../const';
 import NotFoundPage from '../not-found-page/not-found-page';
-import ReviewsSection from '../../components/review/reviews-section';
+import ReviewsSection from '../../components/reviews/reviews';
 import { setActiveOfferId } from '../../store/slices/offers';
 
 function OfferPage(): JSX.Element {

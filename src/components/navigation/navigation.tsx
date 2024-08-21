@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { getAuthorizationStatus } from '../../store/slices/user';
 import LoggedNavigation from './logged-navigation';
 
-function HeaderNavigation() : JSX.Element {
+function Navigation() : JSX.Element {
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   return (
@@ -23,4 +23,4 @@ function HeaderNavigation() : JSX.Element {
     </nav>
   );
 }
-export default HeaderNavigation;
+export default Navigation;

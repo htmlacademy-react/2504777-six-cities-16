@@ -38,16 +38,16 @@ const fullOfferSlice = createSlice({
       .addCase(fetchFullOffer.rejected, (state) => {
         state.requestStatus = RequestStatus.Failed;
       })
-      // .addCase(fetchOffersNearby.pending, (state) => {
-      //   state.requestStatus = RequestStatus.Loading;
-      // })
+      .addCase(fetchOffersNearby.pending, (state) => {
+        state.requestStatus = RequestStatus.Loading;
+      })
       .addCase(fetchOffersNearby.fulfilled, (state, action: PayloadAction<Offers>) => {
-        // state.requestStatus = RequestStatus.Success;
+        state.requestStatus = RequestStatus.Success;
         state.offersNearby = action.payload;
+      })
+      .addCase(fetchOffersNearby.rejected, (state) => {
+        state.requestStatus = RequestStatus.Failed;
       });
-      // .addCase(fetchOffersNearby.rejected, (state) => {
-      //   state.requestStatus = RequestStatus.Failed;
-      // });
   },
   // selectors: {
   //   offerInfo: (state: FullOfferState) => state.info,

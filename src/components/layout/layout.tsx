@@ -1,8 +1,8 @@
 import { Outlet, useLocation } from 'react-router-dom';
 import Logo from '../logo/logo';
 import { AppRoute } from '../../const';
-import HeaderNavigation from '../navigation/navigation';
-import { useLayoutState } from '../../hooks/useLayoutState';
+import Navigation from '../navigation/navigation';
+import { useLayoutState } from '../../hooks/use-layout-state';
 
 function Layout(): JSX.Element {
   const { pathname } = useLocation();
@@ -17,7 +17,7 @@ function Layout(): JSX.Element {
             <div className="header__left">
               <Logo pathname={pathname as AppRoute} className='header'/>
             </div>
-            {shouldRenderNavigation ? <HeaderNavigation /> : ''}
+            {shouldRenderNavigation ? <Navigation /> : ''}
           </div>
         </div>
       </header>

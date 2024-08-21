@@ -1,12 +1,12 @@
 import { ServerOffer } from '../../types/offers';
 import { groopsOffersByCity } from '../../utils';
-import FavoritesLocationsItems from '../favorites-locations-items/favorites-locations-items';
+import FavoritesLocationsItems from './favorites-locations-items';
 
-type FavoritesSectionProps = {
+type FavoritesProps = {
   favorites: ServerOffer[];
 }
 
-function FavoritesSection({favorites}: FavoritesSectionProps): JSX.Element {
+function Favorites({favorites}: FavoritesProps): JSX.Element {
   const favoritesByCities = groopsOffersByCity(favorites);
 
   return (
@@ -19,4 +19,4 @@ function FavoritesSection({favorites}: FavoritesSectionProps): JSX.Element {
   );
 }
 
-export default FavoritesSection;
+export default Favorites;

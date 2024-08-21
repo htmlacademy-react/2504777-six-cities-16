@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logout } from '../../store/thunk-action/user';
 import { getUserInfo } from '../../store/slices/user';
-import FavoriteCount from '../favorite-count';
+import FavoriteCount from '../favorite-count/favorite-count';
 // import { updateOffers } from '../../store/slices/offers';
 import { resetFavorites, resetStatus } from '../../store/slices/favorites';
 // import { useFavorites } from '../../hooks/use-favorites';

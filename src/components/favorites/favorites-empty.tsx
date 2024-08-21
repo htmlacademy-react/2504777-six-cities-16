@@ -1,4 +1,4 @@
-function FavoritesSectionEmpty(): JSX.Element {
+function FavoritesEmpty(): JSX.Element {
   return (
     <section className="favorites favorites--empty">
       <h1 className="visually-hidden">Favorites (empty)</h1>
@@ -10,4 +10,4 @@ function FavoritesSectionEmpty(): JSX.Element {
   );
 }
 
-export default FavoritesSectionEmpty;
+export default FavoritesEmpty;

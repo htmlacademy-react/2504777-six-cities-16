@@ -1,7 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosInstance } from 'axios';
-import { ApiRoute, FavoriteStatus } from '../../const';
+import { ApiRoute } from '../../const';
 import { ServerOffer } from '../../types/offers';
+import { ChangeProps, ChangeResponse } from '../types';
 
 export const fetchFavorites = createAsyncThunk<ServerOffer[], undefined, {extra: AxiosInstance}>(
   'favorites/fetchFavorites',
@@ -11,17 +12,7 @@ export const fetchFavorites = createAsyncThunk<ServerOffer[], undefined, {extra:
   },
 );
 
-type ChangeProps = {
-  offerId: string;
-  status: FavoriteStatus;
-}
-
-export type ChangeResponse = {
-  offer: ServerOffer;
-  status: FavoriteStatus;
-}
-
-export const changeFavorite = createAsyncThunk<ChangeResponse, ChangeProps, {extra: AxiosInstance}>(
+export const changeFavorites = createAsyncThunk<ChangeResponse, ChangeProps, {extra: AxiosInstance}>(
   'favorites/changeFavorites',
   async ({offerId, status}, { extra: api }) => {
     const response = await api.post<ServerOffer>(`${ApiRoute.Favorite}/${offerId}/${status}`);

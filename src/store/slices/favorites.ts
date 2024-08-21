@@ -1,8 +1,8 @@
 import { ServerOffer } from '../../types/offers';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { SliceName, RequestStatus, FavoriteStatus } from '../../const';
-import { fetchFavorites, changeFavorite, ChangeResponse } from '../thunk-action/favorites';
-import { State } from '../types';
+import { fetchFavorites, changeFavorites } from '../thunk-action/favorites';
+import { State, ChangeResponse } from '../types';
 
 type FavoritesState = {
   favorites: ServerOffer[];
@@ -37,10 +37,10 @@ const favoritesSlice = createSlice({
       .addCase(fetchFavorites.rejected, (state) => {
         state.requestStatus = RequestStatus.Failed;
       })
-      .addCase(changeFavorite.pending, (state) => {
+      .addCase(changeFavorites.pending, (state) => {
         state.requestStatus = RequestStatus.Loading;
       })
-      .addCase(changeFavorite.fulfilled, (state, action: PayloadAction<ChangeResponse>) => {
+      .addCase(changeFavorites.fulfilled, (state, action: PayloadAction<ChangeResponse>) => {
         state.requestStatus = RequestStatus.Success;
         switch (action.payload.status) {
           case FavoriteStatus.Added:
@@ -51,7 +51,7 @@ const favoritesSlice = createSlice({
             break;
         }
       })
-      .addCase(changeFavorite.rejected, (state) => {
+      .addCase(changeFavorites.rejected, (state) => {
         state.requestStatus = RequestStatus.Failed;
       });
   }

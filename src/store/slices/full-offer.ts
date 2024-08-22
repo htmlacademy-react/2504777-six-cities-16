@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { FullOffer, Offers } from '../../types/offers';
+import { FullOffer, Offers, ServerOffer } from '../../types/offers';
 import { RequestStatus, SliceName } from '../../const';
 import { fetchFullOffer, fetchOffersNearby } from '../thunk-action/full-offer';
 import { ChangeResponse, State } from '../types';
 import { changeFavorites } from '../thunk-action/favorites';
 import { logout } from '../thunk-action/user';
+import { fetchFavoritesOnLogin } from '../thunk-action/favorites';
 
 type FullOfferState = {
   info: null | FullOffer;
@@ -21,21 +22,7 @@ const initialState: FullOfferState = {
 const fullOfferSlice = createSlice({
   name: SliceName.FullOffer,
   initialState,
-  reducers: {
-    // updateOffer(state, action: PayloadAction<string>) {
-    //   state.info = state.info?.id === action.payload
-    //     ? { ...state.info, isFavorite: !state.info.isFavorite}
-    //     : state.info;
-    // },
-    // clearOffer(state) {
-    //   if (state.info) {
-    //     state.info = { ...state.info, isFavorite: false};
-    //   }
-    // },
-    // clearOffersNearby(state) {
-    //   state.offersNearby = state.offersNearby.map((offer) => ({ ...offer, isFavorite: false }));
-    // },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(fetchFullOffer.pending, (state) => {
@@ -71,6 +58,32 @@ const fullOfferSlice = createSlice({
           state.info = { ...state.info, isFavorite: false};
         }
         state.offersNearby = state.offersNearby.map((offer) => ({ ...offer, isFavorite: false }));
+      })
+
+      .addCase(fetchFavoritesOnLogin.pending, (state) => {
+        state.requestStatus = RequestStatus.Loading;
+      })
+      .addCase(fetchFavoritesOnLogin.fulfilled, (state, action: PayloadAction<ServerOffer[]>) => {
+        state.requestStatus = RequestStatus.Success;
+
+        if (state.info) {
+          const favoriteOffer = action.payload.find((item) => item.id === state.info?.id);
+          state.info = favoriteOffer
+            ? { ...state.info, isFavorite: favoriteOffer.isFavorite }
+            : state.info;
+        }
+
+        const favoritesId = action.payload.map((item) => item.id);
+        state.offersNearby = state.offersNearby.map((offer) => {
+          if (favoritesId.includes(offer.id)) {
+            const favoriteOfferIndex = action.payload.findIndex((item) => item.id === offer.id);
+            return { ...offer, isFavorite: action.payload[favoriteOfferIndex].isFavorite };
+          }
+          return offer;
+        });
+      })
+      .addCase(fetchFavoritesOnLogin.rejected, (state) => {
+        state.requestStatus = RequestStatus.Failed;
       });
   },
   // selectors: {
@@ -79,8 +92,6 @@ const fullOfferSlice = createSlice({
   //   requestStatus: (state: FullOfferState) => state.requestStatus,
   // }
 });
-
-// export const { clearOffer, clearOffersNearby } = fullOfferSlice.actions;
 
 export const getOfferInfo = (state: State) => state[SliceName.FullOffer].info;
 export const getOffersNearby = (state: State) => state[SliceName.FullOffer].offersNearby;

@@ -3,18 +3,13 @@ import { Title } from '../../const';
 import { useRef } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { login } from '../../store/thunk-action/user';
-// import { useFavorites } from '../../hooks/use-favorites';
-// import { updateOffers,  } from '../../store/slices/offers';
-// import { fetchOffers } from '../../store/thunk-action/offers';
-import { fetchFavoritesForLogin } from '../../store/thunk-action/favorites';
+import { fetchFavoritesOnLogin } from '../../store/thunk-action/favorites';
 
 function LoginPage(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
 
   const dispatch = useAppDispatch();
-
-  // const { favorites } = useFavorites();
 
   const handleFormSubmit = (evt: React.SyntheticEvent) => {
     evt.preventDefault();
@@ -25,7 +20,7 @@ function LoginPage(): JSX.Element {
       }))
         .unwrap()
         .then(() => {
-          dispatch(fetchFavoritesForLogin());
+          dispatch(fetchFavoritesOnLogin());
         });
     }
   };

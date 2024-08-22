@@ -5,8 +5,8 @@ import { useAppDispatch } from '../../hooks';
 import { login } from '../../store/thunk-action/user';
 // import { useFavorites } from '../../hooks/use-favorites';
 // import { updateOffers,  } from '../../store/slices/offers';
-import { fetchOffers } from '../../store/thunk-action/offers';
-// import { fetchFavorites } from '../../store/thunk-action/favorites';
+// import { fetchOffers } from '../../store/thunk-action/offers';
+import { fetchFavoritesForLogin } from '../../store/thunk-action/favorites';
 
 function LoginPage(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -25,12 +25,7 @@ function LoginPage(): JSX.Element {
       }))
         .unwrap()
         .then(() => {
-          // dispatch(fetchFavorites());
-          dispatch(fetchOffers());
-          // .unwrap()
-          // .then(() => {
-          //   dispatch(updateOffers(favorites));
-          // });
+          dispatch(fetchFavoritesForLogin());
         });
     }
   };

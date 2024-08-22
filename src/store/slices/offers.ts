@@ -1,8 +1,12 @@
-import { Offers, CardOffer } from '../../types/offers';
+import { Offers, CardOffer, ServerOffer } from '../../types/offers';
 import { RequestStatus, SliceName, SixCities, DEFAULT_CITY, DEFAULT_SORTING_TYPE } from '../../const';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchOffers } from '../thunk-action/offers';
-import { State } from '../types';
+import { fetchFavoritesForLogin } from '../thunk-action/favorites';
+import { ChangeResponse, State } from '../types';
+// import { fetchFavoritesForLogin } from '../thunk-action/favorites';
+import { changeFavorites } from '../thunk-action/favorites';
+import { logout } from '../thunk-action/user';
 
 type OffersState = {
   offers: Offers;
@@ -33,13 +37,21 @@ const offersSlice = createSlice({
     changeSortingType(state, action: PayloadAction<string>) {
       state.sortingType = action.payload;
     },
-    updateOffers(state, action: PayloadAction<string>) {
+    // updateOffersOnBookmarkClick(state, action: PayloadAction<string>) {
+    //   const newOfferIndex = state.offers.findIndex((offer) => offer.id === action.payload);
+    //   state.offers[newOfferIndex].isFavorite = !state.offers[newOfferIndex].isFavorite;
+    // },
+    updateOffersOnLogin(state, action: PayloadAction<ServerOffer[]>) {
+      const favoritesId = action.payload.map((item) => item.id);
       state.offers = state.offers.map((offer) =>
-        offer.id === action.payload
-          ? { ...offer, isFavorite: !offer.isFavorite }
+        favoritesId.includes(offer.id)
+          ? { ...offer, isFavorite: action.payload[Number(offer.id)].isFavorite }
           : offer
       );
-    }
+    },
+    // clearFavoriteOffers(state) {
+    //   state.offers = state.offers.map((offer) => ({ ...offer, isFavorite: false }));
+    // }
     // updateOffers(state, action: PayloadAction<string | ServerOffer[]>) {
     //   if (typeof action.payload === 'string') {
     //     state.offers = state.offers.map((offer) =>
@@ -68,6 +80,26 @@ const offersSlice = createSlice({
       })
       .addCase(fetchOffers.rejected, (state) => {
         state.requestStatus = RequestStatus.Failed;
+      })
+
+      .addCase(fetchFavoritesForLogin.pending, (state) => {
+        state.requestStatus = RequestStatus.Loading;
+      })
+      .addCase(fetchFavoritesForLogin.fulfilled, (state, action) => {
+        state.requestStatus = RequestStatus.Success;
+        state.offers = action.payload;
+      })
+      .addCase(fetchFavoritesForLogin.rejected, (state) => {
+        state.requestStatus = RequestStatus.Failed;
+      })
+
+      .addCase(changeFavorites.fulfilled, (state, action: PayloadAction<ChangeResponse>) => {
+        const newOfferIndex = state.offers.findIndex((offer) => offer.id === action.payload.offer.id);
+        state.offers[newOfferIndex].isFavorite = action.payload.offer.isFavorite;
+      })
+
+      .addCase(logout.fulfilled, (state) => {
+        state.offers = state.offers.map((offer) => ({ ...offer, isFavorite: false }));
       });
   },
   // selectors: {
@@ -77,7 +109,7 @@ const offersSlice = createSlice({
   // }
 });
 
-export const { setActiveOfferId, changeCity, changeSortingType, updateOffers } = offersSlice.actions;
+export const { setActiveOfferId, changeCity, changeSortingType, clearFavoriteOffers } = offersSlice.actions;
 
 export const getSortingType = (state: State) => state[SliceName.Offers].sortingType;
 export const getActiveCity = (state: State) => state[SliceName.Offers].city;

@@ -1,37 +1,22 @@
 import { AppRoute } from '../../const';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logout } from '../../store/thunk-action/user';
 import { getUserInfo } from '../../store/slices/user';
 import FavoriteCount from '../favorite-count/favorite-count';
-// import { updateOffers } from '../../store/slices/offers';
-import { resetFavorites, resetStatus } from '../../store/slices/favorites';
-// import { useFavorites } from '../../hooks/use-favorites';
-import { fetchOffers } from '../../store/thunk-action/offers';
-import { fetchFullOffer } from '../../store/thunk-action/full-offer';
+// import { resetFavorites, resetStatus } from '../../store/slices/favorites';
+
+// import { clearFavoriteOffers } from '../../store/slices/offers';
+// import { clearOffer, clearOffersNearby } from '../../store/slices/full-offer';
 
 function LoggedNavigation(): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const { id: offerId } = useParams();
-
   const user = useAppSelector(getUserInfo);
-  // const { favorites } = useFavorites();
 
   const handleLogout = (evt: React.SyntheticEvent) => {
     evt.preventDefault();
-    dispatch(logout())
-      .unwrap()
-      .then(() => {
-        // dispatch(updateOffers(favorites));
-        dispatch(resetFavorites());
-        dispatch(resetStatus());
-        dispatch(fetchOffers());
-        if (offerId) {
-          dispatch(fetchFullOffer(offerId));
-        }
-      });
-
+    dispatch(logout());
   };
 
   return (

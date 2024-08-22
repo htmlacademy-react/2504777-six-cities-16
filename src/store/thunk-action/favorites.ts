@@ -12,6 +12,14 @@ export const fetchFavorites = createAsyncThunk<ServerOffer[], undefined, {extra:
   },
 );
 
+export const fetchFavoritesForLogin = createAsyncThunk<ServerOffer[], undefined, {extra: AxiosInstance}>(
+  'favorites/fetchFavoritesForLogin',
+  async (_arg, { extra: api }) => {
+    const { data } = await api.get<ServerOffer[]>(ApiRoute.Favorite);
+    return data;
+  },
+);
+
 export const changeFavorites = createAsyncThunk<ChangeResponse, ChangeProps, {extra: AxiosInstance}>(
   'favorites/changeFavorites',
   async ({offerId, status}, { extra: api }) => {

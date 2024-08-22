@@ -1,4 +1,4 @@
-import { useFavoritesCount } from '../hooks/use-favorites-count';
+import { useFavoritesCount } from '../../hooks/use-favorites-count';
 
 function FavoriteCount(): JSX.Element {
   const count = useFavoritesCount();

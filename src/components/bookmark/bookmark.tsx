@@ -1,9 +1,7 @@
 import { SyntheticEvent } from 'react';
 import { SpecialClassName, BookmarkHeight, BookmarkWidth, AuthorizationStatus, AppRoute } from '../../const';
-import { changeFavorite } from '../../store/thunk-action/favorites';
+import { changeFavorites } from '../../store/thunk-action/favorites';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { updateOffer } from '../../store/slices/full-offer';
-import { updateOffers } from '../../store/slices/offers';
 import { getAuthorizationStatus } from '../../store/slices/user';
 import { useNavigate} from 'react-router-dom';
 
@@ -25,12 +23,7 @@ function Bookmark({className, offerId, isFavorite}: BookmarkProps): JSX.Element 
   const handleButtonClick = (evt: SyntheticEvent) => {
     evt.preventDefault();
     if (authorizationStatus === AuthorizationStatus.Auth) {
-      dispatch(changeFavorite({offerId, status: Number(!isFavorite)}))
-        .unwrap()
-        .then(() => {
-          dispatch(updateOffers(offerId));
-          dispatch(updateOffer(offerId));
-        });
+      dispatch(changeFavorites({offerId, status: Number(!isFavorite)}));
     } else {
       navigate(AppRoute.Login);
     }

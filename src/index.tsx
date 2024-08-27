@@ -5,10 +5,8 @@ import { store } from './store';
 import App from './components/app/app';
 import ErrorMessage from './components/error-message/error-message';
 import { checkAuth } from './store/thunk-action/user';
-import { fetchFavorites } from './store/thunk-action/favorites';
 
 store.dispatch(checkAuth());
-store.dispatch(fetchFavorites());
 
 const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement

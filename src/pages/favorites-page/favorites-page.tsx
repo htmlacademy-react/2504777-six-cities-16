@@ -2,8 +2,8 @@ import { Helmet } from 'react-helmet-async';
 import { Title } from '../../const';
 import Loader from '../loader/loader';
 import NotFoundPage from '../not-found-page/not-found-page';
-import FavoritesSectionEmpty from '../../components/favorites/favorites-empty';
-import FavoritesSection from '../../components/favorites/favorites';
+import FavoritesEmpty from '../../components/favorites/favorites-empty';
+import Favorites from '../../components/favorites/favorites';
 import { useFavorites } from '../../hooks/use-favorites';
 
 function FavoritesPage(): JSX.Element {
@@ -25,7 +25,7 @@ function FavoritesPage(): JSX.Element {
 
       <main className={`page__main page__main--favorites ${hasFavorites ? '' : 'page__main--favorites-empty'}`}>
         <div className="page__favorites-container container">
-          {hasFavorites ? <FavoritesSection favorites={favorites} /> : <FavoritesSectionEmpty />}
+          {hasFavorites ? <Favorites favorites={favorites} /> : <FavoritesEmpty />}
         </div>
       </main>
     </>

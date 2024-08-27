@@ -4,8 +4,6 @@ import { SpecialClassName, ImageHeight, ImageWidth, AppRoute } from '../../const
 import { Link } from 'react-router-dom';
 import Bookmark from '../bookmark/bookmark';
 import PremiumMark from '../premium-mark/premium-mark';
-// import { store } from '../../store';
-// import { fetchFullOfferAction } from '../../store/api-actions';
 
 type PlaceCardProps = {
   className: SpecialClassName;
@@ -14,7 +12,6 @@ type PlaceCardProps = {
 }
 
 function PlaceCard({ className, offer, onMouseHover }: PlaceCardProps): JSX.Element {
-
   const width = className === SpecialClassName.Favorites ? ImageWidth.ForFavorite : ImageWidth.Basic;
   const height = className === SpecialClassName.Favorites ? ImageHeight.ForFavorite : ImageHeight.Basic;
 

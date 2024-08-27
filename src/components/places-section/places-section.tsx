@@ -6,6 +6,7 @@ import { getSortingType } from '../../store/slices/offers';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { sortOffersByCurrentType } from '../../utils';
 import { setActiveOfferId } from '../../store/slices/offers';
+import { getEnding } from '../../utils';
 
 type PlacesSectionProps = {
   activeCity: SixCities;
@@ -21,7 +22,7 @@ function PlacesSection({activeCity, offers}: PlacesSectionProps): JSX.Element {
   return (
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
-      <b className="places__found">{`${offers.length} places to stay in ${activeCity}`}</b>
+      <b className="places__found">{`${offers.length} ${getEnding(offers.length, 'place')} to stay in ${activeCity}`}</b>
       <PlacesSorting currentType={currentType}/>
       <PlacesList className={SpecialClassName.Cities} offers={sortOffersByCurrentType(currentType, offers)} onMouseHover={handleMouseHover}/>
     </section>

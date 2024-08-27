@@ -71,7 +71,9 @@ const offersSlice = createSlice({
 
       .addCase(changeFavorites.fulfilled, (state, action: PayloadAction<ChangeResponse>) => {
         const newOfferIndex = state.offers.findIndex((offer) => offer.id === action.payload.offer.id);
-        state.offers[newOfferIndex].isFavorite = action.payload.offer.isFavorite;
+        if (newOfferIndex >= 0) {
+          state.offers[newOfferIndex].isFavorite = action.payload.offer.isFavorite;
+        }
       })
 
       .addCase(logout.fulfilled, (state) => {

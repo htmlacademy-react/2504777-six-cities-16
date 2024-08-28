@@ -14,4 +14,5 @@ function NoPlacesSection({activeCity}: NoPlacesSectionProps): JSX.Element {
     </section>
   );
 }
+
 export default NoPlacesSection;

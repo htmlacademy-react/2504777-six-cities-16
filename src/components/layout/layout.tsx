@@ -1,16 +1,13 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import Logo from '../logo/logo';
-import { getLayoutState } from '../../utils';
 import { AppRoute } from '../../const';
-import HeaderNavigation from '../navigation/navigation';
+import { useLayoutState } from '../../hooks/use-layout-state';
+import Logo from '../logo/logo';
+import Navigation from '../navigation/navigation';
 
-type LayoutProps = {
-  favoriteOffersCount: number;
-}
-
-function Layout({favoriteOffersCount}: LayoutProps): JSX.Element {
+function Layout(): JSX.Element {
   const { pathname } = useLocation();
-  const {extraClassName, shouldRenderFooter, shouldRenderNavigation} = getLayoutState(pathname as AppRoute, favoriteOffersCount);
+
+  const {extraClassName, shouldRenderFooter, shouldRenderNavigation} = useLayoutState(pathname as AppRoute);
 
   return (
     <div className={`page ${extraClassName}`}>
@@ -20,7 +17,7 @@ function Layout({favoriteOffersCount}: LayoutProps): JSX.Element {
             <div className="header__left">
               <Logo pathname={pathname as AppRoute} className='header'/>
             </div>
-            {shouldRenderNavigation ? <HeaderNavigation favoriteOffersCount={favoriteOffersCount} /> : ''}
+            {shouldRenderNavigation ? <Navigation /> : ''}
           </div>
         </div>
       </header>
@@ -29,7 +26,7 @@ function Layout({favoriteOffersCount}: LayoutProps): JSX.Element {
 
       {
         shouldRenderFooter ? (
-          <footer className={`footer ${favoriteOffersCount ? 'container' : ''}`}>
+          <footer className='footer'>
             <Logo pathname={pathname as AppRoute} className='footer'/>
           </footer>
         ) : ''

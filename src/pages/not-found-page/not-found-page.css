@@ -1,0 +1,73 @@
+.page--error {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 1144px;
+  margin: 0 auto;
+  background-image: url('../../../public/img/no-places@2x.png');
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: contain;
+}
+
+.page__main--error {
+  display: flex;
+  flex: 1 1 auto;
+}
+
+.page__error-container {
+  display: flex;
+}
+
+.error {
+  position: relative;
+  width: 498px;
+  padding-left: 18px;
+}
+
+.error::after {
+  content: "";
+    position: absolute;
+    width: 12.03vh;
+    min-width: 220px;
+    height: 100vh;
+    min-height: 450px;
+    bottom: 0;
+    right: -2px;
+    background-color: #f5f5f5;
+    border-right: 6px solid #4481c3;
+    -webkit-transform: skew(-6.5deg);
+    transform: skew(-6.5deg);
+}
+
+.error__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 20px;
+  position: relative;
+  z-index: 1;
+  width: auto;
+  margin-top: 25.4vh;
+  margin-right: auto;
+  margin-left: auto;
+  padding-top: 62px;
+  text-align: center;
+  background-image: url('../img/ico-no-results.svg');
+  background-size: 45px 47px;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+.error__status {
+  /* display: block; */
+  font-size: 32px;
+  line-height: 1.1875;
+}
+
+.error-link {
+  padding: 16px 20px 13px;
+  color: #fff;
+  background-color: #4481c3;
+  border-radius: 3px;
+}

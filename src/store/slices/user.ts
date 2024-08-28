@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { AuthorizationStatus, RequestStatus, SliceName } from '../../const';
-import { checkAuth, login, logout } from '../thunk-action/user';
 import { UserState } from '../types';
+import { AuthorizationStatus, RequestStatus } from '../../const';
+import { SliceName } from '../const';
 import { loadingUpdate, successUpdate, failedUpdate } from '../utils';
-import { State } from '../types';
+import { checkAuth, login, logout } from '../thunk-action/user';
 
 const initialState: UserState = {
   info: null,
@@ -29,15 +29,12 @@ const userSlice = createSlice({
         state.status = AuthorizationStatus.NoAuth;
       });
   },
-  // selectors: {
-  //   userInfo: (state: UserState) => state.info,
-  //   authorizationStatus: (state: UserState) => state.status,
-  //   requestStatus: (state: UserState) => state.requestStatus,
-  // }
+  selectors: {
+    userInfo: (state: UserState) => state.info,
+    authorization: (state: UserState) => state.status,
+    status: (state: UserState) => state.requestStatus,
+  }
 });
 
-export const getUserInfo = (state: State) => state[SliceName.User].info;
-export const getAuthorizationStatus = (state: State) => state[SliceName.User].status;
-export const getAuthCheckedStatus = (state: State) => state[SliceName.User].status !== AuthorizationStatus.Unknown;
-// export const { userInfo, authorizationStatus, requestStatus } = userSlice.selectors;
+export const { userInfo, authorization, status } = userSlice.selectors;
 export default userSlice;

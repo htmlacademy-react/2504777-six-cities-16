@@ -1,5 +1,8 @@
 import { StatusCodes } from 'http-status-codes';
 
+export const DISCONNECT_ERROR = 'ERR_NETWORK';
+export const AUTH_TOKEN_KEY_NAME = 'six-cities-token';
+
 export const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.BAD_REQUEST]: true,
   [StatusCodes.UNAUTHORIZED]: true,

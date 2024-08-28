@@ -1,15 +1,21 @@
 import { Helmet } from 'react-helmet-async';
 import { Title } from '../../const';
-import { CardOffer } from '../../types/offers';
-import FavoritesLocationsItems from '../../components/favorites-locations-items/favorites-locations-items';
-import { groopsOffersByCity } from '../../utils';
+import { useFavorites } from '../../hooks/use-favorites';
+import Loader from '../loader/loader';
+import NotFoundPage from '../not-found-page/not-found-page';
+import FavoritesEmpty from '../../components/favorites/favorites-empty';
+import Favorites from '../../components/favorites/favorites';
 
-type FavoritesPageProps = {
-  favoritesOffers: CardOffer[];
-}
+function FavoritesPage(): JSX.Element {
+  const { favorites, hasFavorites, isLoading, isFailed } = useFavorites();
 
-function FavoritesPage({favoritesOffers}: FavoritesPageProps): JSX.Element {
-  const favoriteOffersByCities = groopsOffersByCity(favoritesOffers);
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (isFailed) {
+    return <NotFoundPage />;
+  }
 
   return (
     <>
@@ -17,33 +23,11 @@ function FavoritesPage({favoritesOffers}: FavoritesPageProps): JSX.Element {
         <title>{Title.Favorites}</title>
       </Helmet>
 
-      {
-        favoritesOffers.length ? (
-          <main className="page__main page__main--favorites">
-            <div className="page__favorites-container container">
-              <section className="favorites">
-                <h1 className="favorites__title">Saved listing</h1>
-                <ul className="favorites__list">
-                  {Object.entries(favoriteOffersByCities).map(([city, offers]) => <FavoritesLocationsItems key={city} city={city} places={offers} />)}
-                </ul>
-              </section>
-            </div>
-          </main>
-        )
-          : (
-            <main className="page__main page__main--favorites page__main--favorites-empty">
-              <div className="page__favorites-container container">
-                <section className="favorites favorites--empty">
-                  <h1 className="visually-hidden">Favorites (empty)</h1>
-                  <div className="favorites__status-wrapper">
-                    <b className="favorites__status">Nothing yet saved.</b>
-                    <p className="favorites__status-description">Save properties to narrow down search or plan your future trips.</p>
-                  </div>
-                </section>
-              </div>
-            </main>
-          )
-      }
+      <main className={`page__main page__main--favorites ${hasFavorites ? '' : 'page__main--favorites-empty'}`}>
+        <div className="page__favorites-container container">
+          {hasFavorites ? <Favorites favorites={favorites} /> : <FavoritesEmpty />}
+        </div>
+      </main>
     </>
   );
 }

@@ -1,15 +1,16 @@
-import { MAX_REVIEWS_NUMBER, AuthorizationStatus } from '../../const';
+import { MAX_REVIEWS_NUMBER } from './const';
+import { AuthorizationStatus } from '../../const';
 import { Review } from '../../types/reviews';
 import { sortReviewsByDate } from '../../utils';
 import ReviewsForm from './reviews-form';
 import ReviewsList from './reviews-list';
 
-type ReviewsSectionProps = {
+type ReviewsProps = {
   reviews: Review[];
   authorizationStatus: AuthorizationStatus;
 }
 
-function ReviewsSection({reviews, authorizationStatus}: ReviewsSectionProps): JSX.Element {
+function Reviews({reviews, authorizationStatus}: ReviewsProps): JSX.Element {
 
   return (
     <section className="offer__reviews reviews">
@@ -22,4 +23,4 @@ function ReviewsSection({reviews, authorizationStatus}: ReviewsSectionProps): JS
   );
 }
 
-export default ReviewsSection;
+export default Reviews;

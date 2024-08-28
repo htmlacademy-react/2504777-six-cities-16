@@ -1,9 +1,9 @@
 import { useState, useRef, useEffect, MutableRefObject } from 'react';
-import { Location } from '../../types/offers';
 import { Map, TileLayer } from 'leaflet';
-import { MapLayer } from '../../const';
+import { Location } from '../../types/offers';
+import { MapLayer } from './const';
 
-function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: Location): Map | null {
+export function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: Location): Map | null {
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef(false);
 
@@ -34,5 +34,3 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: Location): M
 
   return map;
 }
-
-export default useMap;

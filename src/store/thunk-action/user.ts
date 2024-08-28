@@ -3,6 +3,7 @@ import { AxiosInstance } from 'axios';
 import { ApiRoute } from '../../const';
 import { User } from '../../types/user';
 import { saveToken, dropToken } from '../../services/token';
+import { LoginData } from '../types';
 
 export const checkAuth = createAsyncThunk<User, undefined, {extra: AxiosInstance}>(
   'user/checkAuth',
@@ -11,11 +12,6 @@ export const checkAuth = createAsyncThunk<User, undefined, {extra: AxiosInstance
     return data;
   },
 );
-
-type LoginData = {
-  email: string;
-  password: string;
-}
 
 export const login = createAsyncThunk<User, LoginData, {extra: AxiosInstance}>(
   'user/login',

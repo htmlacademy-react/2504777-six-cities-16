@@ -1,11 +1,5 @@
 export const MAX_RATING_STARS = 5;
-export const MAX_OFFER_IMAGE_NUMBER = 6;
-export const MAX_OFFERS_NEARBY_NUMBER = 3;
 export const SINGULAR = 1;
-export const MAX_REVIEWS_NUMBER = 10;
-
-export const AUTH_TOKEN_KEY_NAME = 'six-cities-token';
-export const SHOW_ERROR_TIMEOUT = 2000;
 
 export enum SixCities {
   Paris = 'Paris',
@@ -83,59 +77,6 @@ export enum AuthorizationStatus {
 	Unknown = 'UNKNOWN',
 }
 
-export enum ImageWidth {
-  Basic = 260,
-  ForFavorite = 150,
-}
-
-export enum ImageHeight {
-  Basic = 200,
-  ForFavorite = 110,
-}
-
-export enum LogoWidth {
-  ForHeader = 81,
-  ForFooter = 64,
-}
-
-export enum LogoHeight {
-  ForHeader = 41,
-  ForFooter = 33,
-}
-
-export enum BookmarkWidth {
-  Basic = 18,
-  ForOffer = 31,
-}
-
-export enum BookmarkHeight {
-  Basic = 19,
-  ForOffer = 33,
-}
-
-export enum DateFormat {
-  FullDate = 'YYYY-MM-DD',
-  MonthAndYear = 'MMMM YYYY',
-}
-
-export const Rating = {
-  Perfect: 5,
-  Good: 4,
-  NotBad: 3,
-  Badly: 2,
-  Terribly: 1,
-} as const;
-
-export enum MapLayer {
-  Template = 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-  Attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-}
-
-export enum UrlMapMarker {
-  Default = '/public/img/pin.svg',
-  Active = '/public/img/pin-active.svg',
-}
-
 export const SortingTypes = {
   Popular: 'Popular',
   PriceLowToHigh: 'Price: low to high',
@@ -151,9 +92,7 @@ export enum ApiRoute {
   Logout = '/logout',
   Nearby = '/nearby',
   Comments = '/comments',
-  // FullOffer: (id: string) => `/offers/${id}`,
-  // OffersNearby: (id: string) => `/offers/${id}/nearby`,
-  // Reviews: (id: string) => `/comments/${id}`,
+  Favorite = '/favorite',
 }
 
 export enum RequestStatus {
@@ -161,11 +100,4 @@ export enum RequestStatus {
   Loading = 'loading',
   Success = 'success',
   Failed = 'failed',
-}
-
-export enum SliceName {
-  Offers = 'offers',
-  FullOffer = 'offer',
-  Review = 'review',
-  User = 'user',
 }

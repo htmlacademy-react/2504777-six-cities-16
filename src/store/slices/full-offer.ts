@@ -1,8 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { FullOffer, Offers } from '../../types/offers';
-import { RequestStatus, SliceName } from '../../const';
+import { FullOffer, Offers, ServerOffer } from '../../types/offers';
+import { ChangeResponse } from '../types';
+import { RequestStatus } from '../../const';
+import { SliceName } from '../const';
 import { fetchFullOffer, fetchOffersNearby } from '../thunk-action/full-offer';
-import { State } from '../types';
+import { changeFavorites, fetchFavoritesOnLogin } from '../thunk-action/favorites';
+import { logout } from '../thunk-action/user';
 
 type FullOfferState = {
   info: null | FullOffer;
@@ -32,28 +35,63 @@ const fullOfferSlice = createSlice({
       .addCase(fetchFullOffer.rejected, (state) => {
         state.requestStatus = RequestStatus.Failed;
       })
-      // .addCase(fetchOffersNearby.pending, (state) => {
-      //   state.requestStatus = RequestStatus.Loading;
-      // })
+
+      .addCase(fetchOffersNearby.pending, (state) => {
+        state.requestStatus = RequestStatus.Loading;
+      })
       .addCase(fetchOffersNearby.fulfilled, (state, action: PayloadAction<Offers>) => {
-        // state.requestStatus = RequestStatus.Success;
+        state.requestStatus = RequestStatus.Success;
         state.offersNearby = action.payload;
+      })
+      .addCase(fetchOffersNearby.rejected, (state) => {
+        state.requestStatus = RequestStatus.Failed;
+      })
+
+      .addCase(changeFavorites.fulfilled, (state, action: PayloadAction<ChangeResponse>) => {
+        state.info = state.info?.id === action.payload.offer.id
+          ? { ...state.info, isFavorite: action.payload.offer.isFavorite}
+          : state.info;
+      })
+
+      .addCase(logout.fulfilled, (state) => {
+        if (state.info) {
+          state.info = { ...state.info, isFavorite: false};
+        }
+        state.offersNearby = state.offersNearby.map((offer) => ({ ...offer, isFavorite: false }));
+      })
+
+      .addCase(fetchFavoritesOnLogin.pending, (state) => {
+        state.requestStatus = RequestStatus.Loading;
+      })
+      .addCase(fetchFavoritesOnLogin.fulfilled, (state, action: PayloadAction<ServerOffer[]>) => {
+        state.requestStatus = RequestStatus.Success;
+
+        if (state.info) {
+          const favoriteOffer = action.payload.find((item) => item.id === state.info?.id);
+          state.info = favoriteOffer
+            ? { ...state.info, isFavorite: favoriteOffer.isFavorite }
+            : state.info;
+        }
+
+        const favoritesId = action.payload.map((item) => item.id);
+        state.offersNearby = state.offersNearby.map((offer) => {
+          if (favoritesId.includes(offer.id)) {
+            const favoriteOfferIndex = action.payload.findIndex((item) => item.id === offer.id);
+            return { ...offer, isFavorite: action.payload[favoriteOfferIndex].isFavorite };
+          }
+          return offer;
+        });
+      })
+      .addCase(fetchFavoritesOnLogin.rejected, (state) => {
+        state.requestStatus = RequestStatus.Failed;
       });
-      // .addCase(fetchOffersNearby.rejected, (state) => {
-      //   state.requestStatus = RequestStatus.Failed;
-      // });
   },
-  // selectors: {
-  //   offerInfo: (state: FullOfferState) => state.info,
-  //   offersNearby: (state: FullOfferState) => state.offersNearby,
-  //   requestStatus: (state: FullOfferState) => state.requestStatus,
-  // }
+  selectors: {
+    offerInfo: (state: FullOfferState) => state.info,
+    offersNearby: (state: FullOfferState) => state.offersNearby,
+    requestStatus: (state: FullOfferState) => state.requestStatus,
+  }
 });
 
-export const fullOfferActions = {fetchFullOffer, fetchOffersNearby};
-
-export const getOfferInfo = (state: State) => state[SliceName.FullOffer].info;
-export const getOffersNearby = (state: State) => state[SliceName.FullOffer].offersNearby;
-export const getOfferStatus = (state: State) => state[SliceName.FullOffer].requestStatus;
-// export const { offerInfo, offersNearby, requestStatus } = fullOfferSlice.selectors;
+export const { offerInfo, offersNearby, requestStatus } = fullOfferSlice.selectors;
 export default fullOfferSlice;

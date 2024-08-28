@@ -1,8 +1,9 @@
 import { Helmet } from 'react-helmet-async';
-import { Title } from '../../const';
 import { useRef } from 'react';
+import { Title } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { login } from '../../store/thunk-action/user';
+import { fetchFavoritesOnLogin } from '../../store/thunk-action/favorites';
 
 function LoginPage(): JSX.Element {
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -16,7 +17,11 @@ function LoginPage(): JSX.Element {
       dispatch(login({
         email: emailRef.current.value,
         password: passwordRef.current.value,
-      }));
+      }))
+        .unwrap()
+        .then(() => {
+          dispatch(fetchFavoritesOnLogin());
+        });
     }
   };
 
@@ -54,6 +59,8 @@ function LoginPage(): JSX.Element {
                   className="login__input form__input"
                   type="password"
                   name="password"
+                  pattern="^(?=.*[a-zA-Z])(?=.*\d).*$"
+                  title="Password must contain at least one letter and one number"
                   placeholder="Password"
                   required
                 />

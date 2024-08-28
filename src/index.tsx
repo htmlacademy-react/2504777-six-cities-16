@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import App from './components/app/app';
-import { cardOffers } from './mocks/offers/card-offers';
 import ErrorMessage from './components/error-message/error-message';
 import { checkAuth } from './store/thunk-action/user';
 
@@ -14,12 +13,10 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  // <React.StrictMode>
+  <React.StrictMode>
     <Provider store={store}>
       <ErrorMessage />
-      <App
-        cardOffers={cardOffers}
-      />
+      <App />
     </Provider>
-  // </React.StrictMode>,
+  </React.StrictMode>,
 );

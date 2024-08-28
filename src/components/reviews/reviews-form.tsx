@@ -1,12 +1,11 @@
 import { useState, Fragment} from 'react';
-import { Rating } from '../../const';
 import { getRatingKeyValue } from '../../utils';
-import { ReviewLength } from './const';
+import { ReviewLength, Rating } from './const';
 import { postReview } from '../../store/thunk-action/reviews';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { UserReview } from '../../types/reviews';
-import { getOfferInfo } from '../../store/slices/full-offer';
-import { getReviewsStatus } from '../../store/slices/reviews';
+import { offerInfo } from '../../store/slices/full-offer';
+import { status } from '../../store/slices/reviews';
 import { RequestStatus } from '../../const';
 
 function Notification(): JSX.Element {
@@ -21,12 +20,12 @@ function ReviewsForm(): JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  const offer = useAppSelector(getOfferInfo);
-  const requestStatus = useAppSelector(getReviewsStatus);
+  const offer = useAppSelector(offerInfo);
+  const requestStatus = useAppSelector(status);
 
   const isLoadingProcess = requestStatus === RequestStatus.Loading;
-  const hasExtraCommentLength = review.comment.length > ReviewLength.MAX;
-  const isInvalid = review.rating === 0 || !(review.comment.length >= ReviewLength.MIN && review.comment.length <= ReviewLength.MAX);
+  const hasExtraCommentLength = review.comment.length > ReviewLength.Max;
+  const isInvalid = review.rating === 0 || !(review.comment.length >= ReviewLength.Min && review.comment.length <= ReviewLength.Max);
 
   const handleTextAreaChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
     setReview({
@@ -44,12 +43,15 @@ function ReviewsForm(): JSX.Element {
   const handleFormSubmit = (evt: React.SyntheticEvent) => {
     evt.preventDefault();
     if (offer) {
-      dispatch(postReview({body: {...review}, offerId: offer.id}));
+      dispatch(postReview({body: {...review}, offerId: offer.id}))
+        .unwrap()
+        .then(() => {
+          setReview({
+            rating: 0,
+            comment: ''
+          });
+        });
     }
-    setReview({
-      rating: 0,
-      comment: ''
-    });
   };
 
   return (
@@ -100,5 +102,6 @@ function ReviewsForm(): JSX.Element {
     </form>
   );
 }
+
 export default ReviewsForm;
 

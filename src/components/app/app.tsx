@@ -1,38 +1,23 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import MainPage from '../../pages/main-page/main-page';
-import { CardOffer } from '../../types/offers';
+import { HelmetProvider } from 'react-helmet-async';
 import { AppRoute } from '../../const';
+import { useAuthorization } from '../../hooks/use-authorization';
+import MainPage from '../../pages/main-page/main-page';
 import Layout from '../layout/layout';
 import FavoritesPage from '../../pages/favorites-page/favorites-page';
 import LoginPage from '../../pages/login-page/login-page';
 import OfferPage from '../../pages/offer-page/offer-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import PrivateRoute from '../private-route/private-route';
-import { HelmetProvider } from 'react-helmet-async';
-import LoadingPage from '../../pages/loading-page/loading-page';
-import { useAppSelector, useAppDispatch } from '../../hooks';
-import { getAuthCheckedStatus } from '../../store/slices/user';
-import { useEffect } from 'react';
-import { fetchOffers } from '../../store/thunk-action/offers';
+import Loader from '../../pages/loader/loader';
 
-type AppProps = {
-	cardOffers: CardOffer[];
-}
+function App(): JSX.Element {
 
-function App({ cardOffers }: AppProps): JSX.Element {
-  const dispatch = useAppDispatch();
-
-  const isAuthChecked = useAppSelector(getAuthCheckedStatus);
-
-  const favoritesOffers = cardOffers.filter((offer) => offer.isFavorite);
-
-  useEffect(() => {
-    dispatch(fetchOffers());
-  });
+  const { isAuthChecked } = useAuthorization();
 
   if (!isAuthChecked) {
     return (
-      <LoadingPage />
+      <Loader />
     );
   }
 
@@ -42,7 +27,7 @@ function App({ cardOffers }: AppProps): JSX.Element {
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<Layout favoriteOffersCount={favoritesOffers.length}/>}
+            element={<Layout />}
           >
             <Route
               index
@@ -52,7 +37,7 @@ function App({ cardOffers }: AppProps): JSX.Element {
               path={AppRoute.Favorites}
               element={
                 <PrivateRoute>
-                  <FavoritesPage favoritesOffers={favoritesOffers} />
+                  <FavoritesPage />
                 </PrivateRoute>
               }
             />
@@ -68,11 +53,12 @@ function App({ cardOffers }: AppProps): JSX.Element {
               path={AppRoute.Offer}
               element={<OfferPage/>}
             />
-            <Route
-              path={AppRoute.Error}
-              element={<NotFoundPage />}
-            />
+
           </Route>
+          <Route
+            path={AppRoute.Error}
+            element={<NotFoundPage />}
+          />
         </Routes>
       </BrowserRouter>
     </HelmetProvider>

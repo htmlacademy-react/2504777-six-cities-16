@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { SliceName } from '../../const';
-import { State } from '../types';
+import { SliceName } from '../const';
 
 type ErrorState = {
   error: null | string;
@@ -18,8 +17,11 @@ const errorSlice = createSlice({
       state.error = action.payload;
     },
   },
+  selectors: {
+    error: (state: ErrorState) => state.error,
+  }
 });
 
-export const getError = (state: State) => state[SliceName.Error].error;
+export const { error } = errorSlice.selectors;
 export const { setError } = errorSlice.actions;
 export default errorSlice;

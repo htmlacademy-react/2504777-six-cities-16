@@ -1,8 +1,7 @@
-
-import PlaceCard from '../place-card/place-card';
+import { Link } from 'react-router-dom';
 import { ServerOffer } from '../../types/offers';
 import { SpecialClassName, AppRoute } from '../../const';
-import { Link } from 'react-router-dom';
+import PlaceCard from '../place-card/place-card';
 
 type FavoritesLocationsItemsProps = {
   city: string;

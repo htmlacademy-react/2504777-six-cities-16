@@ -1,5 +1,8 @@
-import { AppRoute, LogoHeight, LogoWidth } from '../../const';
 import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
+import { LogoSize } from './const';
+
+const { Width, Height } = LogoSize;
 
 type LogoProps = {
   pathname: AppRoute;
@@ -15,8 +18,8 @@ function Logo({pathname, className}: LogoProps): JSX.Element {
     );
   }
 
-  const width = className === 'header' ? LogoWidth.ForHeader : LogoWidth.ForFooter;
-  const height = className === 'header' ? LogoHeight.ForHeader : LogoHeight.ForFooter;
+  const width = className === 'header' ? Width.FOR_HEADER : Width.FOR_FOOTER;
+  const height = className === 'header' ? Height.FOR_HEADER : Height.FOR_FOOTER;
 
   return (
     <Link className={`${className}__logo-link`} to={AppRoute.Root}>
@@ -24,4 +27,5 @@ function Logo({pathname, className}: LogoProps): JSX.Element {
     </Link>
   );
 }
+
 export default Logo;

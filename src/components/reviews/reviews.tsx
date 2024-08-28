@@ -1,4 +1,5 @@
-import { MAX_REVIEWS_NUMBER, AuthorizationStatus } from '../../const';
+import { MAX_REVIEWS_NUMBER } from './const';
+import { AuthorizationStatus } from '../../const';
 import { Review } from '../../types/reviews';
 import { sortReviewsByDate } from '../../utils';
 import ReviewsForm from './reviews-form';

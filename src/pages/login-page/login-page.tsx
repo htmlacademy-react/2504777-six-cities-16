@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
-import { Title } from '../../const';
 import { useRef } from 'react';
+import { Title } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { login } from '../../store/thunk-action/user';
 import { fetchFavoritesOnLogin } from '../../store/thunk-action/favorites';

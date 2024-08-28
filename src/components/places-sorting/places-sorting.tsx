@@ -1,6 +1,6 @@
+import { useState } from 'react';
 import { SortingTypes } from '../../const';
 import { useAppDispatch } from '../../hooks';
-import { useState } from 'react';
 import { changeSortingType } from '../../store/slices/offers';
 
 type PlacesSortingProps = {

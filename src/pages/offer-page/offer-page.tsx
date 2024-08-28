@@ -1,33 +1,33 @@
 import { Helmet } from 'react-helmet-async';
-import { Title, SpecialClassName, MAX_OFFER_IMAGE_NUMBER, MAX_OFFERS_NEARBY_NUMBER } from '../../const';
-import PlacesList from '../../components/places-list/places-list';
 import { useParams } from 'react-router-dom';
-import Bookmark from '../../components/bookmark/bookmark';
-import PremiumMark from '../../components/premium-mark/premium-mark';
-import { getRatingStars, getEnding } from '../../utils';
-import OfferHost from '../../components/offer-host/offer-host';
-import Map from '../../components/map/map';
-import { useAppSelector, useAppDispatch } from '../../hooks';
-import Loader from '../loader/loader';
 import { useEffect } from 'react';
+import { Title, SpecialClassName, RequestStatus } from '../../const';
+import { MAX_OFFER_IMAGE_NUMBER, MAX_OFFERS_NEARBY_NUMBER } from './const';
+import { getRatingStars, getEnding, upFirstLetter } from '../../utils';
+import { useAppSelector, useAppDispatch } from '../../hooks';
 import { fetchFullOffer, fetchOffersNearby } from '../../store/thunk-action/full-offer';
 import { fetchReviews } from '../../store/thunk-action/reviews';
-import { getOfferInfo, getOffersNearby, getOfferStatus } from '../../store/slices/full-offer';
-import { getAuthorizationStatus } from '../../store/slices/user';
-import { getReviews } from '../../store/slices/reviews';
-import { RequestStatus } from '../../const';
+import { offerInfo, offersNearby, requestStatus } from '../../store/slices/full-offer';
+import { userReviews } from '../../store/slices/reviews';
+import { setActiveOfferId } from '../../store/slices/offers';
+import { useAuthorization } from '../../hooks/use-authorization';
+import PlacesList from '../../components/places-list/places-list';
 import NotFoundPage from '../not-found-page/not-found-page';
 import ReviewsSection from '../../components/reviews/reviews';
-import { setActiveOfferId } from '../../store/slices/offers';
+import Bookmark from '../../components/bookmark/bookmark';
+import PremiumMark from '../../components/premium-mark/premium-mark';
+import OfferHost from '../../components/offer-host/offer-host';
+import Map from '../../components/map/map';
+import Loader from '../loader/loader';
 
 function OfferPage(): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
-  const offer = useAppSelector(getOfferInfo);
-  const offersNearby = useAppSelector(getOffersNearby).slice(0, MAX_OFFERS_NEARBY_NUMBER);
-  const offerStatus = useAppSelector(getOfferStatus);
-  const reviews = useAppSelector(getReviews);
+  const { authorizationStatus } = useAuthorization();
+  const offer = useAppSelector(offerInfo);
+  const nearby = useAppSelector(offersNearby).slice(0, MAX_OFFERS_NEARBY_NUMBER);
+  const offerStatus = useAppSelector(requestStatus);
+  const reviews = useAppSelector(userReviews);
 
   const { id: offerId } = useParams();
 
@@ -46,7 +46,7 @@ function OfferPage(): JSX.Element {
 
   const { images, isPremium, title, isFavorite, rating, type, bedrooms, maxAdults, price, goods, host, description, city } = offer;
 
-  const mapPoints = offersNearby.map(({ id, location }) => ({ id, ...location }))
+  const mapPoints = nearby.map(({ id, location }) => ({ id, ...location }))
     .concat({ id: offer.id, ...offer.location });
 
   return (
@@ -92,7 +92,7 @@ function OfferPage(): JSX.Element {
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  {type}
+                  {upFirstLetter(type)}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
                   {`${bedrooms} ${getEnding(bedrooms, 'Bedroom')}`}
@@ -122,11 +122,12 @@ function OfferPage(): JSX.Element {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <PlacesList className={SpecialClassName.NearPlaces} offers={offersNearby} />
+            <PlacesList className={SpecialClassName.NearPlaces} offers={nearby} />
           </section>
         </div>
       </main>
     </>
   );
 }
+
 export default OfferPage;

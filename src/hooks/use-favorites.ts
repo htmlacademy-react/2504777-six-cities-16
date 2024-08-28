@@ -1,11 +1,10 @@
 import { useAppSelector } from '.';
-import { getFavorites } from '../store/slices/favorites';
-import { getStatus } from '../store/slices/favorites';
+import { favoriteOffers, status } from '../store/slices/favorites';
 import { RequestStatus } from '../const';
 
 export function useFavorites() {
-  const favorites = useAppSelector(getFavorites);
-  const requestStatus = useAppSelector(getStatus);
+  const favorites = useAppSelector(favoriteOffers);
+  const requestStatus = useAppSelector(status);
 
   return {
     favorites,

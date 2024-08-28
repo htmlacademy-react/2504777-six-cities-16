@@ -1,11 +1,10 @@
-import { useAppSelector } from '../../hooks';
-import { AuthorizationStatus, AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
-import { getAuthorizationStatus } from '../../store/slices/user';
+import { AuthorizationStatus, AppRoute } from '../../const';
+import { useAuthorization } from '../../hooks/use-authorization';
 import LoggedNavigation from './logged-navigation';
 
 function Navigation() : JSX.Element {
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const { authorizationStatus } = useAuthorization();
 
   return (
     <nav className="header__nav">
@@ -23,4 +22,5 @@ function Navigation() : JSX.Element {
     </nav>
   );
 }
+
 export default Navigation;

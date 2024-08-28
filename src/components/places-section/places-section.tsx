@@ -1,12 +1,10 @@
-import PlacesSorting from '../places-sorting/places-sorting';
-import PlacesList from '../places-list/places-list';
 import { SixCities, SpecialClassName } from '../../const';
 import { Offers, CardOffer } from '../../types/offers';
-import { getSortingType } from '../../store/slices/offers';
+import { sortingType, setActiveOfferId } from '../../store/slices/offers';
 import { useAppSelector, useAppDispatch } from '../../hooks';
-import { sortOffersByCurrentType } from '../../utils';
-import { setActiveOfferId } from '../../store/slices/offers';
-import { getEnding } from '../../utils';
+import { sortOffersByCurrentType, getEnding } from '../../utils';
+import PlacesSorting from '../places-sorting/places-sorting';
+import PlacesList from '../places-list/places-list';
 
 type PlacesSectionProps = {
   activeCity: SixCities;
@@ -15,7 +13,7 @@ type PlacesSectionProps = {
 
 function PlacesSection({activeCity, offers}: PlacesSectionProps): JSX.Element {
   const dispatch = useAppDispatch();
-  const currentType = useAppSelector(getSortingType);
+  const currentType = useAppSelector(sortingType);
 
   const handleMouseHover = (offerId: CardOffer['id'] | null) => dispatch(setActiveOfferId(offerId));
 
@@ -28,4 +26,5 @@ function PlacesSection({activeCity, offers}: PlacesSectionProps): JSX.Element {
     </section>
   );
 }
+
 export default PlacesSection;

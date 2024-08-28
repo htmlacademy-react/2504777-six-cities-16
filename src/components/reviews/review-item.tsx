@@ -1,6 +1,6 @@
 import { Review } from '../../types/reviews';
 import { getRatingStars, humanizeDate } from '../../utils';
-import { DateFormat } from '../../const';
+import { DateFormat } from './const';
 
 const {FullDate, MonthAndYear} = DateFormat;
 

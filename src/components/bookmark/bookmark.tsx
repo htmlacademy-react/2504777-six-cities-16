@@ -1,9 +1,12 @@
 import { SyntheticEvent } from 'react';
-import { SpecialClassName, BookmarkHeight, BookmarkWidth, AuthorizationStatus, AppRoute } from '../../const';
-import { changeFavorites } from '../../store/thunk-action/favorites';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { getAuthorizationStatus } from '../../store/slices/user';
 import { useNavigate} from 'react-router-dom';
+import { SpecialClassName, AuthorizationStatus, AppRoute } from '../../const';
+import { BookmarkSize } from './const';
+import { changeFavorites } from '../../store/thunk-action/favorites';
+import { useAppDispatch } from '../../hooks';
+import { useAuthorization } from '../../hooks/use-authorization';
+
+const { Width, Height } = BookmarkSize;
 
 type BookmarkProps = {
   className: SpecialClassName;
@@ -15,10 +18,10 @@ function Bookmark({className, offerId, isFavorite}: BookmarkProps): JSX.Element 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const { authorizationStatus } = useAuthorization();
 
-  const width = className === SpecialClassName.PlaceCard ? BookmarkWidth.Basic : BookmarkWidth.ForOffer;
-  const height = className === SpecialClassName.PlaceCard ? BookmarkHeight.Basic : BookmarkHeight.ForOffer;
+  const width = className === SpecialClassName.PlaceCard ? Width.BASIC : Width.FOR_OFFER;
+  const height = className === SpecialClassName.PlaceCard ? Height.BASIC : Height.FOR_OFFER;
 
   const handleButtonClick = (evt: SyntheticEvent) => {
     evt.preventDefault();

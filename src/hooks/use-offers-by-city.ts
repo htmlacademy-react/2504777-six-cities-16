@@ -1,22 +1,19 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '.';
 import { SixCities, RequestStatus } from '../const';
-import { getOffers, getLoadingStatus, getStatus } from '../store/slices/offers';
+import { allOffers, status } from '../store/slices/offers';
 import { fetchOffers } from '../store/thunk-action/offers';
-import { useMemo } from 'react';
 
 export function useOffersByCity(city:SixCities) {
   const dispatch = useAppDispatch();
 
-  const offers = useAppSelector(getOffers);
-  const isLoading = useAppSelector(getLoadingStatus);
-  const status = useAppSelector(getStatus);
+  const offers = useAppSelector(allOffers);
+  const requestStatus = useAppSelector(status);
 
-  //? Нужно ли useMemo
-  const offersByCity = useMemo(() => offers.filter((offer) => offer.city.name === city as string), [offers, city]);
+  const offersByCity = offers.filter((offer) => offer.city.name === city as string);
 
   useEffect(() => {
-    if (status === RequestStatus.Idle) {
+    if (requestStatus === RequestStatus.Idle) {
       dispatch(fetchOffers());
     }
   });
@@ -24,7 +21,7 @@ export function useOffersByCity(city:SixCities) {
   return {
     offers: offersByCity,
     isEmpty: offersByCity.length === 0,
-    isLoading,
+    isLoading: requestStatus === RequestStatus.Loading,
   };
 }
 

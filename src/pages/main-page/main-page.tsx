@@ -1,17 +1,17 @@
 import { MapPoint } from '../../types/offers';
-import LocationsList from '../../components/locations-list/locations-list';
-import Loader from '../loader/loader';
-import PlacesSection from '../../components/places-section/places-section';
-import NoPlacesSection from '../../components/places-section/no-places-section';
 import { SpecialClassName, CitiesLocation } from '../../const';
-import Map from '../../components/map/map';
 import { useAppSelector } from '../../hooks';
 import { useOffersByCity } from '../../hooks/use-offers-by-city';
-import { getActiveCity } from '../../store/slices/offers';
+import { city } from '../../store/slices/offers';
+import LocationList from '../../components/location-list/location-list';
+import Loader from '../loader/loader';
+import Map from '../../components/map/map';
+import PlacesSection from '../../components/places-section/places-section';
+import NoPlacesSection from '../../components/places-section/no-places-section';
 
 function MainPage(): JSX.Element {
 
-  const activeCity = useAppSelector(getActiveCity);
+  const activeCity = useAppSelector(city);
 
   const { offers, isEmpty, isLoading } = useOffersByCity(activeCity);
 
@@ -28,7 +28,7 @@ function MainPage(): JSX.Element {
       <h1 className="visually-hidden">Cities</h1>
       <div className="tabs">
         <section className="locations container">
-          <LocationsList activeCity={activeCity} />
+          <LocationList activeCity={activeCity} />
         </section>
       </div>
       <div className="cities">

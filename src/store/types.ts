@@ -1,5 +1,6 @@
 import { store } from '.';
-import { AuthorizationStatus, FavoriteStatus, RequestStatus } from '../const';
+import { AuthorizationStatus, RequestStatus } from '../const';
+import { FavoriteStatus } from './const';
 import { FullOffer, ServerOffer } from '../types/offers';
 import { UserReview } from '../types/reviews';
 import { User } from '../types/user';

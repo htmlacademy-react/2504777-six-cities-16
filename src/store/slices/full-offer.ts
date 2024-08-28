@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { FullOffer, Offers, ServerOffer } from '../../types/offers';
-import { RequestStatus, SliceName } from '../../const';
+import { ChangeResponse } from '../types';
+import { RequestStatus } from '../../const';
+import { SliceName } from '../const';
 import { fetchFullOffer, fetchOffersNearby } from '../thunk-action/full-offer';
-import { ChangeResponse, State } from '../types';
-import { changeFavorites } from '../thunk-action/favorites';
+import { changeFavorites, fetchFavoritesOnLogin } from '../thunk-action/favorites';
 import { logout } from '../thunk-action/user';
-import { fetchFavoritesOnLogin } from '../thunk-action/favorites';
 
 type FullOfferState = {
   info: null | FullOffer;
@@ -86,15 +86,12 @@ const fullOfferSlice = createSlice({
         state.requestStatus = RequestStatus.Failed;
       });
   },
-  // selectors: {
-  //   offerInfo: (state: FullOfferState) => state.info,
-  //   offersNearby: (state: FullOfferState) => state.offersNearby,
-  //   requestStatus: (state: FullOfferState) => state.requestStatus,
-  // }
+  selectors: {
+    offerInfo: (state: FullOfferState) => state.info,
+    offersNearby: (state: FullOfferState) => state.offersNearby,
+    requestStatus: (state: FullOfferState) => state.requestStatus,
+  }
 });
 
-export const getOfferInfo = (state: State) => state[SliceName.FullOffer].info;
-export const getOffersNearby = (state: State) => state[SliceName.FullOffer].offersNearby;
-export const getOfferStatus = (state: State) => state[SliceName.FullOffer].requestStatus;
-// export const { offerInfo, offersNearby, requestStatus } = fullOfferSlice.selectors;
+export const { offerInfo, offersNearby, requestStatus } = fullOfferSlice.selectors;
 export default fullOfferSlice;

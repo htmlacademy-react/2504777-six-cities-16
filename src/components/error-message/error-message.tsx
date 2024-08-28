@@ -1,11 +1,11 @@
-import { useAppSelector } from '../../hooks';
 import './error-message.css';
-import { getError } from '../../store/slices/error';
+import { useAppSelector } from '../../hooks';
+import { error } from '../../store/slices/error';
 
 function ErrorMessage(): JSX.Element | null {
-  const error = useAppSelector(getError);
+  const errorMessage = useAppSelector(error);
 
-  return error ? <div className='error-message'>{error}</div> : null;
+  return errorMessage ? <div className='error-message'>{errorMessage}</div> : null;
 }
 
 export default ErrorMessage;

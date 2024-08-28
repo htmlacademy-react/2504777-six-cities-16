@@ -1,11 +1,12 @@
-import { useRef, useEffect } from 'react';
-import { Location, MapPoint } from '../../types/offers';
-import useMap from './use-map';
-import { Icon, LayerGroup, Marker, layerGroup } from 'leaflet';
-import { UrlMapMarker } from '../../const';
-import { getActiveOfferId } from '../../store/slices/offers';
-import { useAppSelector } from '../../hooks';
 import 'leaflet/dist/leaflet.css';
+import { useRef, useEffect } from 'react';
+import { Icon, LayerGroup, Marker, layerGroup } from 'leaflet';
+import { Location, MapPoint } from '../../types/offers';
+import { UrlMapMarker } from './const';
+import { activeOfferId } from '../../store/slices/offers';
+import { useAppSelector } from '../../hooks';
+import { useMap } from './use-map';
+
 
 type MapProps = {
   className: string;
@@ -31,7 +32,7 @@ function Map({className, city, points}: MapProps) {
   const map = useMap(mapRef, city);
   const markerLayer = useRef<LayerGroup>(layerGroup());
 
-  const activePointId = useAppSelector(getActiveOfferId);
+  const activePointId = useAppSelector(activeOfferId);
 
   useEffect(() => {
     if (map) {

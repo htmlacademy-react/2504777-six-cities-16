@@ -1,18 +1,14 @@
-import { AppRoute } from '../../const';
 import { Link } from 'react-router-dom';
+import { AppRoute } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logout } from '../../store/thunk-action/user';
-import { getUserInfo } from '../../store/slices/user';
+import { userInfo } from '../../store/slices/user';
 import FavoriteCount from '../favorite-count/favorite-count';
-// import { resetFavorites, resetStatus } from '../../store/slices/favorites';
-
-// import { clearFavoriteOffers } from '../../store/slices/offers';
-// import { clearOffer, clearOffersNearby } from '../../store/slices/full-offer';
 
 function LoggedNavigation(): JSX.Element {
   const dispatch = useAppDispatch();
 
-  const user = useAppSelector(getUserInfo);
+  const user = useAppSelector(userInfo);
 
   const handleLogout = (evt: React.SyntheticEvent) => {
     evt.preventDefault();
@@ -43,4 +39,5 @@ function LoggedNavigation(): JSX.Element {
     </ul>
   );
 }
+
 export default LoggedNavigation;

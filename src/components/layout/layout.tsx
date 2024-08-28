@@ -1,8 +1,8 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import Logo from '../logo/logo';
 import { AppRoute } from '../../const';
-import Navigation from '../navigation/navigation';
 import { useLayoutState } from '../../hooks/use-layout-state';
+import Logo from '../logo/logo';
+import Navigation from '../navigation/navigation';
 
 function Layout(): JSX.Element {
   const { pathname } = useLocation();

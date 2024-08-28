@@ -1,6 +1,6 @@
-import PlaceCard from '../place-card/place-card';
 import { Offers, CardOffer } from '../../types/offers';
 import { SpecialClassName } from '../../const';
+import PlaceCard from '../place-card/place-card';
 
 type PlacesListProps = {
   className: SpecialClassName;

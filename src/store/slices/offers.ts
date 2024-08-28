@@ -1,10 +1,10 @@
-import { Offers, CardOffer, ServerOffer } from '../../types/offers';
-import { RequestStatus, SliceName, SixCities, DEFAULT_CITY, DEFAULT_SORTING_TYPE } from '../../const';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Offers, CardOffer, ServerOffer } from '../../types/offers';
+import { ChangeResponse } from '../types';
+import { RequestStatus, SixCities, DEFAULT_CITY, DEFAULT_SORTING_TYPE } from '../../const';
+import { SliceName } from '../const';
 import { fetchOffers } from '../thunk-action/offers';
-import { fetchFavoritesOnLogin } from '../thunk-action/favorites';
-import { ChangeResponse, State } from '../types';
-import { changeFavorites } from '../thunk-action/favorites';
+import { fetchFavoritesOnLogin, changeFavorites } from '../thunk-action/favorites';
 import { logout } from '../thunk-action/user';
 
 type OffersState = {
@@ -80,20 +80,15 @@ const offersSlice = createSlice({
         state.offers = state.offers.map((offer) => ({ ...offer, isFavorite: false }));
       });
   },
-  // selectors: {
-  //   offers: (state: OffersState) => state.offers,
-  //   activeOfferId: (state: OffersState) => state.activeOfferId,
-  //   requestStatus: (state: OffersState) => state.requestStatus,
-  // }
+  selectors: {
+    allOffers: (state: OffersState) => state.offers,
+    activeOfferId: (state: OffersState) => state.activeOfferId,
+    status: (state: OffersState) => state.requestStatus,
+    city: (state: OffersState) => state.city,
+    sortingType: (state: OffersState) => state.sortingType,
+  }
 });
 
+export const { allOffers, activeOfferId, status, sortingType, city } = offersSlice.selectors;
 export const { setActiveOfferId, changeCity, changeSortingType } = offersSlice.actions;
-
-export const getSortingType = (state: State) => state[SliceName.Offers].sortingType;
-export const getActiveCity = (state: State) => state[SliceName.Offers].city;
-export const getActiveOfferId = (state: State) => state[SliceName.Offers].activeOfferId;
-export const getOffers = (state: State) => state[SliceName.Offers].offers;
-export const getStatus = (state: State) => state[SliceName.Offers].requestStatus;
-export const getLoadingStatus = (state: State) => state[SliceName.Offers].requestStatus === RequestStatus.Loading;
-// export const { offers, activeOfferId, requestStatus } = offersSlice.selectors;
 export default offersSlice;

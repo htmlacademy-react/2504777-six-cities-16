@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Reviews, Review } from '../../types/reviews';
-import { RequestStatus, SliceName } from '../../const';
+import { RequestStatus } from '../../const';
+import { SliceName } from '../const';
 import { fetchReviews, postReview } from '../thunk-action/reviews';
-import { State } from '../types';
 
 type ReviewState = {
   reviews: Reviews;
@@ -41,15 +41,12 @@ const reviewSlice = createSlice({
         state.requestStatus = RequestStatus.Failed;
       });
   },
-  // selectors: {
-  //   reviews: (state: ReviewState) => state.reviews,
-  //   requestStatus: (state: ReviewState) => state.requestStatus,
-  // }
+  selectors: {
+    userReviews: (state: ReviewState) => state.reviews,
+    status: (state: ReviewState) => state.requestStatus,
+  }
 });
 
-// export const reviewsActions = {fetchReviews};
-export const getReviews = (state: State) => state[SliceName.Review].reviews;
-export const getReviewsStatus = (state: State) => state[SliceName.Review].requestStatus;
-// export const { reviews, requestStatus } = reviewSlice.selectors;
+export const { userReviews, status } = reviewSlice.selectors;
 export default reviewSlice;
 

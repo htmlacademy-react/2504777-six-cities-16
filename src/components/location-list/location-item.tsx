@@ -1,4 +1,4 @@
-import { CITIES_LIST, SixCities } from '../../const';
+import { SixCities } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { changeCity } from '../../store/slices/offers';
 
@@ -23,16 +23,4 @@ function LocationItem({ city, activeCity }: LocationItemProps): JSX.Element {
   );
 }
 
-type LocationListProps = {
-	activeCity: SixCities;
-}
-
-function LocationsList({ activeCity }: LocationListProps): JSX.Element {
-  return (
-    <ul className="locations__list tabs__list">
-      {CITIES_LIST.map((city) => <LocationItem key={city} city={city} activeCity={activeCity} />)}
-    </ul>
-  );
-}
-
-export default LocationsList;
+export default LocationItem;

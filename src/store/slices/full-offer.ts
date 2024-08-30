@@ -51,6 +51,11 @@ const fullOfferSlice = createSlice({
         state.info = state.info?.id === action.payload.offer.id
           ? { ...state.info, isFavorite: action.payload.offer.isFavorite}
           : state.info;
+
+        const newOfferIndex = state.offersNearby.findIndex((offer) => offer.id === action.payload.offer.id);
+        if (newOfferIndex >= 0) {
+          state.offersNearby[newOfferIndex].isFavorite = action.payload.offer.isFavorite;
+        }
       })
 
       .addCase(logout.fulfilled, (state) => {

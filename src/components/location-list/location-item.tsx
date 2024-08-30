@@ -1,4 +1,5 @@
-import { SixCities } from '../../const';
+import { Link } from 'react-router-dom';
+import { SixCities, AppRoute } from '../../const';
 import { useAppDispatch } from '../../hooks';
 import { changeCity } from '../../store/slices/offers';
 
@@ -12,13 +13,13 @@ function LocationItem({ city, activeCity }: LocationItemProps): JSX.Element {
 
   return (
     <li className="locations__item">
-      <a
+      <Link
         className={`locations__item-link tabs__item ${activeCity === city ? 'tabs__item--active' : ''}`}
-        href="#"
+        to={AppRoute.Root}
         onClick={() => dispatch(changeCity(city))}
       >
         <span>{city}</span>
-      </a>
+      </Link>
     </li>
   );
 }
